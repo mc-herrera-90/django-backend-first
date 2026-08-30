@@ -1,0 +1,54 @@
+[
+    {
+        "title": "Adventure Island 3",
+        "year": 1992,
+        "genre": "Arcade",
+        "developer": "Hudson Soft",
+        "platform": "Nintendo Nes",
+        "publisher": "Hudson Soft",
+        "rating": 9.0,
+        "portrait": "img/nes/adventure-island-3/game.webp",
+        "marquee": "img/nes/adventure-island-3/marquesina.webp",
+        "video": "videos/nes/adventure-island-3.mp4",
+        "description": "Tu novia ha sido secuestrada nuevamente por alienígenas y debes rescatarla recorriendo distintos niveles. La jugabilidad mantiene la esencia de la saga, con un mapa mundial, selección de objetos antes de cada nivel, dinosaurios como montura, boomerangs, frutas, obstáculos y el clásico monopatín."
+    },
+    {
+        "title": "Balloon Fight",
+        "year": 1986,
+        "genre": "Arcade",
+        "developer": "Nintendo",
+        "platform": "Nintendo Nes",
+        "publisher": "Nintendo",
+        "rating": 7.0,
+        "portrait": "img/nes/ballon-fight/game.webp",
+        "marquee": "img/nes/ballon-fight/marquesina.webp",
+        "video": "videos/nes/balloon-fight.mp4",
+        "description": "En Balloon Fight debes volar usando dos globos y reventar los de tus oponentes antes de que ellos hagan lo mismo contigo. Al caer sobre un enemigo, su globo explota y este desciende en paracaídas. Debes eliminarlo antes de que pueda inflar otro globo y regresar al combate. Si pierdes ambos globos, caerás al agua y perderás una vida. También incluye **Balloon Trip**, un modo en el que debes recoger tantos globos como puedas mientras evitas el agua y los rayos que forman obstáculos."
+    },
+    {
+        "title": "Super Mario Bros. 3",
+        "year": 1988,
+        "genre": "Plataformas",
+        "developer": "Nintendo",
+        "platform": "Nintendo Nes",
+        "publisher": "Nintendo",
+        "rating": 9.5,
+        "portrait": "img/nes/super-mario-bros-3/game.webp",
+        "marquee": "img/nes/super-mario-bros-3/marquesina.webp",
+        "video": "videos/nes/super-mario-bros-3.mp4",
+        "description": "Mario y Luigi deben recorrer distintos mundos para rescatar a la Princesa Peach y recuperar los reinos conquistados por los Koopalings. El juego incorpora nuevos trajes y habilidades, como la Super Hoja que permite convertirse en Tanuki, además de un mapa mundial, niveles variados, barcos voladores y numerosos secretos."
+    },
+    {
+        "title": "Zelda II - The Adventure of Link",
+        "year": 1987,
+        "genre": "Acción, Aventura",
+        "developer": "Nintendo",
+        "platform": "Nintendo Nes",
+        "publisher": "Nintendo",
+        "rating": 9.0,
+        "portrait": "img/nes/zelda-2-the-adventure-of-link/game.webp",
+        "marquee": "img/nes/zelda-2-the-adventure-of-link/marquesina.webp",
+        "video": "videos/nes/zelda-2-the-adventure-of-link.mp4",
+        "description": "Link debe despertar a la Princesa Zelda de un hechizo recorriendo Hyrule en busca de la Trifuerza. A diferencia del primer juego, combina un mapa de exploración con combates y mazmorras en desplazamiento lateral, incorporando además experiencia, niveles y nuevas habilidades."
+    }
+]

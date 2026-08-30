@@ -1,0 +1,249 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ game.title }} · Retro Games{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/game-detail.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="retro-game-detail">
+
+  <!-- =====================================================
+       BANNER SUPERIOR
+       ===================================================== -->
+
+  <section class="retro-game-detail-hero">
+
+    <div
+      class="retro-game-detail-background"
+      style="
+        background-image:
+          linear-gradient(
+            90deg,
+            rgba(5, 10, 8, .96),
+            rgba(5, 10, 8, .78),
+            rgba(5, 10, 8, .92)
+          ),
+          url('{% if "://" in game.portrait %}{{ game.portrait }}{% else %}{% static game.portrait %}{% endif %}');
+      "
+    ></div>
+
+    <div class="container">
+
+      <div class="retro-game-detail-hero-content">
+
+        <!-- PORTADA -->
+
+        <div class="retro-game-detail-poster">
+
+          <img
+            src="{% if '://' in game.portrait %}{{ game.portrait }}{% else %}{% static game.portrait %}{% endif %}"
+            alt="{{ game.title }}"
+          >
+
+        </div>
+
+
+        <!-- MARQUESINA -->
+{% comment %} 
+        {% if game.marquee %}
+
+          <div class="retro-game-detail-marquee">
+
+            <img
+              src="{% if '://' in game.marquee %}{{ game.marquee }}{% else %}{% static game.marquee %}{% endif %}"
+              alt="{{ game.title }}"
+            >
+
+          </div>
+
+        {% endif %} {% endcomment %}
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================================
+       CONTENIDO
+       ===================================================== -->
+
+  <main class="container py-5">
+
+    <div class="retro-game-detail-content">
+
+
+      <!-- =================================================
+           INFORMACIÓN DEL JUEGO
+           ================================================= -->
+
+      <section class="retro-game-info-section">
+
+   
+        <div class="text-center">
+            <img
+              src="{% if '://' in game.marquee %}{{ game.marquee }}{% else %}{% static game.marquee %}{% endif %}"
+              alt="{{ game.title }}"
+            >
+        </div>
+
+
+        <!-- DESCRIPCIÓN JUSTO DESPUÉS DEL TÍTULO -->
+
+        <section class="retro-game-description">
+
+          <div class="retro-game-description-text">
+
+            <p>
+              {{ game.description }}
+            </p>
+
+          </div>
+
+        </section>
+
+
+        <!-- METADATOS -->
+
+        <div class="retro-game-detail-meta">
+
+          <span>{{ game.year }}</span>
+
+          <span>·</span>
+
+          <span>{{ game.genre }}</span>
+
+          <span>·</span>
+
+          <span class="retro-game-detail-rating">
+            ★ {{ game.rating }}
+          </span>
+
+        </div>
+
+      </section>
+
+
+      <!-- =================================================
+           GAMEPLAY
+           ================================================= -->
+
+      {% if game.video %}
+
+        <section class="retro-game-video">
+
+          <div class="retro-game-video-wrapper">
+
+            <video
+              autoplay
+              muted
+              loop
+              controls
+              playsinline
+              preload="metadata"
+              poster="{% if '://' in game.portrait %}{{ game.portrait }}{% else %}{% static game.portrait %}{% endif %}"
+            >
+
+              <source
+                src="{% if '://' in game.video %}{{ game.video }}{% else %}{% static game.video %}{% endif %}"
+                type="video/mp4"
+              >
+
+              Tu navegador no soporta la reproducción de video.
+
+            </video>
+
+
+            <!-- CARTUCHO SOBRE EL GAMEPLAY -->
+
+            {% if game.cartridge %}
+
+              <div class="retro-game-cartridge">
+
+                <div class="retro-game-cartridge-glow"></div>
+
+                <img
+                  src="{% if '://' in game.cartridge %}{{ game.cartridge }}{% else %}{% static game.cartridge %}{% endif %}"
+                  alt="Cartucho de {{ game.title }}"
+                >
+
+                <span class="retro-game-cartridge-label">
+                  CARTUCHO ORIGINAL
+                </span>
+
+              </div>
+
+            {% endif %}
+
+          </div>
+
+        </section>
+
+      {% endif %}
+
+
+      <!-- =================================================
+           INFORMACIÓN TÉCNICA
+           ================================================= -->
+
+      <section class="retro-game-data">
+
+        <div>
+          <strong>Plataforma</strong>
+          <span>{{ game.platform }}</span>
+        </div>
+
+        <div>
+          <strong>Lanzamiento</strong>
+          <span>{{ game.year }}</span>
+        </div>
+
+        <div>
+          <strong>Género</strong>
+          <span>{{ game.genre }}</span>
+        </div>
+
+        <div>
+          <strong>Desarrollador</strong>
+          <span>{{ game.developer }}</span>
+        </div>
+
+        <div>
+          <strong>Publisher</strong>
+          <span>{{ game.publisher }}</span>
+        </div>
+
+        <div>
+          <strong>Rating</strong>
+          <span>★ {{ game.rating }}</span>
+        </div>
+
+      </section>
+
+      <!-- =================================================
+           VOLVER
+           ================================================= -->
+
+      <div class="retro-game-detail-actions">
+
+        <a
+          href="{% url 'games:home' %}"
+          class="retro-game-back"
+        >
+          ← Volver a la librería
+        </a>
+
+      </div>
+
+    </div>
+
+  </main>
+
+</div>
+
+{% endblock %}

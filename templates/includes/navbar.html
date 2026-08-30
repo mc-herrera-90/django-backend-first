@@ -1,0 +1,46 @@
+<nav class="navbar navbar-expand-lg game-navbar"
+     data-bs-theme="dark"
+     style="background: var(--bg-navbar, #000)">
+  <div class="container">
+    <!-- Logo -->
+    <a class="navbar-brand game-brand" href="/">
+      <span class="game-brand-icon">🎮</span>
+      {{ site_name }}
+    </a>
+    <!-- Botón mobile -->
+    <button class="navbar-toggler game-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#mainNavbar"
+            aria-controls="mainNavbar"
+            aria-expanded="false"
+            aria-label="Abrir menú">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <!-- Menú -->
+    <div class="collapse navbar-collapse" id="mainNavbar">
+      <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+        <!-- Games -->
+        <li class="nav-item">
+          <a class="nav-link game-nav-link {% if request.resolver_match.namespace == 'games' %}active{% endif %}"
+             href="{% url 'games:home' %}">
+            <span class="nav-icon">👾</span>
+            GAMES
+          </a>
+        </li>
+        <!-- Movies -->
+        <li class="nav-item">
+          <a class="nav-link game-nav-link {% if request.resolver_match.namespace == 'movies' %}active{% endif %}"
+             href="{% url 'movies:home' %}">
+            <span class="nav-icon">🎬</span>
+            MOVIES
+          </a>
+        </li>
+        <!-- Separador -->
+        <li class="nav-item d-none d-lg-block">
+          <span class="game-nav-divider"></span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

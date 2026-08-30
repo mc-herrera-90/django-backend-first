@@ -1,0 +1,54 @@
+[
+    {
+        "title": "Super Mario 64",
+        "year": 1996,
+        "genre": "Plataformas",
+        "developer": "Nintendo",
+        "platform": "Nintendo 64",
+        "publisher": "Nintendo",
+        "rating": 9.5,
+        "portrait": "img/n64/super-mario-64/game.webp",
+        "marquee": "img/n64/super-mario-64/marquesina.webp",
+        "video": "videos/n64/super-mario-64.mp4",
+        "description": "¡Mario es súper de una manera completamente nueva! Combinando los mejores gráficos tridimensionales jamás desarrollados para un videojuego y una banda sonora explosiva, Super Mario 64 se convierte en un nuevo estándar para los videojuegos. Está repleto de batallas contundentes, obstáculos desalentadores y aventuras submarinas. Recupera las estrellas de poder de sus lugares ocultos y enfrenta a tu archienemigo: ¡Bowser, rey de los Koopas!"
+    },
+    {
+        "title": "The Legend of Zelda: Ocarina of Time",
+        "year": 1998,
+        "genre": "Acción, Aventura",
+        "developer": "Nintendo EAD",
+        "platform": "Nintendo 64",
+        "publisher": "Nintendo",
+        "rating": 9.9,
+        "portrait": "img/n64/zelda-ocarina-of-time/game.webp",
+        "marquee": "img/n64/zelda-ocarina-of-time/marquesina.webp",
+        "video": "videos/n64/zelda-ocarina-of-time.mp4",
+        "description": "Link debe viajar por Hyrule para detener a Ganondorf y evitar que obtenga el poder de la Trifuerza. Durante su aventura explorará mazmorras, resolverá acertijos, enfrentará numerosos enemigos y utilizará la Ocarina del Tiempo para viajar entre su infancia y su adultez."
+    },
+    {
+        "title": "Mario Party 2",
+        "year": 1999,
+        "genre": "Party",
+        "developer": "Hudson Soft",
+        "platform": "Nintendo 64",
+        "publisher": "Nintendo",
+        "rating": 9.0,
+        "portrait": "img/n64/mario-party-2/game.webp",
+        "marquee": "img/n64/mario-party-2/marquesina.webp",
+        "video": "videos/n64/mario-party-2.mp4",
+        "description": "Mario y sus amigos compiten en diferentes tableros llenos de desafíos, eventos y minijuegos. Los jugadores deben conseguir la mayor cantidad de estrellas mientras avanzan por el tablero, recolectan monedas y compiten en más de 60 minijuegos."
+    },
+{
+    "title": "Paper Mario",
+    "year": 2000,
+    "genre": "RPG",
+    "developer": "Intelligent Systems",
+    "platform": "Nintendo 64",
+    "publisher": "Nintendo",
+    "rating": 9.5,
+    "portrait": "img/n64/paper-mario/game.webp",
+    "marquee": "img/n64/paper-mario/marquesina.webp",
+    "video": "videos/n64/paper-mario.mp4",
+    "description": "Mario emprende una aventura para rescatar a la Princesa Peach y recuperar las siete Estrellas de los Espíritus, que fueron robadas por Bowser. Explora el Reino Champiñón, resuelve acertijos y participa en combates por turnos junto a distintos compañeros, utilizando habilidades especiales para derrotar a sus enemigos."
+}
+]

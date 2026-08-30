@@ -1,0 +1,565 @@
+/* =========================================================
+   MOVIES — RETRO RED
+   ========================================================= */
+
+.movies-page {
+    min-height: 100vh;
+
+    background:
+        radial-gradient(
+            circle at 20% 15%,
+            rgba(180, 20, 35, .12),
+            transparent 32%
+        ),
+        radial-gradient(
+            circle at 80% 80%,
+            rgba(100, 8, 20, .10),
+            transparent 35%
+        ),
+        #0a090b;
+
+    color: #f2eeee;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.movies-header {
+    padding: 3rem 0 2rem;
+}
+
+.movies-header h1 {
+    margin: 0;
+
+    color: #e50914;
+
+    font-family: "Courier New", monospace;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 900;
+
+    letter-spacing: 2px;
+    text-transform: uppercase;
+
+    text-shadow:
+        3px 3px 0 #4b080d;
+}
+
+.movies-header p {
+    margin-top: .6rem;
+
+    color: #968c8e;
+
+    font-family: "Courier New", monospace;
+}
+
+
+/* =========================================================
+   CARD
+   ========================================================= */
+
+.movie-card {
+    height: 100%;
+    overflow: hidden;
+
+    border: 1px solid #351519;
+    border-radius: 0;
+
+    background: #141012;
+
+    box-shadow:
+        4px 4px 0 #050405;
+}
+
+
+/* =========================================================
+   POSTER
+   ========================================================= */
+
+.movie-poster {
+    position: relative;
+
+    overflow: hidden;
+
+    aspect-ratio: 2 / 3;
+
+    background: #080708;
+}
+
+.movie-poster img {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    filter:
+        saturate(.82)
+        contrast(1.04);
+}
+
+
+/* =========================================================
+   SCANLINES
+   ========================================================= */
+
+.movie-poster::after {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    pointer-events: none;
+
+    background:
+        repeating-linear-gradient(
+            0deg,
+            transparent 0,
+            transparent 3px,
+            rgba(255, 255, 255, .025) 3px,
+            rgba(255, 255, 255, .025) 4px
+        );
+}
+
+
+/* =========================================================
+   RATING
+   ========================================================= */
+
+.movie-rating {
+    flex-shrink: 0;
+
+    padding: .3rem .45rem;
+
+    border: 2px solid #8e111b;
+    border-radius: 0;
+
+    background: #180d0f;
+
+    color: #ff3945;
+
+    font-family: "Courier New", monospace;
+    font-size: .7rem;
+    font-weight: 900;
+
+    box-shadow:
+        2px 2px 0 #4b080d;
+}
+
+
+/* =========================================================
+   OVERLAY
+   ========================================================= */
+
+.movie-overlay {
+    position: absolute;
+    inset: auto 0 0;
+
+    padding: 1rem;
+
+    background:
+        linear-gradient(
+            to top,
+            rgba(8, 7, 8, .98),
+            rgba(8, 7, 8, .78),
+            transparent
+        );
+
+    opacity: 0;
+}
+
+
+/* =========================================================
+   BOTÓN
+   ========================================================= */
+
+.movie-overlay .btn {
+    padding: .6rem .8rem;
+
+    border: 2px solid #e50914;
+    border-radius: 0;
+
+    background: #160d0f;
+    color: #ff3945;
+
+    font-family: "Courier New", monospace;
+    font-size: .7rem;
+    font-weight: 900;
+
+    text-transform: uppercase;
+
+    box-shadow:
+        3px 3px 0 #4b080d;
+}
+
+
+/* =========================================================
+   HOVER — SOLO INFORMACIÓN
+   ========================================================= */
+
+.movie-card {
+    transition:
+        border-color .15s ease,
+        box-shadow .15s ease;
+}
+
+.movie-card:hover {
+    border-color: #8e111b;
+
+    box-shadow:
+        4px 4px 0 #4b080d;
+}
+
+.movie-card:hover .movie-overlay {
+    opacity: 1;
+}
+
+.movie-card:hover .movie-title {
+    color: #ff3945;
+}
+
+/* =========================================================
+   CONTENIDO
+   ========================================================= */
+
+.movie-content {
+    padding: .9rem;
+}
+
+.movie-title {
+    min-width: 0;
+
+    margin: 0;
+
+    color: #f2eeee;
+
+    font-family: "Courier New", monospace;
+    font-size: .9rem;
+    font-weight: 900;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.movie-meta {
+    color: #867b7d;
+
+    font-family: "Courier New", monospace;
+    font-size: .75rem;
+}
+
+
+/* =========================================================
+   POPULARES
+   ========================================================= */
+
+.popular-carousel {
+    background: #080708;
+
+    border-bottom:
+        3px solid
+        #351519;
+}
+
+.popular-carousel .carousel-item {
+    position: relative;
+
+    height: 590px;
+
+    overflow: hidden;
+}
+
+.popular-backdrop {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+    object-position: top;
+
+    filter:
+        saturate(.72)
+        contrast(1.05);
+}
+
+
+/* =========================================================
+   OVERLAY BANNER
+   ========================================================= */
+
+.popular-overlay {
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            #090708 0%,
+            rgba(9, 7, 8, .94) 32%,
+            rgba(9, 7, 8, .62) 55%,
+            rgba(9, 7, 8, .12) 100%
+        ),
+        linear-gradient(
+            to top,
+            #090708,
+            transparent 55%
+        );
+}
+
+
+/* =========================================================
+   CONTENIDO BANNER
+   ========================================================= */
+
+.popular-content {
+    position: absolute;
+    inset: 0;
+
+    display: flex;
+    align-items: center;
+}
+
+.popular-info {
+    max-width: 600px;
+}
+
+
+/* =========================================================
+   LABEL
+   ========================================================= */
+
+.popular-label {
+    display: inline-block;
+
+    margin-bottom: 1rem;
+    padding: .45rem .65rem;
+
+    border: 2px solid #b8121c;
+
+    background: #180d0f;
+    color: #ff3945;
+
+    font-family: "Courier New", monospace;
+    font-size: .7rem;
+    font-weight: 900;
+
+    text-transform: uppercase;
+
+    box-shadow:
+        3px 3px 0 #4b080d;
+}
+
+
+/* =========================================================
+   TÍTULO BANNER
+   ========================================================= */
+
+.popular-info h1 {
+    margin-bottom: 1rem;
+
+    color: #e50914;
+
+    font-family: "Courier New", monospace;
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-weight: 900;
+
+    line-height: .95;
+
+    text-transform: uppercase;
+    letter-spacing: 1px;
+
+    text-shadow:
+        4px 4px 0 #4b080d;
+}
+
+
+/* =========================================================
+   META BANNER
+   ========================================================= */
+
+.popular-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+
+    margin-bottom: 1rem;
+
+    color: #968c8e;
+
+    font-family: "Courier New", monospace;
+    font-size: .8rem;
+}
+
+.popular-meta span:first-child {
+    color: #d6b94c;
+    font-weight: 900;
+}
+
+
+/* =========================================================
+   DESCRIPCIÓN
+   ========================================================= */
+
+.popular-info p {
+    margin-bottom: 1.5rem;
+
+    color: #d0c7c8;
+
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   BOTÓN BANNER
+   ========================================================= */
+
+.popular-info .btn {
+    padding: .6rem .9rem;
+
+    border: 2px solid #e50914;
+    border-radius: 0;
+
+    background: #160d0f;
+    color: #ff3945;
+
+    font-family: "Courier New", monospace;
+    font-size: .7rem;
+    font-weight: 900;
+
+    text-transform: uppercase;
+
+    box-shadow:
+        3px 3px 0 #4b080d;
+}
+
+.popular-info .btn:hover {
+    background: #e50914;
+    color: #fff;
+}
+
+
+/* =========================================================
+   INDICADORES
+   ========================================================= */
+
+.popular-carousel .carousel-indicators button {
+    width: 30px;
+    height: 4px;
+
+    margin: 0 4px;
+
+    border: 0;
+    border-radius: 0;
+
+    background: #3b2023;
+
+    opacity: 1;
+}
+
+.popular-carousel .carousel-indicators button.active {
+    background: #e50914;
+}
+
+
+/* =========================================================
+   PAGINACIÓN
+   ========================================================= */
+
+.movies-pagination {
+    padding: 3rem 0;
+}
+
+.movies-pagination .page-link {
+    border: 2px solid #351519;
+    border-radius: 0 !important;
+
+    background: #140e10;
+    color: #897e80;
+
+    font-family: "Courier New", monospace;
+    font-weight: 700;
+}
+
+.movies-pagination .page-link:hover {
+    border-color: #8e111b;
+
+    background: #211012;
+
+    color: #ff3945;
+}
+
+.movies-pagination .active .page-link {
+    border-color: #e50914;
+
+    background: #e50914;
+
+    color: #fff;
+}
+
+
+/* =========================================================
+   ENTRADA
+   ========================================================= */
+
+.movies-grid {
+    animation: movies-in .18s ease-out both;
+}
+
+@keyframes movies-in {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    .popular-carousel .carousel-item {
+        height: 480px;
+    }
+
+    .popular-info {
+        max-width: 90%;
+    }
+
+    .popular-info h1 {
+        font-size: 2.5rem;
+    }
+
+    .movie-overlay {
+        opacity: 1;
+    }
+
+}
+
+
+/* =========================================================
+   REDUCIR ANIMACIONES
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .movies-grid,
+    .movie-card,
+    .movie-poster img,
+    .movie-overlay,
+    .movie-overlay .btn,
+    .movie-rating,
+    .popular-info .btn {
+        animation: none;
+        transition: none;
+    }
+
+}

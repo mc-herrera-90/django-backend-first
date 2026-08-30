@@ -1,0 +1,10 @@
+{
+    "emmet.includeLanguages": {
+        "django-html": "html"
+    },
+    "files.associations": {
+        "*.html": "django-html"
+    },
+    "emmet.triggerExpansionOnTab": true,
+    "python.terminal.useEnvFile": true
+}

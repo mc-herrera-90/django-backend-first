@@ -1,0 +1,86 @@
+{% load static %}
+<div id="retroHero"
+     class="carousel slide carousel-fade"
+     data-bs-ride="carousel"
+     data-bs-interval="5000">
+  <!-- Indicadores -->
+  <div class="carousel-indicators">
+    <button type="button"
+            data-bs-target="#retroHero"
+            data-bs-slide-to="0"
+            class="active"
+            aria-current="true"
+            aria-label="Slide 1"></button>
+    <button type="button"
+            data-bs-target="#retroHero"
+            data-bs-slide-to="1"
+            aria-label="Slide 2"></button>
+    <button type="button"
+            data-bs-target="#retroHero"
+            data-bs-slide-to="2"
+            aria-label="Slide 3"></button>
+  </div>
+  <!-- Slides -->
+  <div class="carousel-inner rounded-4 overflow-hidden">
+    <!-- Super Nintendo -->
+    <div class="carousel-item active">
+      <img src="{% static 'img/retro/snes.jpg' %}"
+           class="d-block w-100"
+           alt="Super Nintendo">
+      <div class="carousel-caption text-start">
+        <span class="badge bg-danger mb-2">16-BIT</span>
+        <h2 class="display-5 fw-bold">La era de los 16 bits</h2>
+        <p class="lead">
+          Revive la época dorada de Super Nintendo,
+          donde cada cartucho escondía una nueva aventura.
+        </p>
+        <a href="{% url 'games:home' %}" class="btn btn-light">Explorar juegos</a>
+      </div>
+    </div>
+    <!-- RPG -->
+    <div class="carousel-item">
+      <img src="{% static 'img/retro/rpg.jpg' %}"
+           class="d-block w-100"
+           alt="RPG clásico">
+      <div class="carousel-caption text-start">
+        <span class="badge bg-warning text-dark mb-2">RPG</span>
+        <h2 class="display-5 fw-bold">Aventuras inolvidables</h2>
+        <p class="lead">
+          Héroes, mazmorras y mundos que marcaron
+          generaciones completas de jugadores.
+        </p>
+        <a href="{% url 'games:home' %}" class="btn btn-light">Ver colección</a>
+      </div>
+    </div>
+    <!-- Arcade -->
+    <div class="carousel-item">
+      <img src="{% static 'img/retro/arcade.jpg' %}"
+           class="d-block w-100"
+           alt="Arcade clásico">
+      <div class="carousel-caption text-start">
+        <span class="badge bg-info text-dark mb-2">ARCADE</span>
+        <h2 class="display-5 fw-bold">Insert Coin</h2>
+        <p class="lead">
+          Desde las máquinas arcade hasta las consolas
+          que llevaron la experiencia a nuestros hogares.
+        </p>
+        <a href="{% url 'games:home' %}" class="btn btn-light">Entrar al arcade</a>
+      </div>
+    </div>
+  </div>
+  <!-- Controles -->
+  <button class="carousel-control-prev"
+          type="button"
+          data-bs-target="#retroHero"
+          data-bs-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+    <span class="visually-hidden">Anterior</span>
+  </button>
+  <button class="carousel-control-next"
+          type="button"
+          data-bs-target="#retroHero"
+          data-bs-slide="next">
+    <span class="carousel-control-next-icon"></span>
+    <span class="visually-hidden">Siguiente</span>
+  </button>
+</div>

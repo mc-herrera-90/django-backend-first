@@ -1,0 +1,360 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Retro Games{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/game-home.css' %}">
+{% endblock %}
+
+{% block content %}
+
+  <div class="retro-games-page">
+
+    <!-- LIBRERÍA -->
+
+    <section class="container py-5">
+
+      <header class="retro-games-header mb-4">
+
+        <span class="retro-games-kicker">
+          Retro Collection
+        </span>
+
+        <h1>
+          Librería de juegos
+        </h1>
+
+        <p>
+          Explora nuestra colección de videojuegos clásicos
+          de distintas plataformas.
+        </p>
+
+      </header>
+
+
+      <!-- =================================================
+           FILTRO POR PLATAFORMA
+           ================================================= -->
+
+      <nav
+        class="retro-games-platforms"
+        aria-label="Filtrar por plataforma"
+      >
+
+        <!-- TODOS -->
+
+        <a
+          href="{% url 'games:home' %}"
+          class="retro-games-platform-filter {% if not request.GET.platform %}is-active{% endif %}"
+          title="Todos los juegos"
+        >
+
+          <span class="retro-games-platform-all">
+            ALL
+          </span>
+
+        </a>
+
+
+        <!-- PLATAFORMAS -->
+
+        {% for platform in platforms %}
+
+          <a
+            href="?platform={{ platform }}"
+            class="retro-games-platform-filter {% if request.GET.platform == platform %}is-active{% endif %}"
+            title="{{ platform|upper }}"
+          >
+
+            <img
+              src="{% static 'img/platforms/' %}{{ platform }}.webp"
+              alt="{{ platform|upper }}"
+              loading="lazy"
+            >
+
+          </a>
+
+        {% endfor %}
+
+      </nav>
+
+
+      <!-- JUEGOS -->
+
+      <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
+
+        {% for game in page_obj %}
+
+          <div class="col">
+
+            <article class="retro-game-card">
+
+              <a
+                href="{% url 'games:detail' game.id %}"
+                class="retro-game-poster"
+                data-game-card
+              >
+
+                <!-- PORTADA -->
+
+                <img
+                  class="retro-game-image"
+                  src="{% if '://' in game.portrait %}{{ game.portrait }}{% else %}{% static game.portrait %}{% endif %}"
+                  alt="{{ game.title }}"
+                  loading="lazy"
+                >
+
+
+                <!-- GAMEPLAY -->
+
+                {% if game.video %}
+
+                  <video
+                    class="retro-game-video"
+                    muted
+                    loop
+                    playsinline
+                    preload="none"
+                    data-game-video
+                  >
+
+                    <source
+                      src="{% if '://' in game.video %}{{ game.video }}{% else %}{% static game.video %}{% endif %}"
+                      type="video/mp4"
+                    >
+
+                  </video>
+
+                {% endif %}
+
+
+                <!-- INFORMACIÓN -->
+
+                <div class="retro-game-content">
+
+                  <h2 class="retro-game-title">
+                    {{ game.title }}
+                  </h2>
+
+                  <p class="retro-game-meta">
+                    {{ game.year }}
+                    <span>·</span>
+                    {{ game.genre }}
+                  </p>
+
+                  <div class="retro-game-info">
+
+                    <!-- ICONO DE PLATAFORMA -->
+
+                    <span
+                      class="retro-game-platform"
+                      title="{{ game.platform }}"
+                    >
+
+                      <img
+                        src="{% static game.platform_icon %}"
+                        alt="{{ game.platform }}"
+                        loading="lazy"
+                      >
+
+                    </span>
+
+
+                    <span class="retro-game-rating">
+                      ★ {{ game.rating }}
+                    </span>
+
+                  </div>
+
+                </div>
+
+              </a>
+
+            </article>
+
+          </div>
+
+        {% empty %}
+
+          <div class="col-12">
+
+            <div class="retro-games-empty">
+              No hay juegos disponibles.
+            </div>
+
+          </div>
+
+        {% endfor %}
+
+      </div>
+
+
+      <!-- PAGINACIÓN -->
+
+      {% if page_obj.paginator.num_pages > 1 %}
+
+        <nav
+          class="retro-games-pagination"
+          aria-label="Paginación de juegos"
+        >
+
+          <ul class="pagination justify-content-center mb-0">
+
+            <li
+              class="page-item
+              {% if not page_obj.has_previous %}disabled{% endif %}"
+            >
+
+              {% if page_obj.has_previous %}
+
+                <a
+                  class="page-link"
+                  href="?{% if request.GET.platform %}platform={{ request.GET.platform }}&{% endif %}page={{ page_obj.previous_page_number }}"
+                >
+                  Anterior
+                </a>
+
+              {% else %}
+
+                <span class="page-link">
+                  Anterior
+                </span>
+
+              {% endif %}
+
+            </li>
+
+
+            {% for num in page_obj.paginator.page_range %}
+
+              <li
+                class="page-item
+                {% if page_obj.number == num %}active{% endif %}"
+              >
+
+                {% if page_obj.number == num %}
+
+                  <span class="page-link">
+                    {{ num }}
+                  </span>
+
+                {% else %}
+
+                  <a
+                    class="page-link"
+                    href="?{% if request.GET.platform %}platform={{ request.GET.platform }}&{% endif %}page={{ num }}"
+                  >
+                    {{ num }}
+                  </a>
+
+                {% endif %}
+
+              </li>
+
+            {% endfor %}
+
+
+            <li
+              class="page-item
+              {% if not page_obj.has_next %}disabled{% endif %}"
+            >
+
+              {% if page_obj.has_next %}
+
+                <a
+                  class="page-link"
+                  href="?{% if request.GET.platform %}platform={{ request.GET.platform }}&{% endif %}page={{ page_obj.next_page_number }}"
+                >
+                  Siguiente
+                </a>
+
+              {% else %}
+
+                <span class="page-link">
+                  Siguiente
+                </span>
+
+              {% endif %}
+
+            </li>
+
+          </ul>
+
+        </nav>
+
+      {% endif %}
+
+    </section>
+
+  </div>
+
+{% endblock %}
+
+
+{% block extra_js %}
+
+<script>
+
+  document.querySelectorAll("[data-game-card]").forEach(card => {
+
+    const video = card.querySelector("[data-game-video]");
+
+    if (!video) {
+      return;
+    }
+
+    let hoverTimer = null;
+
+
+    /* =====================================================
+       ENTRAR
+       ===================================================== */
+
+    card.addEventListener("mouseenter", () => {
+
+      hoverTimer = setTimeout(async () => {
+
+        try {
+
+          video.load();
+
+          await video.play();
+
+          card.classList.add("is-playing");
+
+        } catch (error) {
+
+          console.error(
+            "No se pudo reproducir el gameplay:",
+            error
+          );
+
+        }
+
+      }, 2000);
+
+    });
+
+
+    /* =====================================================
+       SALIR
+       ===================================================== */
+
+    card.addEventListener("mouseleave", () => {
+
+      clearTimeout(hoverTimer);
+
+      video.pause();
+
+      video.currentTime = 0;
+
+      card.classList.remove("is-playing");
+
+    });
+
+  });
+
+</script>
+
+{% endblock %}

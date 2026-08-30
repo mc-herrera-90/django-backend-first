@@ -1,0 +1,41 @@
+<footer class="game-footer">
+  <div class="container">
+    <div class="game-footer-content">
+      <!-- Marca -->
+      <div class="game-footer-brand">
+        <a href="{% url 'games:home' %}" class="game-footer-logo">
+          <span class="game-footer-icon">🎮</span>
+          <span>{{ site_name }}</span>
+        </a>
+        <p>
+          Explora videojuegos, películas, series y mucho más
+          de la cultura geek.
+        </p>
+      </div>
+      <!-- Línea decorativa -->
+      <div class="game-footer-line"></div>
+      <!-- Información -->
+      <div class="game-footer-bottom">
+        <span>© 2026 {{ site_name }}</span>
+        <span class="game-footer-separator">/</span>
+        <span>
+          Hecho con
+          <img src="https://static.djangoproject.com/img/fundraising-heart.cd6bb84ffd33.svg"
+               alt="amor"
+               class="django-heart">
+          por
+          <a href="https://mcherrera.dev"
+             target="_blank"
+             rel="noopener noreferrer">MCHERRERA</a>
+        </span>
+        <span class="game-footer-separator">/</span>
+        <span>
+          Usando
+          <a href="https://www.djangoproject.com/"
+             target="_blank"
+             rel="noopener noreferrer">Django</a>
+        </span>
+      </div>
+    </div>
+  </div>
+</footer>

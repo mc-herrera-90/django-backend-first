@@ -1,0 +1,753 @@
+/* =========================================================
+   HOME — ZONA GEEK
+   ========================================================= */
+
+.home-page {
+    --home-bg: #080810;
+    --home-primary: #00ff9d;
+    --home-secondary: #ff304f;
+    --home-accent: #00d9ff;
+    --home-text: #f4f4ff;
+    --home-muted: #8585a8;
+    --home-border: #30304d;
+
+    position: relative;
+
+    min-height: 100vh;
+
+    background: #080810;
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   REJILLA DE FONDO
+   ========================================================= */
+
+.home-page::before {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background-image:
+        linear-gradient(
+            rgba(0, 255, 157, .035) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(0, 255, 157, .035) 1px,
+            transparent 1px
+        );
+
+    background-size:
+        50px 50px;
+
+    mask-image:
+        linear-gradient(
+            to bottom,
+            black,
+            transparent 85%
+        );
+
+    animation:
+        home-grid 20s linear infinite;
+
+    pointer-events: none;
+}
+
+
+@keyframes home-grid {
+
+    from {
+        background-position:
+            0 0,
+            0 0;
+    }
+
+    to {
+        background-position:
+            0 50px,
+            50px 0;
+    }
+
+}
+
+
+/* =========================================================
+   LUCES DE FONDO
+   ========================================================= */
+
+.home-page::after {
+    content: "";
+
+    position: absolute;
+
+    width: 700px;
+    height: 700px;
+
+    top: -250px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(0, 255, 157, .10) 0%,
+            rgba(0, 255, 157, .04) 30%,
+            transparent 70%
+        );
+
+    filter: blur(20px);
+
+    pointer-events: none;
+
+    animation:
+        home-glow 8s ease-in-out infinite alternate;
+}
+
+
+@keyframes home-glow {
+
+    from {
+        opacity: .5;
+
+        transform:
+            translateX(-50%)
+            scale(.9);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateX(-50%)
+            scale(1.1);
+    }
+
+}
+
+
+/* =========================================================
+   CONTENIDO
+   ========================================================= */
+
+.home-hero,
+.home-applications {
+    position: relative;
+
+    z-index: 1;
+}
+
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.home-hero {
+    padding-top: 7rem !important;
+
+    padding-bottom: 4rem !important;
+}
+
+
+.home-kicker {
+    color: var(--home-primary);
+
+    font-weight: 700;
+
+    letter-spacing: 4px;
+}
+
+
+.home-title {
+    color: var(--home-text);
+
+    text-shadow:
+        3px 3px 0 rgba(0, 0, 0, .7);
+}
+
+
+.home-description {
+    color: var(--home-muted);
+}
+
+
+/* =========================================================
+   CARDS
+   ========================================================= */
+
+.home-card {
+    position: relative;
+
+    background:
+        rgba(16, 16, 28, .92);
+
+    color: var(--home-text);
+
+    border:
+        2px solid
+        var(--home-border) !important;
+
+    border-radius: 0;
+
+    backdrop-filter: blur(8px);
+
+    overflow: hidden;
+
+    /*
+     * La card ya tiene presencia desde el inicio.
+     * No depende del hover.
+     */
+
+    box-shadow:
+        6px 6px 0 #000,
+        0 0 25px rgba(0, 0, 0, .25);
+}
+
+
+/* =========================================================
+   LÍNEA SUPERIOR
+   ========================================================= */
+
+.home-card::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 3px;
+}
+
+
+/* =========================================================
+   GAMES — VERDE
+   ========================================================= */
+
+.home-card-games {
+    border-color:
+        var(--home-primary) !important;
+
+    box-shadow:
+        6px 6px 0 #000,
+        0 0 25px rgba(0, 255, 157, .10);
+}
+
+
+.home-card-games::before {
+    background:
+        var(--home-primary);
+}
+
+
+/* =========================================================
+   MOVIES — ROJO
+   ========================================================= */
+
+.home-card-movies {
+    border-color:
+        var(--home-secondary) !important;
+
+    box-shadow:
+        6px 6px 0 #000,
+        0 0 25px rgba(255, 48, 79, .10);
+}
+
+
+.home-card-movies::before {
+    background:
+        var(--home-secondary);
+}
+
+
+/* =========================================================
+   ICONOS
+   ========================================================= */
+
+.home-card-icon {
+    display: inline-block;
+
+    margin-bottom: 1rem;
+
+    font-size: 2.5rem;
+}
+
+
+/* =========================================================
+   TÍTULOS
+   ========================================================= */
+
+.home-card h2 {
+    color: var(--home-text);
+
+    font-weight: 900;
+}
+
+
+/* =========================================================
+   TEXTO
+   ========================================================= */
+
+.home-card p {
+    min-height: 72px;
+
+    color: var(--home-muted);
+
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   BOTONES
+   ========================================================= */
+
+.home-card .btn {
+    margin-top: .5rem;
+
+    border-radius: 0;
+
+    font-weight: 900;
+
+    transition:
+        transform .12s steps(2),
+        box-shadow .12s steps(2);
+}
+
+
+/* GAMES */
+
+.home-card-games .btn {
+    background: var(--home-primary);
+
+    border-color: var(--home-primary);
+
+    color: #000;
+
+    box-shadow:
+        4px 4px 0 #000;
+}
+
+
+.home-card-games .btn:hover {
+    background: #00e88c;
+
+    border-color: #00e88c;
+
+    color: #000;
+
+    transform:
+        translate(3px, 3px);
+
+    box-shadow:
+        1px 1px 0 #000;
+}
+
+
+/* MOVIES */
+
+.home-card-movies .btn {
+    background: var(--home-secondary);
+
+    border-color: var(--home-secondary);
+
+    color: #fff;
+
+    box-shadow:
+        4px 4px 0 #000;
+}
+
+
+.home-card-movies .btn:hover {
+    background: #ff5268;
+
+    border-color: #ff5268;
+
+    color: #fff;
+
+    transform:
+        translate(3px, 3px);
+
+    box-shadow:
+        1px 1px 0 #000;
+}
+
+
+/* =========================================================
+   EMPTY
+   ========================================================= */
+
+.home-games-empty {
+    color: var(--home-muted);
+}
+
+
+/* =========================================================
+   PRESENTACIÓN RETRO
+   ========================================================= */
+
+.home-presentation {
+    position: relative;
+
+    margin-top: 2rem;
+
+    padding: 0;
+
+    background: #050509;
+
+    border: 3px solid #00ff9d;
+
+    box-shadow:
+        8px 8px 0 #000,
+        12px 12px 0 #b51c98;
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   CABECERA
+   ========================================================= */
+
+.home-presentation-header {
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 1.5rem;
+
+    padding: 1rem 1.25rem;
+
+    background:
+        linear-gradient(
+            90deg,
+            #10101c,
+            #0b0b13
+        );
+
+    border-bottom: 3px solid #00d9ff;
+}
+
+
+.home-presentation-header::before {
+    content: "";
+
+    width: 9px;
+    height: 9px;
+
+    flex-shrink: 0;
+
+    background: #00ff9d;
+
+    box-shadow:
+        0 0 8px #00ff9d;
+}
+
+
+.home-presentation-header > div {
+    flex: 1;
+}
+
+
+.home-presentation-kicker {
+    display: block;
+
+    margin-bottom: .35rem;
+
+    color: #00ff9d;
+
+    font:
+        900 .6rem
+        "Courier New",
+        monospace;
+
+    letter-spacing: 3px;
+
+    text-transform: uppercase;
+}
+
+
+.home-presentation-header h2 {
+    margin: 0;
+
+    color: #fff;
+
+    font:
+        900 clamp(.85rem, 2vw, 1.15rem)
+        "Courier New",
+        monospace;
+
+    letter-spacing: 1px;
+
+    text-transform: uppercase;
+
+    text-shadow:
+        2px 2px 0 #b51c98;
+}
+
+
+/* =========================================================
+   BOTÓN PRESENTACIÓN
+   ========================================================= */
+
+.home-presentation-open {
+    display: inline-block;
+
+    flex-shrink: 0;
+
+    padding: .6rem .9rem;
+
+    background: #00ff9d;
+
+    border: 2px solid #00ff9d;
+
+    color: #000;
+
+    text-decoration: none;
+
+    font:
+        900 .6rem
+        "Courier New",
+        monospace;
+
+    letter-spacing: 1px;
+
+    text-transform: uppercase;
+
+    box-shadow:
+        4px 4px 0 #b51c98;
+
+    transition:
+        transform .12s steps(2),
+        box-shadow .12s steps(2);
+}
+
+
+.home-presentation-open:hover {
+    color: #000;
+
+    transform:
+        translate(3px, 3px);
+
+    box-shadow:
+        1px 1px 0 #b51c98;
+}
+
+
+/* =========================================================
+   MARCO DEL MONITOR
+   ========================================================= */
+
+.home-presentation-frame {
+    position: relative;
+
+    margin: 1rem;
+
+    background: #000;
+
+    border: 3px solid #24243a;
+
+    box-shadow:
+        inset 0 0 0 2px #08080d,
+        inset 0 0 35px rgba(0, 0, 0, .9),
+        0 0 25px rgba(0, 229, 255, .08);
+
+    overflow: hidden;
+
+    aspect-ratio: 16 / 9;
+}
+
+
+/* =========================================================
+   CRT
+   ========================================================= */
+
+.home-presentation-frame::before {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 2;
+
+    pointer-events: none;
+
+    background:
+        repeating-linear-gradient(
+            0deg,
+            transparent 0,
+            transparent 3px,
+            rgba(255, 255, 255, .035) 3px,
+            rgba(255, 255, 255, .035) 4px
+        );
+
+    opacity: .45;
+}
+
+
+.home-presentation-frame::after {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 3;
+
+    pointer-events: none;
+
+    background:
+        radial-gradient(
+            ellipse at center,
+            transparent 55%,
+            rgba(0, 0, 0, .35) 100%
+        );
+}
+
+
+/* =========================================================
+   IFRAME
+   ========================================================= */
+
+.home-presentation-frame iframe {
+    position: relative;
+
+    z-index: 1;
+
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    border: 0;
+
+    background: #000;
+}
+
+
+/* =========================================================
+   PIE — ATAJOS
+   ========================================================= */
+
+.home-presentation-footer {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 1rem;
+
+    padding: .7rem 1rem;
+
+    background: #090910;
+
+    border-top: 2px solid #24243a;
+
+    color: #68687e;
+
+    font:
+        900 .55rem
+        "Courier New",
+        monospace;
+
+    letter-spacing: 1px;
+
+    text-transform: uppercase;
+}
+
+
+.home-presentation-footer span:not(:first-child) {
+    color: #9292b8;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    .home-presentation-header {
+        align-items: flex-start;
+
+        flex-wrap: wrap;
+    }
+
+    .home-presentation-header::before {
+        display: none;
+    }
+
+    .home-presentation-open {
+        width: 100%;
+
+        text-align: center;
+    }
+
+    .home-presentation-frame {
+        margin: .6rem;
+
+        aspect-ratio: 4 / 3;
+    }
+
+    .home-presentation-footer {
+        justify-content: center;
+
+        text-align: center;
+    }
+
+}
+
+
+@media (max-width: 480px) {
+
+    .home-presentation {
+        border-width: 2px;
+
+        box-shadow:
+            5px 5px 0 #000,
+            8px 8px 0 #b51c98;
+    }
+
+    .home-presentation-header {
+        padding: .9rem;
+    }
+
+    .home-presentation-header h2 {
+        font-size: .8rem;
+    }
+
+    .home-presentation-footer {
+        gap: .5rem;
+
+        padding: .6rem;
+
+        font-size: .5rem;
+    }
+
+}
+
+/* =========================================================
+   REDUCIR ANIMACIONES
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .home-page::before,
+    .home-page::after,
+    .home-card,
+    .home-presentation-open {
+        animation: none;
+        transition: none;
+    }
+
+}
