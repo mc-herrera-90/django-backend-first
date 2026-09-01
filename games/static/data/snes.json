@@ -1,0 +1,54 @@
+[
+    {
+        "title": "Donkey Kong Country",
+        "year": 1994,
+        "genre": "Plataformas",
+        "developer": "Rare",
+        "platform": "Super Nintendo",
+        "publisher": "Nintendo",
+        "rating": 9.5,
+        "portrait": "img/snes/dk-country/game.webp",
+        "marquee": "img/snes/dk-country/marquesina.webp",
+        "video": "videos/snes/dk-country-gameplay.mp4",
+        "description": "Donkey Kong Country es un juego de plataformas protagonizado por Donkey Kong y Diddy Kong. Tras el robo de las reservas de bananas de Donkey Kong por parte de los Kremlings, ambos emprenden una aventura a través de la isla para recuperarlas. El juego destacó por sus gráficos prerenderizados, su diseño de niveles y su banda sonora."
+    },
+    {
+        "title": "Sunset Riders",
+        "year": 1991,
+        "genre": "Run and Gun",
+        "developer": "Konami",
+        "platform": "Super Nintendo",
+        "publisher": "Konami",
+        "rating": 9.0,
+        "portrait": "img/snes/sunset-riders/game.webp",
+        "marquee": "img/snes/sunset-riders/marquesina.webp",
+        "video": "videos/snes/sunset-riders-gameplay.mp4",
+        "description": "Sunset Riders es un juego de acción tipo run and gun ambientado en el lejano oeste. El jugador controla a uno de los cuatro cazarrecompensas que recorren distintos escenarios enfrentándose a forajidos y peligrosos jefes. Destaca por su acción cooperativa, su variedad de armas y su característico estilo inspirado en el western."
+    },
+    {
+        "title": "Super Mario World",
+        "year": 1990,
+        "genre": "Plataformas",
+        "developer": "Nintendo EAD",
+        "platform": "Super Nintendo",
+        "publisher": "Nintendo",
+        "rating": 9.5,
+        "portrait": "img/snes/super-mario-world/game.webp",
+        "marquee": "img/snes/super-mario-world/marquesina.webp",
+        "video": "videos/snes/super-mario-world-gameplay.mp4",
+        "description": "Super Mario World es un clásico juego de plataformas protagonizado por Mario y Luigi. Tras llegar a Dinosaur Land, los hermanos deben rescatar nuevamente a la Princesa Peach y enfrentarse a Bowser y sus secuaces. El juego introdujo a Yoshi, nuevos potenciadores y un extenso mapa con múltiples caminos y secretos por descubrir."
+    },
+    {
+        "title": "The Simpsons: Bart's Nightmare",
+        "year": 1992,
+        "genre": "Acción",
+        "developer": "Arc Developments",
+        "platform": "Super Nintendo",
+        "publisher": "Acclaim Entertainment",
+        "rating": 7.5,
+        "portrait": "img/snes/simpsons-the-barts-nightmare/game.webp",
+        "marquee": "img/snes/simpsons-the-barts-nightmare/marquesina.webp",
+        "video": "videos/snes/simpsons-the-barts-nightmare-gameplay.mp4",
+        "description": "The Simpsons: Bart's Nightmare es un juego de acción y aventura en el que Bart Simpson debe recorrer un extraño mundo surgido de sus pesadillas. La aventura presenta diferentes escenarios basados en los episodios de Los Simpson, con desafíos y minijuegos protagonizados por Bart mientras intenta recuperar las páginas perdidas de su tarea."
+    }
+]

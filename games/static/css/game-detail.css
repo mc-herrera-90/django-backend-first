@@ -39,23 +39,6 @@
 
 
 /* =========================================================
-   BANNER
-   ========================================================= */
-
-.retro-game-detail-hero {
-    position: relative;
-
-    min-height: 560px;
-
-    padding: 4rem 0;
-
-    overflow: hidden;
-
-    border-bottom: 3px solid var(--green);
-}
-
-
-/* =========================================================
    FONDO
    ========================================================= */
 
@@ -90,163 +73,6 @@
 }
 
 
-/* =========================================================
-   CONTENIDO DEL BANNER
-   ========================================================= */
-
-.retro-game-detail-hero .container {
-    position: relative;
-    z-index: 1;
-}
-
-.retro-game-detail-hero-content {
-    display: grid;
-
-    grid-template-columns: 330px 1fr;
-
-    align-items: center;
-
-    gap: 5rem;
-
-    min-height: 470px;
-}
-
-
-/* =========================================================
-   PORTADA
-   ========================================================= */
-
-/* .retro-game-detail-poster {
-    position: relative;
-
-    display: flex;
-
-    justify-content: center;
-    align-items: center;
-
-    min-height: 430px;
-
-    padding: 1rem;
-}
-
-.retro-game-detail-poster::before {
-    content: "";
-
-    position: absolute;
-    inset: 12% 8%;
-
-    background:
-        repeating-linear-gradient(
-            45deg,
-            var(--green) 0,
-            var(--green) 2px,
-            transparent 2px,
-            transparent 9px
-        );
-
-    opacity: .15;
-
-    transform: translate(18px, 18px);
-}
-
-.retro-game-detail-poster img {
-    position: relative;
-    z-index: 1;
-
-    display: block;
-
-    width: 100%;
-    max-height: 440px;
-
-    object-fit: contain;
-
-    border: 3px solid rgba(124, 255, 0, .7);
-
-    background: #020503;
-
-    box-shadow:
-        10px 10px 0 #000,
-        14px 14px 0 var(--pink);
-} */
-
-
-/* =========================================================
-   MARQUESINA
-   ========================================================= */
-
-/* .retro-game-detail-marquee {
-    position: relative;
-
-    display: flex;
-
-    justify-content: center;
-    align-items: center;
-
-    min-height: 300px;
-
-    padding: 3rem;
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(11, 21, 17, .94),
-            rgba(2, 5, 3, .98)
-        );
-
-    border: 3px solid var(--green);
-
-    box-shadow:
-        10px 10px 0 #000,
-        14px 14px 0 var(--cyan);
-
-    overflow: hidden;
-}
-
-.retro-game-detail-marquee::before {
-    content: "";
-
-    position: absolute;
-    inset: 10px;
-
-    border: 1px solid rgba(124, 255, 0, .25);
-
-    pointer-events: none;
-}
-
-.retro-game-detail-marquee::after {
-    content: "";
-
-    position: absolute;
-    inset: 0;
-
-    pointer-events: none;
-
-    background:
-        repeating-linear-gradient(
-            0deg,
-            transparent 0,
-            transparent 4px,
-            rgba(255,255,255,.025) 4px,
-            rgba(255,255,255,.025) 5px
-        );
-}
-
-.retro-game-detail-marquee img {
-    position: relative;
-    z-index: 1;
-
-    display: block;
-
-    width: 100%;
-    max-width: 700px;
-    max-height: 240px;
-
-    object-fit: contain;
-
-    filter:
-        drop-shadow(5px 5px 0 #000)
-        saturate(1.1);
-} */
 
 
 /* =========================================================
@@ -344,7 +170,9 @@
     position: absolute;
     top: 0;
     left: 50%;
+    width: 100%;
     transform: translateX(-50%);
+    text-align: center;
 
     z-index: 3;
     color: var(--green);

@@ -46,20 +46,30 @@ class Game:
     @property
     def platform_icon(self):
         return f"img/platforms/{self.platform_file}.webp"
-    
-    @property
-    def cartridge(self):
-        cartridge_path = (
+
+
+    def _get_image(self, filename):
+        image_path = (
             Path(__file__).parent
             / "static"
             / self.portrait.rsplit("/", 1)[0]
-            / "cartucho.webp"
+            / filename
         )
 
-        if cartridge_path.exists():
-            return self.portrait.rsplit("/", 1)[0] + "/cartucho.webp"
+        if image_path.exists():
+            return self.portrait.rsplit("/", 1)[0] + f"/{filename}"
 
         return None
+
+
+    @property
+    def cartridge(self):
+        return self._get_image("cartucho.webp")
+
+
+    @property
+    def poster(self):
+        return self._get_image("poster.webp")
 
     @classmethod
     def platforms(cls):

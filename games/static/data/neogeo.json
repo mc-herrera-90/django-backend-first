@@ -1,0 +1,67 @@
+[
+    {
+        "title": "Metal Slug",
+        "year": 1996,
+        "genre": "Run and Gun",
+        "developer": "Nazca Corporation",
+        "platform": "Neo Geo",
+        "publisher": "SNK",
+        "rating": 9.5,
+        "portrait": "img/neogeo/mslug/game.webp",
+        "marquee": "img/neogeo/mslug/marquesina.webp",
+        "video": "videos/neogeo/mslug-gameplay.mp4",
+        "description": "Metal Slug es un clásico juego de acción tipo run and gun desarrollado por Nazca Corporation. El jugador controla a un soldado de la escuadra Peregrine Falcon en una misión para combatir al ejército rebelde y detener sus planes de conquista. Destaca por su animación detallada, humor, acción frenética y la posibilidad de controlar el poderoso tanque Metal Slug."
+    },
+    {
+        "title": "Metal Slug 2",
+        "year": 1998,
+        "genre": "Run and Gun",
+        "developer": "SNK",
+        "platform": "Neo Geo",
+        "publisher": "SNK",
+        "rating": 9.0,
+        "portrait": "img/neogeo/mslug2/game.webp",
+        "marquee": "img/neogeo/mslug2/marquesina.webp",
+        "video": "videos/neogeo/mslug2-gameplay.mp4",
+        "description": "Metal Slug 2 es un juego de acción tipo run and gun que continúa la aventura del título original. Los soldados de la escuadra Peregrine Falcon regresan para enfrentarse nuevamente al ejército rebelde y a una amenaza extraterrestre. El juego incorpora nuevos vehículos, armas, enemigos y transformaciones que amplían la frenética acción característica de la serie."
+    },
+    {
+        "title": "Metal Slug 3",
+        "year": 2000,
+        "genre": "Run and Gun",
+        "developer": "SNK",
+        "platform": "Neo Geo",
+        "publisher": "SNK",
+        "rating": 9.5,
+        "portrait": "img/neogeo/mslug3/game.webp",
+        "marquee": "img/neogeo/mslug3/marquesina.webp",
+        "video": "videos/neogeo/mslug3-gameplay.mp4",
+        "description": "Metal Slug 3 es un juego de acción tipo run and gun y una de las entregas más destacadas de la serie. Los soldados de la escuadra Peregrine Falcon se enfrentan a una nueva amenaza que combina fuerzas militares, criaturas mutantes y extraterrestres. El juego amplía la fórmula con nuevos vehículos, transformaciones, armas y rutas alternativas que ofrecen diferentes caminos durante la aventura."
+    },
+{
+    "title": "Metal Slug 4",
+    "year": 2002,
+    "genre": "Run and Gun",
+    "developer": "Mega Enterprise",
+    "platform": "Neo Geo",
+    "publisher": "SNK Playmore",
+    "rating": 8.5,
+    "portrait": "img/neogeo/mslug4/game.webp",
+    "marquee": "img/neogeo/mslug4/marquesina.webp",
+    "video": "videos/neogeo/mslug4-gameplay.mp4",
+    "description": "Metal Slug 4 es un juego de acción tipo run and gun en el que los soldados de la escuadra Peregrine Falcon regresan para enfrentarse a una nueva organización terrorista. La aventura introduce nuevos enemigos, armas, vehículos y mecánicas, manteniendo la acción rápida y el estilo característico de la serie."
+},
+{
+    "title": "Metal Slug 5",
+    "year": 2003,
+    "genre": "Run and Gun",
+    "developer": "SNK Playmore",
+    "platform": "Neo Geo",
+    "publisher": "SNK Playmore",
+    "rating": 8.5,
+    "portrait": "img/neogeo/mslug5/game.webp",
+    "marquee": "img/neogeo/mslug5/marquesina.webp",
+    "video": "videos/neogeo/mslug5-gameplay.mp4",
+    "description": "Metal Slug 5 es un juego de acción tipo run and gun en el que los soldados de la escuadra Peregrine Falcon se enfrentan a los Ptolemaic Army y a una misteriosa secta conocida como los Sages. El juego incorpora nuevos enemigos, vehículos, armas y escenarios, además de introducir al poderoso Stone Turtle y otras amenazas durante la aventura."
+}
+]

@@ -163,6 +163,8 @@ venv.bak/
 .spyderproject
 .spyproject
 
+staticfiles/
+
 # Rope project settings
 .ropeproject
 
