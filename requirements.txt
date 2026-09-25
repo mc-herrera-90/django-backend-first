@@ -12,12 +12,16 @@ Django==6.1
 djlint==1.44.2
 EditorConfig==0.17.1
 greenlet==3.5.5
+gunicorn==23.0.0
 idna==3.19
 jinxed==2.1.0
 jsbeautifier==2.0.3
 json5==0.15.0
+packaging==26.3
 pathspec==1.1.1
+pillow==12.3.0
 Pygments==2.21.0
+python-decouple==3.8
 pyxdg==0.28
 PyYAML==6.0.3
 regex==2026.7.19
@@ -27,5 +31,4 @@ typing_extensions==4.16.0
 tzdata==2026.3
 urllib3==2.7.0
 wcwidth==0.8.2
-gunicorn==23.0.0
 whitenoise==6.9.0
