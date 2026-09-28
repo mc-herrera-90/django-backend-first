@@ -28,12 +28,16 @@
         </a>
         <!-- PLATAFORMAS -->
         {% for platform in platforms %}
-          <a href="?platform={{ platform }}"
-             class="retro-games-platform-filter {% if request.GET.platform == platform %}is-active{% endif %}"
-             title="{{ platform|upper }}">
-            <img src="{% static 'img/platforms/' %}{{ platform }}.webp"
-                 alt="{{ platform|upper }}"
-                 loading="lazy">
+          <a href="?platform={{ platform.identifier }}"
+             class="retro-games-platform-filter {% if request.GET.platform == platform.identifier %}is-active{% endif %}"
+             title="{{ platform.name|upper }}">
+            {% if platform.icon %}
+              <img src="{{ platform.icon.url }}"
+                   alt="{{ platform.name }}"
+                   loading="lazy">
+            {% else %}
+              <span class="retro-games-platform-all">{{ platform.name|slice:":3"|upper }}</span>
+            {% endif %}
           </a>
         {% endfor %}
       </nav>
@@ -46,10 +50,12 @@
                  class="retro-game-poster"
                  data-game-card>
                 <!-- PORTADA -->
-                <img class="retro-game-image"
-                     src="{% if '://' in game.portrait %}{{ game.portrait }}{% else %}{% static game.portrait %}{% endif %}"
-                     alt="{{ game.title }}"
-                     loading="lazy">
+                {% if game.portrait %}
+                  <img class="retro-game-image"
+                       src="{{ game.portrait.url }}"
+                       alt="{{ game.title }}"
+                       loading="lazy">
+                {% endif %}
                 <!-- GAMEPLAY -->
                 {% if game.video %}
                   <video class="retro-game-video"
@@ -57,9 +63,9 @@
                          loop
                          playsinline
                          preload="none"
-                         data-game-video>
-                    <source src="{% if '://' in game.video %}{{ game.video }}{% else %}{% static game.video %}{% endif %}"
-                            type="video/mp4">
+                         data-game-video
+                         {% if game.marquee %} poster="{{ game.marquee.url }}" {% elif game.portrait %} poster="{{ game.portrait.url }}" {% endif %}>
+                    <source src="{{ game.video.url }}" type="video/mp4">
                   </video>
                 {% endif %}
                 <!-- INFORMACIÓN -->
@@ -72,12 +78,32 @@
                   </p>
                   <div class="retro-game-info">
                     <!-- ICONO DE PLATAFORMA -->
-                    <span class="retro-game-platform" title="{{ game.platform }}">
-                      <img src="{% static game.platform_icon %}"
-                           alt="{{ game.platform }}"
-                           loading="lazy">
+                    <span class="retro-game-platform" title="{{ game.platform.name }}">
+                      {% if game.platform.icon %}
+                        <img src="{{ game.platform.icon.url }}"
+                             alt="{{ game.platform.name }}"
+                             loading="lazy">
+                      {% else %}
+                        <span>{{ game.platform.name|slice:":3"|upper }}</span>
+                      {% endif %}
                     </span>
-                    <span class="retro-game-rating">★ {{ game.rating }}</span>
+                    <!-- RATING -->
+                    {% if game.rating %}
+                      <span class="retro-game-rating">★ {{ game.rating }}</span>
+                    {% endif %}
+                    <!-- USUARIO -->
+                    {% if game.user %}
+                      <span class="retro-game-user" title="Subido por {{ game.user.username }}">
+                        {% if game.user.avatar %}
+                          <img src="{{ game.user.avatar.url }}"
+                               alt="{{ game.user.username }}"
+                               loading="lazy">
+                        {% else %}
+                          <span class="retro-game-user-placeholder">{{ game.user.username|slice:":1"|upper }}</span>
+                        {% endif %}
+                        <span class="retro-game-user-name">{{ game.user.username }}</span>
+                      </span>
+                    {% endif %}
                   </div>
                 </div>
               </a>
@@ -93,6 +119,7 @@
       {% if page_obj.paginator.num_pages > 1 %}
         <nav class="retro-games-pagination" aria-label="Paginación de juegos">
           <ul class="pagination justify-content-center mb-0">
+            <!-- ANTERIOR -->
             <li class="page-item {% if not page_obj.has_previous %}disabled{% endif %}">
               {% if page_obj.has_previous %}
                 <a class="page-link"
@@ -103,6 +130,7 @@
                 <span class="page-link">Anterior</span>
               {% endif %}
             </li>
+            <!-- PÁGINAS -->
             {% for num in page_obj.paginator.page_range %}
               <li class="page-item {% if page_obj.number == num %}active{% endif %}">
                 {% if page_obj.number == num %}
@@ -115,6 +143,7 @@
                 {% endif %}
               </li>
             {% endfor %}
+            <!-- SIGUIENTE -->
             <li class="page-item {% if not page_obj.has_next %}disabled{% endif %}">
               {% if page_obj.has_next %}
                 <a class="page-link"
@@ -132,64 +161,5 @@
   </div>
 {% endblock %}
 {% block extra_js %}
-  <script>
-      document.querySelectorAll("[data-game-card]").forEach(card => {
-
-          const video = card.querySelector("[data-game-video]");
-
-          if (!video) {
-              return;
-          }
-
-          let hoverTimer = null;
-
-
-          /* =====================================================
-             ENTRAR
-             ===================================================== */
-
-          card.addEventListener("mouseenter", () => {
-
-              hoverTimer = setTimeout(async () => {
-
-                  try {
-
-                      video.load();
-
-                      await video.play();
-
-                      card.classList.add("is-playing");
-
-                  } catch (error) {
-
-                      console.error(
-                          "No se pudo reproducir el gameplay:",
-                          error
-                      );
-
-                  }
-
-              }, 2000);
-
-          });
-
-
-          /* =====================================================
-             SALIR
-             ===================================================== */
-
-          card.addEventListener("mouseleave", () => {
-
-              clearTimeout(hoverTimer);
-
-              video.pause();
-
-              video.currentTime = 0;
-
-              card.classList.remove("is-playing");
-
-          });
-
-      });
-  </script>
+  <script src="{% static 'js/game-home.js' %}"></script>
 {% endblock %}
