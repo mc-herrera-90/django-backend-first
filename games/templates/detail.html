@@ -15,12 +15,12 @@
            INFORMACIÓN DEL JUEGO
            ================================================= -->
         <section class="retro-game-info-section">
-          <div class="text-center col-12">
-            <img src="{% if '://' in game.marquee %}{{ game.marquee }}{% else %}{% static game.marquee %}{% endif %}"
-                 alt="{{ game.title }}"
-                 class="img-fluid">
-          </div>
-          <!-- DESCRIPCIÓN JUSTO DESPUÉS DEL TÍTULO -->
+          {% if game.marquee %}
+            <div class="text-center col-12">
+              <img src="{{ game.marquee.url }}" alt="{{ game.title }}" class="img-fluid">
+            </div>
+          {% endif %}
+          <!-- DESCRIPCIÓN -->
           <section class="retro-game-description">
             <div class="retro-game-description-text">
               <p>{{ game.description }}</p>
@@ -31,8 +31,10 @@
             <span>{{ game.year }}</span>
             <span>·</span>
             <span>{{ game.genre }}</span>
-            <span>·</span>
-            <span class="retro-game-detail-rating">★ {{ game.rating }}</span>
+            {% if average_rating %}
+              <span>·</span>
+              <span class="retro-game-detail-rating">★ {{ average_rating|floatformat:1 }}</span>
+            {% endif %}
           </div>
         </section>
         <!-- =================================================
@@ -45,16 +47,15 @@
                      controls
                      playsinline
                      preload="metadata"
-                     poster="{% if game.poster %}{% static game.poster %}{% else %}{% static game.portrait %}{% endif %}">
-                <source src="{% static game.video %}" type="video/mp4">
+                     {% if game.marquee %} poster="{{ game.marquee.url }}" {% elif game.portrait %} poster="{{ game.portrait.url }}" {% endif %}>
+                <source src="{{ game.video.url }}">
                 Tu navegador no soporta la reproducción de video.
               </video>
               <!-- CARTUCHO SOBRE EL GAMEPLAY -->
               {% if game.cartridge %}
                 <div class="retro-game-cartridge">
                   <div class="retro-game-cartridge-glow"></div>
-                  <img src="{% if '://' in game.cartridge %}{{ game.cartridge }}{% else %}{% static game.cartridge %}{% endif %}"
-                       alt="Cartucho de {{ game.title }}">
+                  <img src="{{ game.cartridge.url }}" alt="Cartucho de {{ game.title }}">
                   <span class="retro-game-cartridge-label">CARTUCHO ORIGINAL</span>
                 </div>
               {% endif %}
@@ -67,7 +68,7 @@
         <section class="retro-game-data">
           <div>
             <strong>Plataforma</strong>
-            <span>{{ game.platform }}</span>
+            <span>{{ game.platform.name }}</span>
           </div>
           <div>
             <strong>Lanzamiento</strong>
@@ -85,11 +86,89 @@
             <strong>Publisher</strong>
             <span>{{ game.publisher }}</span>
           </div>
-          <div>
-            <strong>Rating</strong>
-            <span>★ {{ game.rating }}</span>
-          </div>
+          {% if average_rating %}
+            <div>
+              <strong>Rating</strong>
+              <span>★ {{ average_rating|floatformat:1 }}</span>
+            </div>
+          {% endif %}
         </section>
+        <!-- =================================================
+           VALORACIÓN
+           ================================================= -->
+        <section class="retro-game-rating">
+          <div class="retro-game-rating-header">
+            <span>PLAYER RATING</span>
+            <h2>VALORA ESTE JUEGO</h2>
+          </div>
+          {% if user.is_authenticated %}
+            <form method="post"
+                  action="{% url 'games:rate' game.id %}"
+                  class="retro-game-rating-form">
+              {% csrf_token %}
+              <div class="retro-game-rating-options">
+                {% for value in "12345" %}
+                  <label>
+                    <input type="radio"
+                           name="rating"
+                           value="{{ value }}"
+                           {% if user_rating|stringformat:"s" == value %} checked {% endif %}>
+                    <span>{{ value }}</span>
+                  </label>
+                {% endfor %}
+              </div>
+              {% if user_rating %}
+                <p>Tu valoración: {{ user_rating }}/5</p>
+                <button type="submit">ACTUALIZAR VALORACIÓN</button>
+              {% else %}
+                <button type="submit">VALORAR JUEGO</button>
+              {% endif %}
+            </form>
+          {% else %}
+            <div class="retro-game-rating-login">
+              <p>Inicia sesión para valorar este juego.</p>
+              <a href="{% url 'accounts:login' %}">INICIAR SESIÓN</a>
+            </div>
+          {% endif %}
+        </section>
+        <!-- =================================================
+           MANUAL / FICHA TÉCNICA
+           ================================================= -->
+        {% if game.technical_sheet %}
+          <section class="retro-game-technical-sheet">
+            <div class="retro-game-technical-sheet-header">
+              <span>TECHNICAL DATA</span>
+            </div>
+            <div class="retro-game-technical-sheet-content">
+              <div class="retro-game-technical-sheet-info">
+                <strong>MANUAL / FICHA TÉCNICA</strong>
+                <span>DOCUMENTACIÓN DEL JUEGO · PDF</span>
+              </div>
+              <div class="retro-game-technical-sheet-actions">
+                <a href="{{ game.technical_sheet.url }}"
+                   class="retro-game-technical-sheet-action"
+                   target="_blank"
+                   rel="noopener">
+                  <span>▣</span>
+                  VISUALIZAR
+                </a>
+                <a href="{{ game.technical_sheet.url }}"
+                   class="retro-game-technical-sheet-action retro-game-technical-sheet-download"
+                   target="_blank"
+                   rel="noopener"
+                   download>
+                  <span>↓</span>
+                  DESCARGAR
+                </a>
+              </div>
+            </div>
+            <!-- VISOR DEL MANUAL -->
+            <div class="retro-game-technical-sheet-viewer">
+              <iframe src="{{ game.technical_sheet.url }}"
+                      title="Manual de {{ game.title }}"></iframe>
+            </div>
+          </section>
+        {% endif %}
         <!-- =================================================
            VOLVER
            ================================================= -->
