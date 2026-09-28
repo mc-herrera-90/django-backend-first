@@ -16,7 +16,6 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 SITE_NAME = "Zona Geek"
 
 # Quick-start development settings - unsuitable for production
@@ -63,7 +62,10 @@ MIDDLEWARE = [
 ]
 
 AUTH_USER_MODEL = "accounts.User"
+LOGOUT_REDIRECT_URL = "/"
+
 ROOT_URLCONF = '_site.urls'
+X_FRAME_OPTIONS = "SAMEORIGIN"
 
 TEMPLATES = [
     {
@@ -78,6 +80,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 '_site.context_processors.site_info',
+                '_site.context_processors.navbar_items',
             ],
         },
     },
@@ -127,7 +130,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'es-cl'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Santiago'
 
 USE_I18N = True
 
@@ -143,6 +146,9 @@ STATICFILES_DIRS = [
 ]
 
 STATIC_ROOT = BASE_DIR / "staticfiles"
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
 
 STORAGES = {
     "default": {
