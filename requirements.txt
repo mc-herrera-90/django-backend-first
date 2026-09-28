@@ -17,6 +17,7 @@ idna==3.19
 jinxed==2.1.0
 jsbeautifier==2.0.3
 json5==0.15.0
+mysqlclient==2.3.0
 packaging==26.3
 pathspec==1.1.1
 pillow==12.3.0
