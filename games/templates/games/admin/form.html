@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+  {% if game %}
+    EDITAR JUEGO | {{ site_name }}
+  {% else %}
+    AGREGAR JUEGO | {{ site_name }}
+  {% endif %}
+{% endblock %}
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/game-form.css' %}">
+{% endblock %}
+{% block content %}
+  <main class="game-form-page">
+    <header class="game-form-header container">
+      <div>
+        <span class="game-form-label">
+          {% if game %}
+            GAME DATABASE / EDIT ENTRY
+          {% else %}
+            GAME DATABASE / NEW ENTRY
+          {% endif %}
+        </span>
+        <h1>
+          {% if game %}
+            EDITAR JUEGO
+          {% else %}
+            AGREGAR JUEGO
+          {% endif %}
+        </h1>
+        <p>
+          {% if game %}
+            Modifica la información del juego seleccionado.
+          {% else %}
+            Registra un nuevo juego en el catálogo de Zona Geek.
+          {% endif %}
+        </p>
+      </div>
+      <a href="{% url 'games:admin' %}" class="game-form-back">← VOLVER</a>
+    </header>
+    <form method="post"
+          enctype="multipart/form-data"
+          class="game-form container">
+      {% csrf_token %}
+      {% if form.non_field_errors %}
+        <div class="game-form-errors">{{ form.non_field_errors }}</div>
+      {% endif %}
+      <section class="game-form-section">
+        <div class="game-form-section-header">
+          <span>01</span>
+          <div>
+            <h2>INFORMACIÓN GENERAL</h2>
+            <p>Datos principales del juego.</p>
+          </div>
+        </div>
+        <div class="game-form-grid">
+          <div class="game-form-field game-form-field-full">
+            <label for="{{ form.title.id_for_label }}">Título</label>
+            {{ form.title }}
+            {{ form.title.errors }}
+          </div>
+          <div class="game-form-field">
+            <label for="{{ form.year.id_for_label }}">Año</label>
+            {{ form.year }}
+            {{ form.year.errors }}
+          </div>
+          <div class="game-form-field">
+            <label for="{{ form.genre.id_for_label }}">Género</label>
+            {{ form.genre }}
+            {{ form.genre.errors }}
+          </div>
+          <div class="game-form-field">
+            <label for="{{ form.developer.id_for_label }}">Desarrollador</label>
+            {{ form.developer }}
+            {{ form.developer.errors }}
+          </div>
+          <div class="game-form-field">
+            <label for="{{ form.publisher.id_for_label }}">Distribuidor</label>
+            {{ form.publisher }}
+            {{ form.publisher.errors }}
+          </div>
+          <div class="game-form-field">
+            <label for="{{ form.platform.id_for_label }}">Plataforma</label>
+            {{ form.platform }}
+            {{ form.platform.errors }}
+          </div>
+          <div class="game-form-field game-form-field-full">
+            <label for="{{ form.description.id_for_label }}">Descripción</label>
+            {{ form.description }}
+            {{ form.description.errors }}
+          </div>
+        </div>
+      </section>
+      <section class="game-form-section">
+        <div class="game-form-section-header">
+          <span>02</span>
+          <div>
+            <h2>RECURSOS VISUALES</h2>
+            <p>Archivos utilizados para representar el juego.</p>
+          </div>
+        </div>
+        <div class="game-form-grid">
+          <div class="game-form-field">
+            <label for="{{ form.portrait.id_for_label }}">Portada</label>
+            {{ form.portrait }}
+            {{ form.portrait.errors }}
+            <small>Imagen principal del juego.</small>
+          </div>
+          <div class="game-form-field">
+            <label for="{{ form.marquee.id_for_label }}">Marquee</label>
+            {{ form.marquee }}
+            {{ form.marquee.errors }}
+            <small>Imagen horizontal utilizada en el catálogo.</small>
+          </div>
+          <div class="game-form-field">
+            <label for="{{ form.cartridge.id_for_label }}">Cartucho</label>
+            {{ form.cartridge }}
+            {{ form.cartridge.errors }}
+            <small>Imagen del cartucho original del juego.</small>
+          </div>
+        </div>
+      </section>
+      <section class="game-form-section">
+        <div class="game-form-section-header">
+          <span>03</span>
+          <div>
+            <h2>MULTIMEDIA</h2>
+            <p>Video y documentación del juego.</p>
+          </div>
+        </div>
+        <div class="game-form-grid">
+          <div class="game-form-field">
+            <label for="{{ form.video.id_for_label }}">Video</label>
+            {{ form.video }}
+            {{ form.video.errors }}
+            <small>Archivo de video promocional o gameplay.</small>
+          </div>
+          <div class="game-form-field">
+            <label for="{{ form.technical_sheet.id_for_label }}">Ficha técnica</label>
+            {{ form.technical_sheet }}
+            {{ form.technical_sheet.errors }}
+            <small>Documento PDF con la ficha técnica.</small>
+          </div>
+        </div>
+      </section>
+      <footer class="game-form-actions">
+        <a href="{% url 'games:admin' %}" class="game-form-cancel">CANCELAR</a>
+        <button type="submit" class="game-form-submit">
+          {% if game %}
+            GUARDAR CAMBIOS
+          {% else %}
+            + AGREGAR JUEGO
+          {% endif %}
+        </button>
+      </footer>
+    </form>
+  </main>
+{% endblock %}
