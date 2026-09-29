@@ -8,6 +8,7 @@
     <title>{% block title %}{{ site_name }}{% endblock %}</title>
     <!-- Estilos -->
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/nav.css' %}">
     <link rel="stylesheet" href="{% static 'css/footer.css' %}">
     <!-- Estilos adicionales de las plantillas hijas -->
     {% block extra_css %}{% endblock %}
@@ -16,9 +17,7 @@
     <!-- Navegación -->
     {% include "includes/navbar.html" %}
     <!-- Contenido principal -->
-    <main>
-      {% block content %}{% endblock %}
-    </main>
+    {% block content %}{% endblock %}
     <!-- Pie de página -->
     {% include "includes/footer.html" %}
     <!-- Scripts -->
