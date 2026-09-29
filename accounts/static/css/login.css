@@ -1,0 +1,330 @@
+/* =========================================================
+   LOGIN — ZONA GEEK
+   ========================================================= */
+.login-page {
+  --login-bg: #080810;
+  --login-primary: #00ff9d;
+  --login-secondary: #b51c98;
+  --login-accent: #00d9ff;
+  --login-text: #f4f4ff;
+  --login-muted: #8585a8;
+  --login-border: #30304d;
+
+  position: relative;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  min-height: calc(100vh - 76px);
+
+  padding: 3rem 1rem;
+
+  background: var(--login-bg);
+
+  overflow: hidden;
+}
+
+/* =========================================================
+   REJILLA
+   ========================================================= */
+
+.login-page::before {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  background-image:
+    linear-gradient(rgba(0, 255, 157, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 157, 0.035) 1px, transparent 1px);
+
+  background-size: 50px 50px;
+
+  mask-image: linear-gradient(to bottom, black, transparent 90%);
+
+  pointer-events: none;
+}
+
+/* =========================================================
+   LUZ
+   ========================================================= */
+
+.login-page::after {
+  content: "";
+
+  position: absolute;
+
+  width: 500px;
+  height: 500px;
+
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+
+  background: radial-gradient(circle, rgba(0, 255, 157, 0.08), transparent 70%);
+
+  pointer-events: none;
+}
+
+/* =========================================================
+   PANEL
+   ========================================================= */
+
+.login-panel {
+  position: relative;
+
+  z-index: 1;
+
+  width: 100%;
+  max-width: 430px;
+
+  background: #10101c;
+
+  border: 3px solid var(--login-primary);
+
+  box-shadow:
+    8px 8px 0 #000,
+    12px 12px 0 var(--login-secondary);
+
+  overflow: hidden;
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.login-header {
+  display: flex;
+
+  align-items: center;
+
+  gap: 1rem;
+
+  padding: 1.25rem;
+
+  background: linear-gradient(90deg, #10101c, #0b0b13);
+
+  border-bottom: 3px solid var(--login-accent);
+}
+
+.login-status {
+  width: 9px;
+  height: 9px;
+
+  flex-shrink: 0;
+
+  background: var(--login-primary);
+
+  box-shadow: 0 0 8px var(--login-primary);
+}
+
+.login-kicker {
+  display: block;
+
+  margin-bottom: 0.35rem;
+
+  color: var(--login-primary);
+
+  font:
+    900 0.6rem "Courier New",
+    monospace;
+
+  letter-spacing: 3px;
+}
+
+.login-header h1 {
+  margin: 0;
+
+  color: #fff;
+
+  font:
+    900 1.1rem "Courier New",
+    monospace;
+
+  letter-spacing: 1px;
+}
+
+/* =========================================================
+   BODY
+   ========================================================= */
+
+.login-body {
+  padding: 1.5rem;
+}
+
+/* =========================================================
+   CAMPOS
+   ========================================================= */
+
+.login-field {
+  margin-bottom: 1.25rem;
+}
+
+.login-field label {
+  display: block;
+
+  margin-bottom: 0.5rem;
+
+  color: var(--login-primary);
+
+  font:
+    900 0.65rem "Courier New",
+    monospace;
+
+  letter-spacing: 2px;
+}
+
+.login-field input {
+  display: block;
+  width: 100%;
+  padding: 0.8rem;
+  background: #050509;
+  border: 2px solid var(--login-border);
+  border-radius: 0;
+  color: var(--login-text);
+  font:
+    700 0.85rem "Courier New",
+    monospace;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.login-field input:focus {
+  border-color: var(--login-primary);
+  box-shadow: 4px 4px 0 #000;
+}
+
+/* =========================================================
+   ERROR
+   ========================================================= */
+
+.login-error {
+  margin-bottom: 1.25rem;
+  padding: 0.8rem;
+  background: rgba(255, 48, 79, 0.08);
+  border: 2px solid #ff304f;
+  color: #ff5268;
+  font:
+    700 0.7rem "Courier New",
+    monospace;
+
+  line-height: 1.5;
+}
+
+/* =========================================================
+   BOTÓN
+   ========================================================= */
+
+.login-button {
+  width: 100%;
+  margin-top: 0.25rem;
+  padding: 0.8rem;
+  background: var(--login-primary);
+  border: 2px solid var(--login-primary);
+  border-radius: 0;
+  color: #000;
+  font:
+    900 0.75rem "Courier New",
+    monospace;
+
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 4px 4px 0 #000;
+
+  transition:
+    transform 0.12s steps(2),
+    box-shadow 0.12s steps(2);
+}
+
+.login-button:hover {
+  background: #00e88c;
+  border-color: #00e88c;
+  transform: translate(3px, 3px);
+  box-shadow: 1px 1px 0 #000;
+}
+
+/* =========================================================
+   REGISTRO
+   ========================================================= */
+
+.login-register {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+
+  border-top: 2px solid var(--login-border);
+
+  color: var(--login-muted);
+
+  font:
+    700 0.6rem "Courier New",
+    monospace;
+
+  letter-spacing: 1px;
+}
+
+.login-register a {
+  color: var(--login-accent);
+
+  font-weight: 900;
+
+  text-decoration: none;
+}
+
+.login-register a:hover {
+  color: #fff;
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.login-footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.65rem 1rem;
+  background: #090910;
+  border-top: 2px solid #24243a;
+  color: #68687e;
+
+  font:
+    900 0.5rem "Courier New",
+    monospace;
+
+  letter-spacing: 1px;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 480px) {
+  .login-page {
+    padding: 2rem 0.75rem;
+  }
+
+  .login-panel {
+    border-width: 2px;
+
+    box-shadow:
+      5px 5px 0 #000,
+      8px 8px 0 var(--login-secondary);
+  }
+
+  .login-body {
+    padding: 1.25rem;
+  }
+
+  .login-register {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
