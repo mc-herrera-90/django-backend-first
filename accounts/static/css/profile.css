@@ -1,0 +1,1021 @@
+/* =========================================================
+   PROFILE — ZONA GEEK
+   ========================================================= */
+
+.profile-page {
+    --profile-bg: #080810;
+    --profile-panel: #10101a;
+    --profile-panel-alt: #0c0c14;
+
+    --profile-primary: #00ff9d;
+    --profile-secondary: #b51c98;
+    --profile-accent: #00d9ff;
+
+    --profile-text: #f4f4ff;
+    --profile-muted: #777794;
+    --profile-border: #292941;
+
+    min-height: calc(100vh - 76px);
+
+    background:
+        radial-gradient(
+            circle at 10% 10%,
+            rgba(0, 255, 157, .07),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 90% 80%,
+            rgba(181, 28, 152, .06),
+            transparent 30%
+        ),
+        var(--profile-bg);
+
+    color: var(--profile-text);
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   GRID BACKGROUND
+   ========================================================= */
+
+.profile-page::before {
+    content: "";
+
+    position: fixed;
+
+    inset: 0;
+
+    background-image:
+        linear-gradient(
+            rgba(255, 255, 255, .018) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255, 255, 255, .018) 1px,
+            transparent 1px
+        );
+
+    background-size: 32px 32px;
+
+    pointer-events: none;
+
+    opacity: .7;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.profile-header {
+    position: relative;
+
+    display: flex;
+
+    align-items: flex-end;
+
+    justify-content: space-between;
+
+    gap: 2rem;
+
+    margin-bottom: 2.5rem;
+
+    padding-bottom: 1.5rem;
+
+    border-bottom: 1px solid var(--profile-border);
+}
+
+.profile-kicker {
+    display: block;
+
+    margin-bottom: .5rem;
+
+    color: var(--profile-primary);
+
+    font:
+        900 .65rem
+        "Courier New",
+        monospace;
+
+    letter-spacing: .18em;
+
+    text-transform: uppercase;
+}
+
+.profile-header h1 {
+    margin: 0;
+
+    color: var(--profile-text);
+
+    font:
+        900 clamp(2rem, 4vw, 3rem)
+        "Courier New",
+        monospace;
+
+    letter-spacing: -.05em;
+
+    text-transform: uppercase;
+}
+
+.profile-header p {
+    margin: .65rem 0 0;
+
+    color: var(--profile-muted);
+
+    font:
+        700 .8rem
+        "Courier New",
+        monospace;
+}
+
+
+/* =========================================================
+   ACCOUNT STATUS
+   ========================================================= */
+
+.profile-status {
+    display: flex;
+
+    align-items: center;
+
+    gap: .55rem;
+
+    padding: .6rem .8rem;
+
+    background: rgba(0, 255, 157, .04);
+
+    border: 1px solid rgba(0, 255, 157, .25);
+
+    color: var(--profile-primary);
+
+    font:
+        900 .6rem
+        "Courier New",
+        monospace;
+
+    letter-spacing: .08em;
+
+    white-space: nowrap;
+}
+
+.profile-status-dot {
+    width: 7px;
+    height: 7px;
+
+    background: var(--profile-primary);
+
+    box-shadow:
+        0 0 8px var(--profile-primary);
+
+    border-radius: 50%;
+}
+
+
+/* =========================================================
+   CARD
+   ========================================================= */
+
+.profile-card {
+    position: relative;
+
+    height: 100%;
+
+    background: var(--profile-panel);
+
+    border: 1px solid var(--profile-border);
+
+    box-shadow:
+        5px 5px 0 #000;
+
+    overflow: hidden;
+}
+
+.profile-card::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 70px;
+    height: 2px;
+
+    background: var(--profile-primary);
+}
+
+
+/* =========================================================
+   CARD HEADER
+   ========================================================= */
+
+.profile-card-header {
+    display: flex;
+
+    align-items: center;
+
+    gap: 1rem;
+
+    min-height: 78px;
+
+    padding: 1rem 1.25rem;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(255, 255, 255, .025),
+            transparent
+        );
+
+    border-bottom: 1px solid var(--profile-border);
+}
+
+.profile-card-header > div:first-child {
+    flex: 1;
+}
+
+.profile-card-label {
+    display: block;
+
+    margin-bottom: .3rem;
+
+    color: var(--profile-primary);
+
+    font:
+        900 .55rem
+        "Courier New",
+        monospace;
+
+    letter-spacing: .16em;
+}
+
+.profile-card-header h2 {
+    margin: 0;
+
+    color: var(--profile-text);
+
+    font:
+        900 1rem
+        "Courier New",
+        monospace;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   EDIT BUTTON
+   ========================================================= */
+
+.profile-edit-button {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 38px;
+    height: 38px;
+
+    flex-shrink: 0;
+
+    padding: 0;
+
+    background: #090910;
+
+    border: 1px solid var(--profile-accent);
+
+    color: var(--profile-accent);
+
+    font:
+        900 1rem
+        "Courier New",
+        monospace;
+
+    cursor: pointer;
+
+    transition:
+        background .15s ease,
+        color .15s ease,
+        box-shadow .15s ease,
+        transform .15s ease;
+}
+
+.profile-edit-button:hover {
+    background: var(--profile-accent);
+
+    color: #000;
+
+    box-shadow:
+        3px 3px 0 #000;
+
+    transform: translate(-1px, -1px);
+}
+
+.profile-edit-button.is-editing {
+    border-color: #ff4d6d;
+
+    color: #ff4d6d;
+}
+
+.profile-edit-button.is-editing:hover {
+    background: #ff4d6d;
+
+    color: #000;
+}
+
+
+/* =========================================================
+   FORM
+   ========================================================= */
+
+.profile-form {
+    padding: 1.5rem;
+}
+
+.profile-form fieldset {
+    min-width: 0;
+
+    margin: 0;
+    padding: 0;
+
+    border: 0;
+}
+
+
+/* =========================================================
+   IDENTITY
+   ========================================================= */
+
+.profile-identity {
+    display: flex;
+
+    align-items: center;
+
+    gap: 1rem;
+
+    margin-bottom: 1.5rem;
+
+    padding-bottom: 1.5rem;
+
+    border-bottom: 1px solid var(--profile-border);
+}
+
+.profile-avatar {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 76px;
+    height: 76px;
+
+    flex-shrink: 0;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--profile-primary),
+            var(--profile-accent)
+        );
+
+    border: 3px solid #000;
+
+    box-shadow:
+        4px 4px 0 var(--profile-secondary);
+
+    color: #000;
+
+    font:
+        900 1.5rem
+        "Courier New",
+        monospace;
+}
+
+.profile-avatar img {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+.profile-identity-info {
+    min-width: 0;
+}
+
+.profile-identity-label {
+    display: block;
+
+    margin-bottom: .25rem;
+
+    color: var(--profile-muted);
+
+    font:
+        900 .5rem
+        "Courier New",
+        monospace;
+
+    letter-spacing: .12em;
+}
+
+.profile-identity-info strong {
+    display: block;
+
+    overflow: hidden;
+
+    color: var(--profile-text);
+
+    font:
+        900 1rem
+        "Courier New",
+        monospace;
+
+    text-overflow: ellipsis;
+
+    text-transform: uppercase;
+
+    white-space: nowrap;
+}
+
+.profile-identity-email {
+    display: block;
+
+    max-width: 100%;
+
+    margin-top: .25rem;
+
+    overflow: hidden;
+
+    color: var(--profile-muted);
+
+    font:
+        700 .62rem
+        "Courier New",
+        monospace;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   FORM FIELDS
+   ========================================================= */
+
+.profile-form-field {
+    margin-bottom: 1rem;
+}
+
+.profile-form-field label {
+    display: block;
+
+    margin-bottom: .4rem;
+
+    color: var(--profile-muted);
+
+    font:
+        900 .55rem
+        "Courier New",
+        monospace;
+
+    letter-spacing: .1em;
+
+    text-transform: uppercase;
+}
+
+.profile-form-field input,
+.profile-form-field textarea,
+.profile-form-field select {
+    display: block;
+
+    width: 100%;
+
+    padding: .7rem .8rem;
+
+    background: #08080f;
+
+    border: 1px solid var(--profile-border);
+
+    border-radius: 0;
+
+    outline: none;
+
+    color: var(--profile-text);
+
+    font:
+        700 .7rem
+        "Courier New",
+        monospace;
+
+    transition:
+        border-color .15s ease,
+        box-shadow .15s ease,
+        background .15s ease;
+}
+
+.profile-form-field textarea {
+    min-height: 100px;
+
+    resize: vertical;
+}
+
+
+/* =========================================================
+   DISABLED
+   ========================================================= */
+
+.profile-form-field input:disabled,
+.profile-form-field textarea:disabled,
+.profile-form-field select:disabled {
+    background: #0b0b12;
+
+    border-color: #202031;
+
+    color: #66667d;
+
+    cursor: not-allowed;
+
+    opacity: 1;
+}
+
+.profile-form-field input:disabled::placeholder,
+.profile-form-field textarea:disabled::placeholder {
+    color: #4e4e62;
+}
+
+
+/* =========================================================
+   FOCUS
+   ========================================================= */
+
+.profile-form-field input:not(:disabled):focus,
+.profile-form-field textarea:not(:disabled):focus,
+.profile-form-field select:not(:disabled):focus {
+    background: #0b1011;
+
+    border-color: var(--profile-primary);
+
+    box-shadow:
+        0 0 0 2px rgba(0, 255, 157, .08);
+}
+
+
+/* =========================================================
+   AVATAR INPUT
+   ========================================================= */
+
+.profile-avatar-field {
+    margin-bottom: 1.25rem;
+}
+
+.profile-file-wrapper input[type="file"] {
+    padding: .35rem;
+
+    cursor: pointer;
+}
+
+.profile-file-wrapper input[type="file"]::file-selector-button {
+    margin-right: .7rem;
+
+    padding: .45rem .7rem;
+
+    background: var(--profile-primary);
+
+    border: 0;
+
+    color: #000;
+
+    font:
+        900 .55rem
+        "Courier New",
+        monospace;
+
+    cursor: pointer;
+}
+
+.profile-file-wrapper input[type="file"]:disabled::file-selector-button {
+    background: #28283a;
+
+    color: #65657d;
+
+    cursor: not-allowed;
+}
+
+.profile-form-field small {
+    display: block;
+
+    margin-top: .4rem;
+
+    color: var(--profile-muted);
+
+    font:
+        600 .5rem
+        "Courier New",
+        monospace;
+}
+
+
+/* =========================================================
+   TWO COLUMNS
+   ========================================================= */
+
+.profile-form-grid {
+    display: grid;
+
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 1rem;
+}
+
+
+/* =========================================================
+   ACTIONS
+   ========================================================= */
+
+.profile-form-actions {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 1rem;
+
+    margin-top: 1.5rem;
+    padding-top: 1.25rem;
+
+    border-top: 1px solid var(--profile-border);
+}
+
+.profile-edit-status {
+    color: var(--profile-muted);
+
+    font:
+        900 .5rem
+        "Courier New",
+        monospace;
+
+    letter-spacing: .08em;
+}
+
+.profile-edit-status::before {
+    content: "●";
+
+    margin-right: .4rem;
+
+    color: #55556c;
+}
+
+.profile-edit-status.is-editing {
+    color: var(--profile-primary);
+}
+
+.profile-edit-status.is-editing::before {
+    color: var(--profile-primary);
+
+    text-shadow:
+        0 0 6px var(--profile-primary);
+}
+
+.profile-save-button {
+    padding: .7rem 1rem;
+
+    background: var(--profile-primary);
+
+    border: 1px solid var(--profile-primary);
+
+    color: #000;
+
+    font:
+        900 .58rem
+        "Courier New",
+        monospace;
+
+    letter-spacing: .04em;
+
+    cursor: pointer;
+
+    box-shadow:
+        3px 3px 0 #000;
+
+    transition:
+        background .15s ease,
+        transform .15s ease;
+}
+
+.profile-save-button:hover:not(:disabled) {
+    background: #7dffca;
+
+    transform: translate(-1px, -1px);
+}
+
+.profile-save-button:disabled {
+    background: #20202d;
+
+    border-color: #303044;
+
+    color: #55556c;
+
+    cursor: not-allowed;
+
+    box-shadow: none;
+}
+
+
+/* =========================================================
+   LIBRARY
+   ========================================================= */
+
+.profile-library {
+    padding: 1.25rem;
+}
+
+.profile-library-item {
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 1rem;
+
+    min-height: 100px;
+
+    padding: 1rem;
+
+    margin-bottom: .75rem;
+
+    background: #0b0b13;
+
+    border: 1px solid var(--profile-border);
+
+    color: var(--profile-text);
+
+    text-decoration: none;
+
+    transition:
+        border-color .15s ease,
+        background .15s ease,
+        transform .15s ease;
+}
+
+.profile-library-item:last-child {
+    margin-bottom: 0;
+}
+
+.profile-library-item:hover {
+    background: #0e1017;
+
+    border-color: var(--profile-primary);
+
+    color: var(--profile-text);
+
+    transform: translateX(4px);
+}
+
+
+/* =========================================================
+   LIBRARY ICON
+   ========================================================= */
+
+.profile-library-icon {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 52px;
+    height: 52px;
+
+    flex-shrink: 0;
+
+    background: #090910;
+
+    border: 2px solid;
+
+    font:
+        900 1.1rem
+        "Courier New",
+        monospace;
+}
+
+.profile-library-icon-games {
+    border-color: var(--profile-primary);
+
+    color: var(--profile-primary);
+}
+
+.profile-library-icon-movies {
+    border-color: var(--profile-secondary);
+
+    color: var(--profile-secondary);
+}
+
+
+/* =========================================================
+   LIBRARY INFO
+   ========================================================= */
+
+.profile-library-info {
+    min-width: 0;
+
+    flex: 1;
+}
+
+.profile-library-info strong {
+    display: block;
+
+    margin-bottom: .35rem;
+
+    color: var(--profile-text);
+
+    font:
+        900 .8rem
+        "Courier New",
+        monospace;
+
+    text-transform: uppercase;
+}
+
+.profile-library-info span {
+    display: block;
+
+    color: var(--profile-muted);
+
+    font:
+        600 .58rem
+        "Courier New",
+        monospace;
+
+    line-height: 1.5;
+}
+
+.profile-library-arrow {
+    color: var(--profile-muted);
+
+    font:
+        900 1.2rem
+        "Courier New",
+        monospace;
+
+    transition:
+        color .15s ease,
+        transform .15s ease;
+}
+
+.profile-library-item:hover .profile-library-arrow {
+    color: var(--profile-primary);
+
+    transform: translateX(4px);
+}
+
+
+/* =========================================================
+   LIBRARY COUNT
+   ========================================================= */
+
+.profile-library-count {
+    padding: .35rem .5rem;
+
+    background: #090910;
+
+    border: 1px solid var(--profile-border);
+
+    color: var(--profile-muted);
+
+    font:
+        900 .55rem
+        "Courier New",
+        monospace;
+}
+
+
+/* =========================================================
+   LIBRARY FOOTER
+   ========================================================= */
+
+.profile-library-footer {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: .75rem 1.25rem;
+
+    background: var(--profile-panel-alt);
+
+    border-top: 1px solid var(--profile-border);
+
+    color: #4f4f67;
+
+    font:
+        900 .45rem
+        "Courier New",
+        monospace;
+
+    letter-spacing: .08em;
+}
+
+.profile-library-footer span:last-child {
+    color: var(--profile-primary);
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 991px) {
+
+    .profile-header {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+    .profile-status {
+        align-self: flex-start;
+    }
+
+}
+
+
+@media (max-width: 767px) {
+
+    .profile-page {
+        min-height: auto;
+    }
+
+    .profile-header {
+        margin-bottom: 1.5rem;
+    }
+
+    .profile-header h1 {
+        font-size: 2rem;
+    }
+
+    .profile-card-header {
+        min-height: 70px;
+
+        padding: .9rem 1rem;
+    }
+
+    .profile-form {
+        padding: 1rem;
+    }
+
+    .profile-form-grid {
+        grid-template-columns: 1fr;
+
+        gap: 0;
+    }
+
+    .profile-identity {
+        align-items: flex-start;
+    }
+
+    .profile-avatar {
+        width: 64px;
+        height: 64px;
+    }
+
+    .profile-library {
+        padding: 1rem;
+    }
+
+    .profile-library-item {
+        min-height: 90px;
+
+        padding: .8rem;
+    }
+
+    .profile-library-icon {
+        width: 44px;
+        height: 44px;
+    }
+
+    .profile-form-actions {
+        align-items: stretch;
+
+        flex-direction: column;
+    }
+
+    .profile-save-button {
+        width: 100%;
+    }
+
+    .profile-library-footer {
+        gap: .5rem;
+
+        font-size: .4rem;
+    }
+
+}
