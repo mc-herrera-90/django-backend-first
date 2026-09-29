@@ -1,29 +1,30 @@
+from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
-from django.shortcuts import render
+from django.db.models import Avg
+from django.shortcuts import get_object_or_404, redirect, render
 
-from .models import Game
+from .forms import GameForm, GameRatingForm
+from .models import Game, GameRating, Platform
 
 
 def home(request):
 
-    # Todas las plataformas disponibles según los archivos JSON
-    platforms = Game.platforms()
+    platforms = Platform.objects.all().order_by("name")
 
-    # Todos los juegos
-    games = Game.all()
+    games = Game.objects.select_related(
+        "platform",
+        "user",
+    ).annotate(
+        average_rating=Avg("ratings__rating"),
+    )
 
-    # Plataforma seleccionada
     platform = request.GET.get("platform")
 
-    # Filtrar por el nombre del archivo JSON
-    if platform and platform in platforms:
-        games = [
-            game
-            for game in games
-            if game.platform_file == platform
-        ]
+    if platform and platforms.filter(identifier=platform).exists():
+        games = games.filter(
+            platform__identifier=platform,
+        )
 
-    # Paginación
     paginator = Paginator(games, 12)
 
     page_number = request.GET.get("page")
@@ -42,13 +43,159 @@ def home(request):
 
 def detail(request, game_id):
 
-    game = Game.get(game_id)
+    game = get_object_or_404(
+        Game,
+        id=game_id,
+    )
 
-    if game is None:
-        return render(
-            request,
-            "games/404.html",
-            status=404,
+    average_rating = game.ratings.aggregate(
+        average=Avg("rating"),
+    )["average"]
+
+    user_rating = None
+
+    if request.user.is_authenticated:
+        user_rating = GameRating.objects.filter(
+            game=game,
+            user=request.user,
+        ).values_list(
+            "rating",
+            flat=True,
+        ).first()
+
+    return render(
+        request,
+        "detail.html",
+        {
+            "game": game,
+            "average_rating": average_rating,
+            "user_rating": user_rating,
+        },
+    )
+
+
+@login_required
+def admin(request):
+
+    games = Game.objects.filter(
+        user=request.user,
+    )
+
+    return render(
+        request,
+        "games/admin/home.html",
+        {"games": games},
+    )
+
+
+@login_required
+def create(request):
+
+    if request.method == "POST":
+
+        form = GameForm(
+            request.POST,
+            request.FILES,
+        )
+
+        if form.is_valid():
+
+            game = form.save(commit=False)
+
+            game.user = request.user
+
+            game.save()
+
+            return redirect("games:admin")
+
+    else:
+
+        form = GameForm()
+
+    return render(
+        request,
+        "games/admin/form.html",
+        {"form": form},
+    )
+
+
+@login_required
+def edit(request, game_id):
+
+    game = get_object_or_404(
+        Game,
+        id=game_id,
+        user=request.user,
+    )
+
+    if request.method == "POST":
+
+        form = GameForm(
+            request.POST,
+            request.FILES,
+            instance=game,
+        )
+
+        if form.is_valid():
+
+            form.save()
+
+            return redirect("games:admin")
+
+    else:
+
+        form = GameForm(
+            instance=game,
+        )
+
+    return render(
+        request,
+        "games/admin/form.html",
+        {
+            "form": form,
+            "game": game,
+        },
+    )
+
+
+@login_required
+def rate(request, game_id):
+
+    game = get_object_or_404(
+        Game,
+        id=game_id,
+    )
+
+    rating = GameRating.objects.filter(
+        game=game,
+        user=request.user,
+    ).first()
+
+    if request.method == "POST":
+
+        form = GameRatingForm(
+            request.POST,
+            instance=rating,
+        )
+
+        if form.is_valid():
+
+            game_rating = form.save(commit=False)
+
+            game_rating.game = game
+            game_rating.user = request.user
+
+            game_rating.save()
+
+            return redirect(
+                "games:detail",
+                game_id=game.id,
+            )
+
+    else:
+
+        form = GameRatingForm(
+            instance=rating,
         )
 
     return render(
@@ -56,5 +203,25 @@ def detail(request, game_id):
         "detail.html",
         {
             "game": game,
+            "average_rating": game.ratings.aggregate(
+                average=Avg("rating"),
+            )["average"],
+            "user_rating": rating.rating if rating else None,
         },
     )
+
+@login_required
+def delete(request, game_id):
+
+    game = get_object_or_404(
+        Game,
+        id=game_id,
+        user=request.user,
+    )
+
+    if request.method == "POST":
+
+        game.delete()
+        return redirect("games:admin")
+
+    return redirect("games:admin")
