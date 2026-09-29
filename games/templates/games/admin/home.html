@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+  MIS JUEGOS | {{ site_name }}
+{% endblock %}
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/games-admin.css' %}">
+{% endblock %}
+{% block content %}
+  <main class="games-admin-page">
+    <header class="games-admin-header container">
+      <div>
+        <span class="games-admin-label">GAME DATABASE / ADMIN</span>
+        <h1>MIS JUEGOS</h1>
+        <p>Administra los juegos que has agregado al catálogo.</p>
+      </div>
+      <a href="{% url 'games:create' %}" class="games-admin-add">+ AGREGAR JUEGO</a>
+    </header>
+    {% if games %}
+      <section class="games-admin-list container">
+        <div class="games-admin-list-header">
+          <span>JUEGO</span>
+          <span>PLATAFORMA</span>
+          <span>AÑO</span>
+          <span>ACCIÓN</span>
+        </div>
+        {% for game in games %}
+          <article class="games-admin-item">
+            <!-- JUEGO -->
+            <div class="games-admin-game">
+              {% if game.portrait %}
+                <img src="{{ game.portrait.url }}" alt="Portada de {{ game.title }}">
+              {% else %}
+                <div class="games-admin-placeholder">GAME</div>
+              {% endif %}
+              <div>
+                <h2>{{ game.title }}</h2>
+                <span>{{ game.genre }}</span>
+              </div>
+            </div>
+            <!-- PLATAFORMA -->
+            <div class="games-admin-platform">
+              {% if game.platform.icon %}
+                <img src="{{ game.platform.icon.url }}"
+                     alt="{{ game.platform.name }}"
+                     class="games-admin-platform-icon">
+              {% endif %}
+              <span>{{ game.platform.name }}</span>
+            </div>
+            <!-- AÑO -->
+            <div class="games-admin-year">{{ game.year }}</div>
+            <!-- ACCIONES -->
+            <div class="games-admin-actions">
+              <a href="{% url 'games:detail' game.id %}" class="games-admin-action">VER</a>
+              <a href="{% url 'games:edit' game.id %}"
+                 class="games-admin-action games-admin-action-edit">EDITAR</a>
+              <button type="button"
+                      class="games-admin-action games-admin-action-delete"
+                      data-delete-modal
+                      data-game-title="{{ game.title }}"
+                      data-delete-url="{% url 'games:delete' game.id %}">ELIMINAR</button>
+            </div>
+          </article>
+        {% endfor %}
+      </section>
+    {% else %}
+      <section class="games-admin-empty container">
+        <div class="games-admin-empty-icon">+</div>
+        <h2>NO TIENES JUEGOS</h2>
+        <p>Todavía no has agregado ningún juego al catálogo.</p>
+        <a href="{% url 'games:create' %}" class="games-admin-add">+ AGREGAR PRIMER JUEGO</a>
+      </section>
+    {% endif %}
+  </main>
+  <!-- Modal -->
+  <div class="games-admin-modal" id="deleteModal" aria-hidden="true">
+    <div class="games-admin-modal-backdrop" data-delete-close></div>
+    <div class="games-admin-modal-content"
+         role="dialog"
+         aria-modal="true"
+         aria-labelledby="deleteModalTitle">
+      <button type="button"
+              class="games-admin-modal-close"
+              data-delete-close
+              aria-label="Cerrar">×</button>
+      <span class="games-admin-modal-label">SYSTEM WARNING</span>
+      <h2 id="deleteModalTitle">ELIMINAR JUEGO</h2>
+      <p>
+        ¿Seguro que deseas eliminar
+        <strong id="deleteGameTitle"></strong>?
+      </p>
+      <span class="games-admin-modal-warning">ESTA ACCIÓN NO SE PUEDE DESHACER.</span>
+      <form id="deleteGameForm" method="post">
+        {% csrf_token %}
+        <div class="games-admin-modal-actions">
+          <button type="button" class="games-admin-modal-cancel" data-delete-close>CANCELAR</button>
+          <button type="submit" class="games-admin-modal-confirm">ELIMINAR</button>
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock %}
+{% block extra_js %}
+  <script>
+      console.log("MODAL JS CARGADO");
+
+      const deleteModal = document.getElementById("deleteModal");
+      console.log("deleteModal:", deleteModal);
+
+      const deleteGameTitle = document.getElementById("deleteGameTitle");
+      const deleteGameForm = document.getElementById("deleteGameForm");
+
+      document.querySelectorAll("[data-delete-modal]").forEach((button) => {
+          button.addEventListener("click", () => {
+              console.log("BOTÓN ELIMINAR PRESIONADO");
+
+              deleteGameTitle.textContent = button.dataset.gameTitle;
+              deleteGameForm.action = button.dataset.deleteUrl;
+
+              deleteModal.classList.add("is-open");
+              deleteModal.setAttribute("aria-hidden", "false");
+          });
+      });
+
+      document.querySelectorAll("[data-delete-close]").forEach((element) => {
+          element.addEventListener("click", () => {
+              deleteModal.classList.remove("is-open");
+              deleteModal.setAttribute("aria-hidden", "true");
+          });
+      });
+
+      document.addEventListener("keydown", (event) => {
+          if (event.key === "Escape") {
+              deleteModal.classList.remove("is-open");
+              deleteModal.setAttribute("aria-hidden", "true");
+          }
+      });
+  </script>
+{% endblock %}
