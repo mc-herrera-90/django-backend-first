@@ -1,111 +1,129 @@
-import json
-from pathlib import Path
+from django.conf import settings
+from django.db import models
+
+class Platform(models.Model):
+    name = models.CharField(
+        max_length=100,
+        unique=True,
+    )
+
+    identifier = models.CharField(
+        max_length=50,
+        unique=True,
+    )
+
+    icon = models.ImageField(
+        upload_to="platforms/",
+        blank=True,
+    )
+
+    def __str__(self):
+        return self.name
 
 
-DATA_PATH = Path(__file__).parent / "static" / "data"
+class Game(models.Model):
+    title = models.CharField(max_length=200)
+    year = models.PositiveIntegerField()
+    genre = models.CharField(max_length=100)
+    developer = models.CharField(max_length=150)
+
+    platform = models.ForeignKey(
+        Platform,
+        on_delete=models.PROTECT,
+        related_name="games",
+    )
+
+    publisher = models.CharField(max_length=150)
+
+    portrait = models.ImageField(
+        upload_to="games/portraits/",
+        blank=True,
+    )
+
+    cartridge = models.ImageField(
+        upload_to="games/cartridges/",
+        blank=True,
+    )
+
+    marquee = models.ImageField(
+        upload_to="games/marquees/",
+        blank=True,
+    )
+
+    video = models.FileField(
+        upload_to="games/videos/",
+        blank=True,
+    )
+
+    technical_sheet = models.FileField(
+        upload_to="games/technical_sheets/",
+        blank=True,
+    )
+
+    description = models.TextField()
+
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="games",
+    )
+
+    def save(self, *args, **kwargs):
+
+        if self.pk:
+
+            old_game = Game.objects.get(pk=self.pk)
+
+            file_fields = (
+                "portrait",
+                "marquee",
+                "video",
+                "technical_sheet",
+            )
+
+            for field_name in file_fields:
+
+                old_file = getattr(old_game, field_name)
+                new_file = getattr(self, field_name)
+
+                if old_file and old_file != new_file:
+                    old_file.delete(save=False)
+
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.title
 
 
-def _load_data(platform):
-    file_path = DATA_PATH / f"{platform}.json"
+class GameRating(models.Model):
+    game = models.ForeignKey(
+        Game,
+        on_delete=models.CASCADE,
+        related_name="ratings",
+    )
 
-    with open(file_path, "r", encoding="utf-8") as file:
-        return json.load(file)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="game_ratings",
+    )
 
+    rating = models.PositiveSmallIntegerField()
 
-class Game:
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+    )
 
-    def __init__(
-        self,
-        id,
-        title,
-        year,
-        genre,
-        developer,
-        platform,
-        publisher,
-        rating,
-        portrait,
-        marquee,
-        video,
-        description,
-    ):
-        self.id = id
-        self.title = title
-        self.year = year
-        self.genre = genre
-        self.developer = developer
-        self.platform = platform
-        self.platform_file = None
-        self.publisher = publisher
-        self.rating = rating
-        self.portrait = portrait
-        self.marquee = marquee
-        self.video = video
-        self.description = description
-        
-    @property
-    def platform_icon(self):
-        return f"img/platforms/{self.platform_file}.webp"
+    updated_at = models.DateTimeField(
+        auto_now=True,
+    )
 
-
-    def _get_image(self, filename):
-        image_path = (
-            Path(__file__).parent
-            / "static"
-            / self.portrait.rsplit("/", 1)[0]
-            / filename
-        )
-
-        if image_path.exists():
-            return self.portrait.rsplit("/", 1)[0] + f"/{filename}"
-
-        return None
-
-
-    @property
-    def cartridge(self):
-        return self._get_image("cartucho.webp")
-
-
-    @property
-    def poster(self):
-        return self._get_image("poster.webp")
-
-    @classmethod
-    def platforms(cls):
-        return [
-            file.stem
-            for file in DATA_PATH.glob("*.json")
-        ]
-
-    @classmethod
-    def all(cls):
-        games = []
-        game_id = 1
-
-        for platform in cls.platforms():
-
-            for game in _load_data(platform):
-
-                game_instance = cls(
-                    id=game_id,
-                    **game
-                )
-
-                game_instance.platform_file = platform
-
-                games.append(game_instance)
-                game_id += 1
-
-        return games
-
-    @classmethod
-    def get(cls, game_id):
-        return next(
-            (
-                game
-                for game in cls.all()
-                if game.id == game_id
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["game", "user"],
+                name="unique_game_rating_per_user",
             ),
-            None,
-        )
+        ]
