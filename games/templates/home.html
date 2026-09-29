@@ -88,8 +88,14 @@
                       {% endif %}
                     </span>
                     <!-- RATING -->
-                    {% if game.rating %}
-                      <span class="retro-game-rating">★ {{ game.rating }}</span>
+                    {% if game.average_rating %}
+                      <span class="retro-game-rating">
+                        ★ {{ game.average_rating|floatformat:1 }}
+                      </span>
+                    {% else %}
+                      <span class="retro-game-rating">
+                        ★ N/A
+                      </span>
                     {% endif %}
                     <!-- USUARIO -->
                     {% if game.user %}
