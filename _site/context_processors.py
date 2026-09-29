@@ -6,19 +6,21 @@ def site_info(request):
     }
 
 def navbar_items(request):
+
     return {
         "navbar_items": [
             {
                 "name": "GAMES",
-                "icon": "👾",
+                "icon": "fa-solid fa-gamepad",
                 "url": "games:home",
                 "namespace": "games",
             },
             {
                 "name": "MOVIES",
-                "icon": "🎬",
+                "icon": "fa-solid fa-film",
                 "url": "movies:home",
                 "namespace": "movies",
             },
         ]
+
     }
