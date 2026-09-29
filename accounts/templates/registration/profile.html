@@ -1,0 +1,159 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Perfil | {{ site_name }}{% endblock %}
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
+{% block content %}
+  <main class="profile-page">
+    <div class="container py-5">
+      <!-- HEADER -->
+      <header class="profile-header">
+        <div>
+          <span class="profile-kicker">ACCOUNT / USER</span>
+          <h1>Mi perfil</h1>
+          <p>Administra tu información personal y accede a tu biblioteca.</p>
+        </div>
+        <div class="profile-status">
+          <span class="profile-status-dot"></span>
+          CUENTA ACTIVA
+        </div>
+      </header>
+      <!-- CONTENIDO -->
+      <div class="row g-4">
+        <!-- =====================================================
+             PERFIL
+             ===================================================== -->
+        <div class="col-lg-5">
+          <section class="profile-card profile-account-card">
+            <!-- HEADER -->
+            <div class="profile-card-header">
+              <div>
+                <span class="profile-card-label">USER PROFILE</span>
+                <h2>Información personal</h2>
+              </div>
+              <button type="button"
+                      class="profile-edit-button"
+                      id="profile-edit-button"
+                      title="Editar perfil"
+                      aria-label="Editar perfil">✎</button>
+            </div>
+            <!-- FORMULARIO -->
+            <form method="post"
+                  enctype="multipart/form-data"
+                  class="profile-form"
+                  id="profile-form">
+              {% csrf_token %}
+              <fieldset id="profile-fields" disabled>
+                <!-- IDENTIDAD -->
+                <div class="profile-identity">
+                  <div class="profile-avatar">
+                    {% if user.avatar %}
+                      <img src="{{ user.avatar.url }}"
+                           alt="Avatar de {{ user.username }}"
+                           id="profile-avatar-preview">
+                    {% else %}
+                      <span id="profile-avatar-preview">{{ user.username|first|upper }}</span>
+                    {% endif %}
+                  </div>
+                  <div class="profile-identity-info">
+                    <span class="profile-identity-label">USERNAME</span>
+                    <strong>{{ user.username }}</strong>
+                    <span class="profile-identity-email">
+                      {% if user.email %}
+                        {{ user.email }}
+                      {% else %}
+                        Sin correo registrado
+                      {% endif %}
+                    </span>
+                  </div>
+                </div>
+                <!-- AVATAR -->
+                <div class="profile-form-field profile-avatar-field">
+                  <label for="{{ form.avatar.id_for_label }}">AVATAR</label>
+                  <div class="profile-file-wrapper">{{ form.avatar }}</div>
+                  <small>JPG, PNG o WEBP.</small>
+                </div>
+                <!-- DATOS -->
+                <div class="profile-form-grid">
+                  <div class="profile-form-field">
+                    <label for="{{ form.first_name.id_for_label }}">NOMBRES</label>
+                    {{ form.first_name }}
+                  </div>
+                  <div class="profile-form-field">
+                    <label for="{{ form.last_name.id_for_label }}">APELLIDOS</label>
+                    {{ form.last_name }}
+                  </div>
+                </div>
+                <!-- CORREO -->
+                <div class="profile-form-field">
+                  <label for="{{ form.email.id_for_label }}">CORREO ELECTRÓNICO</label>
+                  {{ form.email }}
+                </div>
+                <!-- BIO -->
+                <div class="profile-form-field">
+                  <label for="{{ form.bio.id_for_label }}">BIOGRAFÍA</label>
+                  {{ form.bio }}
+                </div>
+              </fieldset>
+              <!-- ACCIONES -->
+              <div class="profile-form-actions">
+                <span class="profile-edit-status" id="profile-edit-status">MODO LECTURA</span>
+                <button type="submit"
+                        class="profile-save-button"
+                        id="profile-save-button"
+                        disabled>GUARDAR CAMBIOS</button>
+              </div>
+            </form>
+          </section>
+        </div>
+        <!-- =====================================================
+             BIBLIOTECA
+             ===================================================== -->
+        <div class="col-lg-7">
+          <section class="profile-card profile-library-card">
+            <div class="profile-card-header">
+              <div>
+                <span class="profile-card-label">LIBRARY</span>
+                <h2>Mi biblioteca</h2>
+              </div>
+              <span class="profile-library-count">02</span>
+            </div>
+            <div class="profile-library">
+              <!-- JUEGOS -->
+              <a href="{% url 'games:admin' %}" class="profile-library-item">
+                <div class="profile-library-icon profile-library-icon-games">
+                  <span>G</span>
+                </div>
+                <div class="profile-library-info">
+                  <strong>Juegos</strong>
+                  <span>Explorar y gestionar tu colección de videojuegos.</span>
+                </div>
+                <span class="profile-library-arrow">→</span>
+              </a>
+              <!-- PELÍCULAS -->
+              <a href="{% url 'movies:home' %}" class="profile-library-item">
+                <div class="profile-library-icon profile-library-icon-movies">
+                  <span>M</span>
+                </div>
+                <div class="profile-library-info">
+                  <strong>Películas</strong>
+                  <span>Explorar y gestionar tu colección cinematográfica.</span>
+                </div>
+                <span class="profile-library-arrow">→</span>
+              </a>
+            </div>
+            <!-- FOOTER -->
+            <div class="profile-library-footer">
+              <span>ZONA GEEK / PERSONAL LIBRARY</span>
+              <span>ONLINE</span>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </main>
+{% endblock %}
+{% block extra_js %}
+  <script src="{% static 'js/profile-edit.js' %}"></script>
+{% endblock %}
