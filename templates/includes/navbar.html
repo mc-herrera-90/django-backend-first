@@ -20,26 +20,99 @@
     <!-- Menú -->
     <div class="collapse navbar-collapse" id="mainNavbar">
       <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
-        <!-- Games -->
-        <li class="nav-item">
-          <a class="nav-link game-nav-link {% if request.resolver_match.namespace == 'games' %}active{% endif %}"
-             href="{% url 'games:home' %}">
-            <span class="nav-icon">👾</span>
-            GAMES
-          </a>
-        </li>
-        <!-- Movies -->
-        <li class="nav-item">
-          <a class="nav-link game-nav-link {% if request.resolver_match.namespace == 'movies' %}active{% endif %}"
-             href="{% url 'movies:home' %}">
-            <span class="nav-icon">🎬</span>
-            MOVIES
-          </a>
-        </li>
+        {% for item in navbar_items %}
+          <li class="nav-item">
+            <a class="nav-link game-nav-link {% if request.resolver_match.namespace == item.namespace %}active{% endif %}"
+               href="{% url item.url %}">
+              <i class="{{ item.icon }} {% if item.namespace == 'games' %}text-success{% elif item.namespace == 'movies' %}text-danger{% endif %}"></i>
+              {{ item.name }}
+            </a>
+          </li>
+        {% endfor %}
         <!-- Separador -->
         <li class="nav-item d-none d-lg-block">
           <span class="game-nav-divider"></span>
         </li>
+        {% if user.is_authenticated %}
+          <!-- Usuario autenticado -->
+          <li class="nav-item dropdown">
+            <a class="nav-link game-nav-link dropdown-toggle d-flex align-items-center gap-2"
+               href="#"
+               id="userDropdown"
+               role="button"
+               data-bs-toggle="dropdown"
+               aria-expanded="false">
+              <!-- Avatar -->
+              <span class="navbar-user-avatar">
+                {% if user.avatar %}
+                  <img src="{{ user.avatar.url }}" alt="Avatar de {{ user.username }}">
+                {% else %}
+                  <span>{{ user.username|first|upper }}</span>
+                {% endif %}
+              </span>
+              <!-- Usuario -->
+              <span>{{ user.username }}</span>
+            </a>
+            <!-- Menú desplegable -->
+            <ul class="dropdown-menu dropdown-menu-end game-user-dropdown"
+                aria-labelledby="userDropdown">
+              <!-- Información del usuario -->
+              <li>
+                <div class="game-user-dropdown-header">
+                  <span class="navbar-user-avatar navbar-user-avatar-large">
+                    {% if user.avatar %}
+                      <img src="{{ user.avatar.url }}" alt="Avatar de {{ user.username }}">
+                    {% else %}
+                      <span>{{ user.username|first|upper }}</span>
+                    {% endif %}
+                  </span>
+                  <div>
+                    <strong>{{ user.username }}</strong>
+                    {% if user.email %}
+                      <small>{{ user.email }}</small>
+                    {% endif %}
+                  </div>
+                </div>
+              </li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <!-- Perfil -->
+              <li>
+                <a class="dropdown-item game-dropdown-item"
+                   href="{% url 'accounts:profile' %}">
+                  <span class="nav-icon">👤</span>
+                  MI PERFIL
+                </a>
+              </li>
+              <!-- Cerrar sesión -->
+              <li>
+                <form method="post" action="{% url 'accounts:logout' %}">
+                  {% csrf_token %}
+                  <button type="submit" class="dropdown-item game-dropdown-item">
+                    <span class="nav-icon">🚪</span>
+                    CERRAR SESIÓN
+                  </button>
+                </form>
+              </li>
+            </ul>
+          </li>
+        {% else %}
+          <!-- Usuario no autenticado -->
+          <li class="nav-item">
+            <a class="nav-link game-nav-link {% if request.resolver_match.url_name == 'login' %}active{% endif %}"
+               href="{% url 'accounts:login' %}">
+              <span class="nav-icon">🔑</span>
+              INICIAR SESIÓN
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link game-nav-link" href="{% url 'accounts:register' %}">
+              <span class="nav-icon">📝</span>
+              REGISTRARSE
+            </a>
+          </li>
+        {% endif %}
       </ul>
     </div>
   </div>
