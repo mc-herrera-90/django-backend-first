@@ -94,8 +94,8 @@
           {% endif %}
         </section>
         <!-- =================================================
-           VALORACIÓN
-           ================================================= -->
+          VALORACIÓN
+          ================================================= -->
         <section class="retro-game-rating">
           <div class="retro-game-rating-header">
             <span>PLAYER RATING</span>
@@ -106,22 +106,40 @@
                   action="{% url 'games:rate' game.id %}"
                   class="retro-game-rating-form">
               {% csrf_token %}
-              <div class="retro-game-rating-options">
-                {% for value in "12345" %}
-                  <label>
-                    <input type="radio"
-                           name="rating"
-                           value="{{ value }}"
-                           {% if user_rating|stringformat:"s" == value %} checked {% endif %}>
-                    <span>{{ value }}</span>
-                  </label>
-                {% endfor %}
+              <!-- PUNTUACIÓN -->
+              <div class="retro-game-rating-field">
+                <label class="retro-game-rating-label">PUNTUACIÓN</label>
+                <div class="retro-game-rating-options">
+                  {% for value in "12345" %}
+                    <label>
+                      <input type="radio"
+                             name="rating"
+                             value="{{ value }}"
+                             {% if user_rating and user_rating.rating|stringformat:"s" == value %} checked {% endif %}>
+                      <span>{{ value }}</span>
+                    </label>
+                  {% endfor %}
+                </div>
+              </div>
+              <!-- COMENTARIO -->
+              <div class="retro-game-rating-field">
+                <label for="id_comment" class="retro-game-rating-label">COMENTARIO</label>
+                <textarea id="id_comment"
+                          name="comment"
+                          class="retro-game-rating-comment"
+                          rows="5"
+                          maxlength="1000"
+                          placeholder="ESCRIBE TU OPINIÓN SOBRE ESTE JUEGO...">{{ user_rating.comment|default:"" }}</textarea>
+                <div class="retro-game-rating-counter">MÁXIMO 1000 CARACTERES</div>
               </div>
               {% if user_rating %}
-                <p>Tu valoración: {{ user_rating }}/5</p>
-                <button type="submit">ACTUALIZAR VALORACIÓN</button>
+                <p class="retro-game-rating-current">
+                  TU VALORACIÓN:
+                  <strong>★ {{ user_rating.rating }}/5</strong>
+                </p>
+                <button type="submit" class="retro-game-rating-button">ACTUALIZAR VALORACIÓN</button>
               {% else %}
-                <button type="submit">VALORAR JUEGO</button>
+                <button type="submit" class="retro-game-rating-button">VALORAR JUEGO</button>
               {% endif %}
             </form>
           {% else %}
