@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Game, Platform
+from .models import Game, GameRating, Platform
 
 
 @admin.register(Platform)
@@ -43,5 +43,33 @@ class GameAdmin(admin.ModelAdmin):
 
     list_select_related = (
         "platform",
+        "user",
+    )
+
+
+@admin.register(GameRating)
+class GameRatingAdmin(admin.ModelAdmin):
+    list_display = (
+        "game",
+        "user",
+        "rating",
+        "comment",
+        "created_at",
+        "updated_at",
+    )
+
+    search_fields = (
+        "game__title",
+        "user__username",
+    )
+
+    list_filter = (
+        "rating",
+        "created_at",
+        "updated_at",
+    )
+
+    list_select_related = (
+        "game",
         "user",
     )
