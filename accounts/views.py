@@ -2,6 +2,7 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 
+from movies.models import Movie
 from .forms import UserLoginForm, UserRegisterForm, UserProfileForm
 
 
@@ -15,7 +16,11 @@ def login_view(request):
     else:
         form = UserLoginForm(request)
 
-    return render(request, "registration/login.html", {"form": form})
+    return render(
+        request,
+        "registration/login.html",
+        {"form": form},
+    )
 
 
 def register(request):
@@ -28,7 +33,11 @@ def register(request):
     else:
         form = UserRegisterForm()
 
-    return render(request, "registration/register.html", {"form": form})
+    return render(
+        request,
+        "registration/register.html",
+        {"form": form},
+    )
 
 
 def logout_view(request):
@@ -51,12 +60,24 @@ def profile(request):
             form.save()
             return redirect("accounts:profile")
     else:
-        form = UserProfileForm(instance=request.user)
+        form = UserProfileForm(
+            instance=request.user,
+        )
+
+    favorite_movies = Movie.objects.filter(
+        favorites__user=request.user,
+    )
+
+    watched_movies = Movie.objects.filter(
+        watched_by__user=request.user,
+    )
 
     return render(
         request,
         "registration/profile.html",
         {
             "form": form,
+            "favorite_movies": favorite_movies,
+            "watched_movies": watched_movies,
         },
     )
