@@ -1,23 +1,18 @@
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404, redirect, render
+
+from .models import Movie, MovieFavorite, MovieWatched
 from django.core.paginator import Paginator
-from django.http import Http404
-from django.shortcuts import render
-
-from .models import Movie
-
 
 def home(request):
-    movies = Movie.all()
+    movies = Movie.objects.all()
 
     paginator = Paginator(movies, 4)
 
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
 
-    popular_movies = sorted(
-        movies,
-        key=lambda movie: movie.rating,
-        reverse=True,
-    )[:5]
+    popular_movies = Movie.objects.all()[:5]
 
     return render(
         request,
@@ -30,21 +25,30 @@ def home(request):
 
 
 def detail(request, movie_id):
-    movie = Movie.get(movie_id)
+    movie = get_object_or_404(
+        Movie,
+        id=movie_id,
+    )
 
-    if movie is None:
-        raise Http404("La película no existe.")
-
-    related_movies = sorted(
-        [
-            related_movie
-            for related_movie in Movie.all()
-            if related_movie.id != movie.id
-            and related_movie.genre == movie.genre
-        ],
-        key=lambda movie: movie.rating,
-        reverse=True,
+    related_movies = Movie.objects.filter(
+        genre=movie.genre,
+    ).exclude(
+        id=movie.id,
     )[:4]
+
+    is_favorite = False
+    is_watched = False
+
+    if request.user.is_authenticated:
+        is_favorite = MovieFavorite.objects.filter(
+            user=request.user,
+            movie=movie,
+        ).exists()
+
+        is_watched = MovieWatched.objects.filter(
+            user=request.user,
+            movie=movie,
+        ).exists()
 
     return render(
         request,
@@ -52,5 +56,43 @@ def detail(request, movie_id):
         {
             "movie": movie,
             "related_movies": related_movies,
+            "is_favorite": is_favorite,
+            "is_watched": is_watched,
         },
     )
+
+
+@login_required
+def toggle_favorite(request, movie_id):
+    movie = get_object_or_404(
+        Movie,
+        id=movie_id,
+    )
+
+    favorite, created = MovieFavorite.objects.get_or_create(
+        user=request.user,
+        movie=movie,
+    )
+
+    if not created:
+        favorite.delete()
+
+    return redirect("movies:detail", movie_id=movie.id)
+
+
+@login_required
+def toggle_watched(request, movie_id):
+    movie = get_object_or_404(
+        Movie,
+        id=movie_id,
+    )
+
+    watched, created = MovieWatched.objects.get_or_create(
+        user=request.user,
+        movie=movie,
+    )
+
+    if not created:
+        watched.delete()
+
+    return redirect("movies:detail", movie_id=movie.id)
