@@ -1,60 +1,130 @@
-import json
-from pathlib import Path
+from django.conf import settings
+from django.db import models
 
-def _load_data():
-    file_path = (
-        Path(__file__).parent
-        / "static"
-        / "data"
-        / "movies.json"
+
+class Movie(models.Model):
+    title = models.CharField(
+        max_length=200,
     )
 
-    with open(file_path, "r", encoding="utf-8") as file:
-        return json.load(file)
+    year = models.PositiveIntegerField()
 
-class Movie:
+    genre = models.CharField(
+        max_length=100,
+    )
 
-    def __init__(
-        self,
-        id,
-        title,
-        year,
-        genre,
-        director,
-        duration,
-        rating,
-        country,
-        language,
-        studio,
-        portrait,
-        landscape,
-        description,
-        cast,
-        trailer
-    ):
-        self.id = id
-        self.title = title
-        self.year = year
-        self.genre = genre
-        self.director = director
-        self.duration = duration
-        self.rating = rating
-        self.country = country
-        self.language = language
-        self.studio = studio
-        self.portrait = portrait
-        self.landscape = landscape
-        self.description = description
-        self.cast = cast
-        self.trailer = trailer
+    director = models.CharField(
+        max_length=150,
+    )
 
-    @classmethod
-    def all(cls):
-        return [cls(**movie) for movie in _load_data()]
+    duration = models.PositiveIntegerField(
+        help_text="Duración en minutos.",
+    )
 
-    @classmethod
-    def get(cls, movie_id):
-        return next(
-            (movie for movie in cls.all() if movie.id == movie_id),
-            None,
-        )
+    country = models.CharField(
+        max_length=100,
+    )
+
+    language = models.CharField(
+        max_length=100,
+    )
+
+    studio = models.CharField(
+        max_length=150,
+    )
+
+    portrait = models.ImageField(
+        upload_to="movies/portraits/",
+        blank=True,
+    )
+
+    landscape = models.ImageField(
+        upload_to="movies/landscapes/",
+        blank=True,
+    )
+
+    trailer = models.FileField(
+        upload_to="movies/trailers/",
+        blank=True,
+    )
+
+    description = models.TextField()
+
+    cast = models.TextField(
+        blank=True,
+        help_text="Actores principales separados por comas.",
+    )
+
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+    )
+
+    updated_at = models.DateTimeField(
+        auto_now=True,
+    )
+
+    @property
+    def cast_list(self):
+        return [
+            actor.strip()
+            for actor in self.cast.split(",")
+            if actor.strip()
+        ]
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        ordering = ("-year", "title")
+
+
+class MovieFavorite(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="favorite_movies",
+    )
+
+    movie = models.ForeignKey(
+        Movie,
+        on_delete=models.CASCADE,
+        related_name="favorites",
+    )
+
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+    )
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["user", "movie"],
+                name="unique_movie_favorite",
+            ),
+        ]
+
+
+class MovieWatched(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="watched_movies",
+    )
+
+    movie = models.ForeignKey(
+        Movie,
+        on_delete=models.CASCADE,
+        related_name="watched_by",
+    )
+
+    watched_at = models.DateTimeField(
+        auto_now_add=True,
+    )
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["user", "movie"],
+                name="unique_movie_watched",
+            ),
+        ]
