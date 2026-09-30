@@ -1,7 +1,6 @@
 /* =========================================================
    RETRO GAMES — HOME
    ========================================================= */
-
 .retro-games-page {
     min-height: 100vh;
     padding-bottom: 4rem;
@@ -10,21 +9,18 @@
         #080810;
     color: #f4f4ff;
 }
-
-
-/* HEADER */
-
+/* =========================================================
+   HEADER
+   ========================================================= */
 .retro-games-header {
     padding: 2rem 0;
 }
-
 .retro-games-kicker {
     color: #00ff9d;
     font: 900 .75rem "Courier New", monospace;
     letter-spacing: 3px;
     text-transform: uppercase;
 }
-
 .retro-games-header h1 {
     margin: .5rem 0;
     color: #fff;
@@ -33,30 +29,26 @@
     text-transform: uppercase;
     text-shadow: 3px 3px 0 #b51c98;
 }
-
 .retro-games-header p {
     max-width: 600px;
     margin: 0;
     color: #9292b8;
 }
-
-
-/* GRID */
-
+/* =========================================================
+   GRID
+   ========================================================= */
 .retro-games-page .row {
     row-gap: .5rem !important;
 }
-
-
-/* GAME */
-
+/* =========================================================
+   GAME
+   ========================================================= */
 .retro-game-card {
     background: transparent;
 }
-
-
-/* POSTER */
-
+/* =========================================================
+   POSTER
+   ========================================================= */
 .retro-game-poster {
     position: relative;
     display: block;
@@ -64,32 +56,23 @@
     overflow: hidden;
     text-decoration: none;
 }
-
 .retro-game-poster img {
     width: 100%;
     height: 100%;
     display: block;
-
     object-fit: contain;
-
     filter: saturate(.85) brightness(.9);
-
     transition:
         transform .25s ease,
         filter .25s ease;
 }
-
-
 /* =========================================================
    INFORMACIÓN
    ========================================================= */
-
 .retro-game-content {
     position: absolute;
     inset: auto 0 0;
-
     padding: 5rem 1rem 1rem;
-
     background:
         linear-gradient(
             to top,
@@ -97,408 +80,326 @@
             rgba(8, 8, 16, .75) 45%,
             transparent
         );
-
     opacity: 0;
     transform: translateY(10px);
-
     transition:
         opacity .2s ease,
         transform .2s ease;
-
     pointer-events: none;
 }
-
 .retro-game-card:hover .retro-game-content {
     opacity: 1;
     transform: translateY(0);
 }
-
-
-/* TÍTULO */
-
+/* =========================================================
+   TÍTULO
+   ========================================================= */
 .retro-game-title {
     margin: 0;
-
     color: #fff;
-
     font: 900 1rem "Courier New", monospace;
     text-transform: uppercase;
 }
-
-
-/* META */
-
+/* =========================================================
+   META
+   ========================================================= */
 .retro-game-meta {
     display: flex;
     align-items: center;
     gap: .5rem;
-
     margin: .4rem 0 0;
-
     color: #9292b8;
-
     font: bold .75rem "Courier New", monospace;
 }
-
 .retro-game-meta span {
     color: #00ff9d;
 }
-
-
 /* =========================================================
    INFORMACIÓN EXTRA
    ========================================================= */
-
 .retro-game-info {
     display: flex;
     justify-content: space-between;
     align-items: center;
-
+    gap: .6rem;
     margin-top: .6rem;
-
     font: 900 .7rem "Courier New", monospace;
     text-transform: uppercase;
 }
-
 .retro-game-platform {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
     color: #00d9ff;
 }
-
+.retro-game-platform img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+}
 .retro-game-rating {
+    flex-shrink: 0;
     color: #ffe600;
 }
-
-
+/* =========================================================
+   USUARIO
+   ========================================================= */
+.retro-game-user {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    min-width: 0;
+    margin-left: auto;
+    color: #9292b8;
+    font: 900 .55rem "Courier New", monospace;
+    letter-spacing: .5px;
+    text-transform: none;
+}
+.retro-game-user img,
+.retro-game-user-placeholder {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    border: 1px solid #00ff9d;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.retro-game-user-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #0b1511;
+    color: #00ff9d;
+}
+.retro-game-user-name {
+    max-width: 80px;
+    overflow: hidden;
+    color: #9292b8;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
 /* =========================================================
    CRT
    ========================================================= */
-
 .retro-game-poster::after {
     content: "";
-
     position: absolute;
     inset: 0;
-
     pointer-events: none;
-
     background:
         repeating-linear-gradient(
             0deg,
             transparent 0,
             transparent 3px,
-            rgba(255,255,255,.025) 3px,
-            rgba(255,255,255,.025) 4px
+            rgba(255, 255, 255, .025) 3px,
+            rgba(255, 255, 255, .025) 4px
         );
-
     opacity: .3;
 }
-
-
-/* HOVER */
-
+/* =========================================================
+   HOVER
+   ========================================================= */
 .retro-game-card:hover .retro-game-poster img {
     transform: scale(1.025);
     filter: saturate(1) brightness(1);
 }
-
-
-/* EMPTY */
-
+/* =========================================================
+   EMPTY
+   ========================================================= */
 .retro-games-empty {
     padding: 3rem;
     color: #9292b8;
     text-align: center;
     font-family: "Courier New", monospace;
 }
-
-
-/* PAGINATION */
-
+/* =========================================================
+   PAGINATION
+   ========================================================= */
 .retro-games-pagination {
     margin-top: 4rem;
 }
-
 .retro-games-pagination .page-link {
     border: 0 !important;
     border-radius: 0 !important;
-
     background: #11111d;
     color: #9292b8;
-
     font-family: "Courier New", monospace;
     font-weight: 900;
 }
-
 .retro-games-pagination .page-link:hover {
     background: #00ff9d;
     color: #000;
 }
-
 .retro-games-pagination .active .page-link {
     background: #b51c98;
     color: #fff;
 }
-
-
-/* RESPONSIVE */
-
-@media (max-width: 768px) {
-
-    .retro-game-poster {
-        height: 300px;
-    }
-
-    .retro-game-content {
-        opacity: 1;
-        transform: none;
-    }
-
-}
-
-@media (max-width: 480px) {
-
-    .retro-game-poster {
-        height: 250px;
-    }
-
-}
 /* =========================================================
    GAMEPLAY PREVIEW
    ========================================================= */
-
 .retro-game-poster {
     position: relative;
     display: block;
     overflow: hidden;
 }
-
 /* =========================================================
    PORTADA
    ========================================================= */
-
 .retro-game-image {
     display: block;
-
     width: 100%;
     height: auto;
-
     opacity: 1;
 }
-
-
 /* =========================================================
    VIDEO
    ========================================================= */
-
 .retro-game-video {
     position: absolute;
-
     inset: 0;
-
     width: 100%;
     height: 100%;
-
     display: block;
-
     opacity: 0;
-
     object-fit: contain;
-
     background: #080708;
-
     pointer-events: none;
 }
-
-
 /* =========================================================
    GAMEPLAY ACTIVO
    ========================================================= */
-
 .retro-game-poster.is-playing .retro-game-image {
     opacity: 0;
 }
-
 .retro-game-poster.is-playing .retro-game-video {
     opacity: 1;
 }
 /* =========================================================
    FILTROS — PLATAFORMAS
    ========================================================= */
-
 .retro-games-platforms {
     display: flex;
     align-items: center;
     gap: 1rem;
-
     margin: 0 0 3.5rem;
     padding: 1rem 0;
-
     overflow-x: auto;
-
     scrollbar-width: thin;
     scrollbar-color: #00ff9d #11111d;
 }
-
-
 /* =========================================================
    BOTÓN DE PLATAFORMA
    ========================================================= */
-
 .retro-games-platform-filter {
     position: relative;
-
     flex: 0 0 auto;
-
     width: 92px;
     height: 72px;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     padding: .75rem;
-
     background:
         linear-gradient(
             145deg,
             #151522,
             #0b0b13
         );
-
     border: 2px solid #29293a;
-
     box-shadow:
         4px 4px 0 #000;
-
     text-decoration: none;
-
     transition:
         transform .15s steps(2),
         border-color .15s ease,
         background .15s ease,
         box-shadow .15s ease;
 }
-
-
 /* =========================================================
    ICONO
    ========================================================= */
-
 .retro-games-platform-filter img {
     display: block;
-
     width: 100%;
     height: 100%;
-
     object-fit: contain;
-
     image-rendering: pixelated;
-
     filter:
         saturate(.75)
         brightness(.8);
-
     transition:
         filter .15s ease,
         transform .15s steps(2);
 }
-
-
 /* =========================================================
    TODOS
    ========================================================= */
-
 .retro-games-platform-all {
     color: #9292b8;
-
     font:
         900 .8rem "Courier New", monospace;
-
     letter-spacing: 2px;
-
     transition:
         color .15s ease;
 }
-
-
 /* =========================================================
    HOVER
    ========================================================= */
-
 .retro-games-platform-filter:hover {
     transform: translate(-2px, -2px);
-
     border-color: #00ff9d;
-
     background:
         linear-gradient(
             145deg,
             #17251e,
             #0b1210
         );
-
     box-shadow:
         6px 6px 0 #b51c98,
         0 0 18px rgba(0, 255, 157, .12);
 }
-
 .retro-games-platform-filter:hover img {
     filter:
         saturate(1)
         brightness(1.1)
         drop-shadow(0 0 5px rgba(0, 255, 157, .35));
-
     transform: scale(1.06);
 }
-
 .retro-games-platform-filter:hover .retro-games-platform-all {
     color: #00ff9d;
 }
-
-
 /* =========================================================
    PLATAFORMA ACTIVA
    ========================================================= */
-
 .retro-games-platform-filter.is-active {
     border-color: #00ff9d;
-
     background:
         linear-gradient(
             145deg,
             #13251d,
             #0b1110
         );
-
     box-shadow:
         5px 5px 0 #b51c98,
         0 0 22px rgba(0, 255, 157, .14);
 }
-
 .retro-games-platform-filter.is-active img {
     filter:
         saturate(1)
         brightness(1.15)
         drop-shadow(0 0 6px rgba(0, 255, 157, .4));
 }
-
 .retro-games-platform-filter.is-active .retro-games-platform-all {
     color: #00ff9d;
 }
-
-
 /* =========================================================
    EFECTO CRT
    ========================================================= */
-
 .retro-games-platform-filter::after {
     content: "";
-
     position: absolute;
     inset: 0;
-
     pointer-events: none;
-
     background:
         repeating-linear-gradient(
             0deg,
@@ -507,40 +408,77 @@
             rgba(255, 255, 255, .035) 3px,
             rgba(255, 255, 255, .035) 4px
         );
-
     opacity: .45;
 }
-
-
+.retro-games-empty {
+    padding: 4rem 2rem;
+    border: 1px solid #292941;
+    background: #10101c;
+    text-align: center;
+}
+.retro-games-empty-icon {
+    display: block;
+    margin-bottom: 1rem;
+    color: var(--primary, #00ff9d);
+    font-size: 2rem;
+}
+.retro-games-empty h2 {
+    margin-bottom: .75rem;
+    color: #fff;
+}
+.retro-games-empty p {
+    margin-bottom: 1.5rem;
+    color: #aaaabd;
+}
+.retro-games-empty-button {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    padding: .7rem 1rem;
+    background: var(--primary, #00ff9d);
+    border: 2px solid var(--primary, #00ff9d);
+    color: #000;
+    font-family: "Courier New", monospace;
+    font-size: .65rem;
+    font-weight: 900;
+    text-decoration: none;
+}
+.retro-games-empty-button:hover {
+    background: #fff;
+    border-color: #fff;
+    color: #000;
+}
 /* =========================================================
    RESPONSIVE
    ========================================================= */
-
 @media (max-width: 768px) {
-
+    .retro-game-poster {
+        height: 300px;
+    }
+    .retro-game-content {
+        opacity: 1;
+        transform: none;
+    }
     .retro-games-platforms {
         gap: .75rem;
-
         margin-bottom: 2.5rem;
-
         padding-bottom: 1rem;
     }
-
     .retro-games-platform-filter {
         width: 78px;
         height: 64px;
     }
-
 }
-
-
 @media (max-width: 480px) {
-
+    .retro-game-poster {
+        height: 250px;
+    }
     .retro-games-platform-filter {
         width: 70px;
         height: 58px;
-
         padding: .6rem;
     }
-
+    .retro-game-user-name {
+        max-width: 55px;
+    }
 }
