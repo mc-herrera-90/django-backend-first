@@ -7,13 +7,13 @@
 {% block content %}
   <div class="retro-game-detail">
     <!-- =====================================================
-       CONTENIDO
-       ===================================================== -->
+         CONTENIDO
+         ===================================================== -->
     <main class="container py-5">
       <div class="retro-game-detail-content">
         <!-- =================================================
-           INFORMACIÓN DEL JUEGO
-           ================================================= -->
+             INFORMACIÓN DEL JUEGO
+             ================================================= -->
         <section class="retro-game-info-section">
           {% if game.marquee %}
             <div class="text-center col-12">
@@ -38,8 +38,8 @@
           </div>
         </section>
         <!-- =================================================
-           GAMEPLAY
-           ================================================= -->
+             GAMEPLAY
+             ================================================= -->
         {% if game.video %}
           <section class="retro-game-video">
             <div class="retro-game-video-wrapper">
@@ -51,7 +51,7 @@
                 <source src="{{ game.video.url }}">
                 Tu navegador no soporta la reproducción de video.
               </video>
-              <!-- CARTUCHO SOBRE EL GAMEPLAY -->
+              <!-- CARTUCHO -->
               {% if game.cartridge %}
                 <div class="retro-game-cartridge">
                   <div class="retro-game-cartridge-glow"></div>
@@ -63,8 +63,8 @@
           </section>
         {% endif %}
         <!-- =================================================
-           INFORMACIÓN TÉCNICA
-           ================================================= -->
+             INFORMACIÓN TÉCNICA
+             ================================================= -->
         <section class="retro-game-data">
           <div>
             <strong>Plataforma</strong>
@@ -94,8 +94,8 @@
           {% endif %}
         </section>
         <!-- =================================================
-          VALORACIÓN
-          ================================================= -->
+             VALORACIÓN DEL USUARIO
+             ================================================= -->
         <section class="retro-game-rating">
           <div class="retro-game-rating-header">
             <span>PLAYER RATING</span>
@@ -129,19 +129,39 @@
                           class="retro-game-rating-comment"
                           rows="5"
                           maxlength="1000"
-                          placeholder="ESCRIBE TU OPINIÓN SOBRE ESTE JUEGO...">{{ user_rating.comment|default:"" }}</textarea>
+                          placeholder="ESCRIBE TU OPINIÓN SOBRE ESTE JUEGO...">{% if user_rating %}{{ user_rating.comment }}{% endif %}</textarea>
                 <div class="retro-game-rating-counter">MÁXIMO 1000 CARACTERES</div>
               </div>
+              <!-- ERRORES DEL FORMULARIO -->
+              {% if form.errors %}
+                <div class="retro-game-rating-errors">
+                  {{ form.non_field_errors }}
+                  {{ form.rating.errors }}
+                  {{ form.comment.errors }}
+                </div>
+              {% endif %}
               {% if user_rating %}
-                <p class="retro-game-rating-current">
-                  TU VALORACIÓN:
+                <div class="retro-game-rating-current">
+                  <span>TU VALORACIÓN</span>
                   <strong>★ {{ user_rating.rating }}/5</strong>
-                </p>
+                </div>
                 <button type="submit" class="retro-game-rating-button">ACTUALIZAR VALORACIÓN</button>
               {% else %}
                 <button type="submit" class="retro-game-rating-button">VALORAR JUEGO</button>
               {% endif %}
             </form>
+            <!-- ELIMINAR VALORACIÓN -->
+            {% if user_rating %}
+              <form method="post"
+                    action="{% url 'games:delete_rating' game.id %}"
+                    class="retro-game-rating-delete-form"
+                    onsubmit="return confirm('¿Quieres eliminar tu valoración y comentario?');">
+                {% csrf_token %}
+                <button type="submit" class="retro-game-rating-delete-button">
+                  ELIMINAR VALORACIÓN Y COMENTARIO
+                </button>
+              </form>
+            {% endif %}
           {% else %}
             <div class="retro-game-rating-login">
               <p>Inicia sesión para valorar este juego.</p>
@@ -150,8 +170,68 @@
           {% endif %}
         </section>
         <!-- =================================================
-           MANUAL / FICHA TÉCNICA
-           ================================================= -->
+             VALORACIONES DE LA COMUNIDAD
+             ================================================= -->
+        <section class="retro-game-reviews">
+          <div class="retro-game-reviews-header">
+            <span>COMMUNITY REVIEWS</span>
+            <h2>VALORACIONES</h2>
+          </div>
+          {% if ratings %}
+            <div class="retro-game-reviews-list">
+              {% for rating in ratings %}
+                <article class="retro-game-review">
+                  <!-- USUARIO -->
+                  <div class="retro-game-review-user">
+                    <div class="retro-game-review-avatar">
+                      {% if rating.user.avatar %}
+                        <img src="{{ rating.user.avatar.url }}"
+                             alt="Avatar de {{ rating.user.username }}">
+                      {% else %}
+                        <span>{{ rating.user.username|first|upper }}</span>
+                      {% endif %}
+                    </div>
+                    <div class="retro-game-review-user-info">
+                      <strong>{{ rating.user.username }}</strong>
+                      <small>{{ rating.created_at|date:"d/m/Y" }}</small>
+                    </div>
+                  </div>
+                  <!-- PUNTUACIÓN -->
+                  <div class="retro-game-review-rating">
+                    <span class="retro-game-review-stars">
+                      {% for star in "12345" %}
+                        {% if forloop.counter <= rating.rating %}
+                          ★
+                        {% else %}
+                          ☆
+                        {% endif %}
+                      {% endfor %}
+                    </span>
+                    <strong>{{ rating.rating }}/5</strong>
+                  </div>
+                  <!-- COMENTARIO -->
+                  {% if rating.comment %}
+                    <div class="retro-game-review-comment">
+                      <p>{{ rating.comment }}</p>
+                    </div>
+                  {% else %}
+                    <div class="retro-game-review-comment">
+                      <p class="retro-game-review-no-comment">Este usuario no dejó un comentario.</p>
+                    </div>
+                  {% endif %}
+                </article>
+              {% endfor %}
+            </div>
+          {% else %}
+            <div class="retro-game-reviews-empty">
+              <p>Este juego todavía no tiene valoraciones.</p>
+              <span>Sé el primero en compartir tu opinión.</span>
+            </div>
+          {% endif %}
+        </section>
+        <!-- =================================================
+             MANUAL / FICHA TÉCNICA
+             ================================================= -->
         {% if game.technical_sheet %}
           <section class="retro-game-technical-sheet">
             <div class="retro-game-technical-sheet-header">
@@ -188,8 +268,8 @@
           </section>
         {% endif %}
         <!-- =================================================
-           VOLVER
-           ================================================= -->
+             VOLVER
+             ================================================= -->
         <div class="retro-game-detail-actions">
           <a href="{% url 'games:home' %}" class="retro-game-back">← Volver a la librería</a>
         </div>
