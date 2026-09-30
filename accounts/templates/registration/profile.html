@@ -112,15 +112,17 @@
              ===================================================== -->
         <div class="col-lg-7">
           <section class="profile-card profile-library-card">
+            <!-- HEADER -->
             <div class="profile-card-header">
               <div>
                 <span class="profile-card-label">LIBRARY</span>
                 <h2>Mi biblioteca</h2>
               </div>
-              <span class="profile-library-count">02</span>
             </div>
+            <!-- =================================================
+                 JUEGOS
+                 ================================================= -->
             <div class="profile-library">
-              <!-- JUEGOS -->
               <a href="{% url 'games:admin' %}" class="profile-library-item">
                 <div class="profile-library-icon profile-library-icon-games">
                   <span>G</span>
@@ -131,17 +133,74 @@
                 </div>
                 <span class="profile-library-arrow">→</span>
               </a>
-              <!-- PELÍCULAS -->
-              <a href="{% url 'movies:home' %}" class="profile-library-item">
-                <div class="profile-library-icon profile-library-icon-movies">
-                  <span>M</span>
+            </div>
+            <!-- =================================================
+                 PELÍCULAS FAVORITAS
+                 ================================================= -->
+            <div class="profile-movie-section">
+              <div class="profile-movie-section-header">
+                <div>
+                  <span class="profile-card-label">FAVORITES</span>
+                  <h3>Películas favoritas</h3>
                 </div>
-                <div class="profile-library-info">
-                  <strong>Películas</strong>
-                  <span>Explorar y gestionar tu colección cinematográfica.</span>
+                <span class="profile-library-count">{{ favorite_movies|length }}</span>
+              </div>
+              {% if favorite_movies %}
+                <div class="profile-movie-grid">
+                  {% for movie in favorite_movies %}
+                    <a href="{% url 'movies:detail' movie.id %}" class="profile-movie-item">
+                      {% if movie.portrait %}
+                        <img src="{{ movie.portrait.url }}" alt="{{ movie.title }}">
+                      {% else %}
+                        <div class="profile-movie-placeholder">{{ movie.title|first|upper }}</div>
+                      {% endif %}
+                      <div class="profile-movie-info">
+                        <strong>{{ movie.title }}</strong>
+                        <span>{{ movie.year }} · {{ movie.genre }}</span>
+                      </div>
+                    </a>
+                  {% endfor %}
                 </div>
-                <span class="profile-library-arrow">→</span>
-              </a>
+              {% else %}
+                <div class="profile-empty-library">
+                  <span>No tienes películas favoritas.</span>
+                  <a href="{% url 'movies:home' %}">Explorar películas</a>
+                </div>
+              {% endif %}
+            </div>
+            <!-- =================================================
+                 PELÍCULAS VISTAS
+                 ================================================= -->
+            <div class="profile-movie-section">
+              <div class="profile-movie-section-header">
+                <div>
+                  <span class="profile-card-label">WATCHED</span>
+                  <h3>Películas vistas</h3>
+                </div>
+                <span class="profile-library-count">{{ watched_movies|length }}</span>
+              </div>
+              {% if watched_movies %}
+                <div class="profile-movie-grid">
+                  {% for movie in watched_movies %}
+                    <a href="{% url 'movies:detail' movie.id %}" class="profile-movie-item">
+                      {% if movie.portrait %}
+                        <img src="{{ movie.portrait.url }}" alt="{{ movie.title }}">
+                      {% else %}
+                        <div class="profile-movie-placeholder">{{ movie.title|first|upper }}</div>
+                      {% endif %}
+                      <div class="profile-movie-info">
+                        <strong>{{ movie.title }}</strong>
+                        <span>{{ movie.year }} · {{ movie.genre }}</span>
+                      </div>
+                    </a>
+                  {% endfor %}
+                </div>
+              {% else %}
+                <div class="profile-empty-library">
+                  <span>No has marcado películas como vistas.</span>
+                  <a href="{% url 'movies:home' %}">Explorar películas</a>
+                </div>
+              {% endif %}
             </div>
             <!-- FOOTER -->
             <div class="profile-library-footer">
