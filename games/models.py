@@ -20,6 +20,8 @@ class Platform(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        ordering = ("name",)
 
 class Game(models.Model):
     title = models.CharField(max_length=200)
@@ -111,6 +113,10 @@ class GameRating(models.Model):
     )
 
     rating = models.PositiveSmallIntegerField()
+
+    comment = models.TextField(
+        blank=True,
+    )
 
     created_at = models.DateTimeField(
         auto_now_add=True,
