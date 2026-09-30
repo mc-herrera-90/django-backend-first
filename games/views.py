@@ -1,13 +1,14 @@
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.db.models import Avg
-from django.shortcuts import get_object_or_404, redirect, render
 from django.http import JsonResponse
+from django.shortcuts import get_object_or_404, redirect, render
 import requests
 
 from .forms import GameForm, GameRatingForm
 from .models import Game, GameRating, Platform
 from .services.screenscraper import search_games
+
 
 def home(request):
 
@@ -27,7 +28,10 @@ def home(request):
             platform__identifier=platform,
         )
 
-    paginator = Paginator(games, 12)
+    paginator = Paginator(
+        games,
+        12,
+    )
 
     page_number = request.GET.get("page")
 
@@ -54,9 +58,16 @@ def detail(request, game_id):
         average=Avg("rating"),
     )["average"]
 
+    ratings = game.ratings.select_related(
+        "user",
+    ).order_by(
+        "-created_at",
+    )
+
     user_rating = None
 
     if request.user.is_authenticated:
+
         user_rating = GameRating.objects.filter(
             game=game,
             user=request.user,
@@ -69,6 +80,7 @@ def detail(request, game_id):
             "game": game,
             "average_rating": average_rating,
             "user_rating": user_rating,
+            "ratings": ratings,
         },
     )
 
@@ -83,7 +95,9 @@ def admin(request):
     return render(
         request,
         "games/admin/home.html",
-        {"games": games},
+        {
+            "games": games,
+        },
     )
 
 
@@ -99,13 +113,17 @@ def create(request):
 
         if form.is_valid():
 
-            game = form.save(commit=False)
+            game = form.save(
+                commit=False,
+            )
 
             game.user = request.user
 
             game.save()
 
-            return redirect("games:admin")
+            return redirect(
+                "games:admin",
+            )
 
     else:
 
@@ -114,7 +132,9 @@ def create(request):
     return render(
         request,
         "games/admin/form.html",
-        {"form": form},
+        {
+            "form": form,
+        },
     )
 
 
@@ -139,7 +159,9 @@ def edit(request, game_id):
 
             form.save()
 
-            return redirect("games:admin")
+            return redirect(
+                "games:admin",
+            )
 
     else:
 
@@ -179,7 +201,9 @@ def rate(request, game_id):
 
         if form.is_valid():
 
-            game_rating = form.save(commit=False)
+            game_rating = form.save(
+                commit=False,
+            )
 
             game_rating.game = game
             game_rating.user = request.user
@@ -207,6 +231,11 @@ def rate(request, game_id):
                 average=Avg("rating"),
             )["average"],
             "user_rating": rating,
+            "ratings": game.ratings.select_related(
+                "user",
+            ).order_by(
+                "-created_at",
+            ),
         },
     )
 
@@ -224,16 +253,29 @@ def delete(request, game_id):
 
         game.delete()
 
-        return redirect("games:admin")
+        return redirect(
+            "games:admin",
+        )
 
-    return redirect("games:admin")
+    return redirect(
+        "games:admin",
+    )
+
 
 @login_required
 def screenscraper_search(request):
-    query = request.GET.get("q", "").strip()
-    system_id = request.GET.get("system_id")
+
+    query = request.GET.get(
+        "q",
+        "",
+    ).strip()
+
+    system_id = request.GET.get(
+        "system_id",
+    )
 
     if not query:
+
         return JsonResponse(
             {
                 "results": [],
@@ -241,11 +283,14 @@ def screenscraper_search(request):
         )
 
     try:
+
         data = search_games(
             query,
             system_id=system_id,
         )
+
     except requests.RequestException:
+
         return JsonResponse(
             {
                 "error": "No fue posible conectarse con ScreenScraper.",
@@ -253,15 +298,25 @@ def screenscraper_search(request):
             status=502,
         )
 
-    games = data.get("response", {}).get("jeux", [])
+    games = data.get(
+        "response",
+        {},
+    ).get(
+        "jeux",
+        [],
+    )
 
     results = []
 
     for game in games:
+
         results.append(
             {
                 "id": game.get("id"),
-                "name": game.get("noms", {}).get("nom", ""),
+                "name": game.get("noms", {}).get(
+                    "nom",
+                    "",
+                ),
             }
         )
 
