@@ -1,8 +1,20 @@
-document.querySelectorAll(".game-platform-select").forEach((select) => {
+document.querySelectorAll(
+    ".game-platform-select, .game-genre-select"
+).forEach((select) => {
     const nativeSelect = select.querySelector("select");
-    const toggle = select.querySelector(".game-platform-toggle");
-    const selected = select.querySelector(".game-platform-selected");
-    const dropdown = select.querySelector(".game-platform-dropdown");
+    const toggle = select.querySelector(
+        ".game-platform-toggle, .game-genre-toggle"
+    );
+    const selected = select.querySelector(
+        ".game-platform-selected, .game-genre-selected"
+    );
+    const dropdown = select.querySelector(
+        ".game-platform-dropdown, .game-genre-dropdown"
+    );
+
+    if (!nativeSelect || !toggle || !selected || !dropdown) {
+        return;
+    }
 
     toggle.addEventListener("click", () => {
         const isOpen = select.classList.toggle("is-open");
@@ -13,7 +25,9 @@ document.querySelectorAll(".game-platform-select").forEach((select) => {
         );
     });
 
-    select.querySelectorAll(".game-platform-option").forEach((option) => {
+    select.querySelectorAll(
+        ".game-platform-option, .game-genre-option"
+    ).forEach((option) => {
         option.addEventListener("click", () => {
             const value = option.dataset.value;
 
@@ -29,14 +43,21 @@ document.querySelectorAll(".game-platform-select").forEach((select) => {
 
             select.classList.remove("is-open");
 
-            toggle.setAttribute("aria-expanded", "false");
+            toggle.setAttribute(
+                "aria-expanded",
+                "false"
+            );
         });
     });
 
     document.addEventListener("click", (event) => {
         if (!select.contains(event.target)) {
             select.classList.remove("is-open");
-            toggle.setAttribute("aria-expanded", "false");
+
+            toggle.setAttribute(
+                "aria-expanded",
+                "false"
+            );
         }
     });
 
