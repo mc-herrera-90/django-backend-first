@@ -28,6 +28,31 @@ class GameForm(forms.ModelForm):
         )
 
         widgets = {
+            "title": forms.TextInput(
+                attrs={
+                    "placeholder": "Ej: Super Mario Bros.",
+                },
+            ),
+            "year": forms.NumberInput(
+                attrs={
+                    "placeholder": "Ej: 1985",
+                },
+            ),
+            "developer": forms.TextInput(
+                attrs={
+                    "placeholder": "Ej: Nintendo R&D4",
+                },
+            ),
+            "publisher": forms.TextInput(
+                attrs={
+                    "placeholder": "Ej: Nintendo",
+                },
+            ),
+            "description": forms.Textarea(
+                attrs={
+                    "placeholder": "Escribe una descripción del juego...",
+                },
+            ),
             "portrait": forms.ClearableFileInput(
                 attrs={
                     "accept": "image/*",
