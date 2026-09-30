@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.db import models
+from .choices import GENRE_CHOICES
 
 class Platform(models.Model):
     name = models.CharField(
@@ -26,7 +27,7 @@ class Platform(models.Model):
 class Game(models.Model):
     title = models.CharField(max_length=200)
     year = models.PositiveIntegerField()
-    genre = models.CharField(max_length=100)
+    genre = models.CharField(max_length=100,choices=GENRE_CHOICES,default="otros")
     developer = models.CharField(max_length=150)
 
     platform = models.ForeignKey(
