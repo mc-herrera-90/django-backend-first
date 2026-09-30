@@ -1,0 +1,16 @@
+GENRE_CHOICES = [
+    ("accion", "⚔️ Acción"),
+    ("aventura", "🗺️ Aventura"),
+    ("arcade", "🕹️ Arcade"),
+    ("carreras", "🏎️ Carreras"),
+    ("deportes", "⚽ Deportes"),
+    ("estrategia", "♟️ Estrategia"),
+    ("lucha", "🥊 Lucha"),
+    ("plataformas", "🍄 Plataformas"),
+    ("puzzle", "🧩 Puzzle"),
+    ("rpg", "🧙 RPG"),
+    ("shooter", "🔫 Shooter"),
+    ("simulacion", "🎮 Simulación"),
+    ("terror", "👻 Terror"),
+    ("otros", "🎮 Otros"),
+]
