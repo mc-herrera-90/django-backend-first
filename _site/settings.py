@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/6.1/ref/settings/
 
 from pathlib import Path
 import os
+from decouple import config, Csv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,17 +26,38 @@ SECRET_KEY = os.environ.get(
     "django-insecure-clave-solo-desarrollo",
 )
 
-DEBUG = os.environ.get("DJANGO_DEBUG", "True") == "True"
+DEBUG = config("DEBUG", default=True, cast=bool)
 
-ALLOWED_HOSTS = [
-    host.strip()
-    for host in os.environ.get("DJANGO_ALLOWED_HOSTS", "").split(",")
-    if host.strip()
-]
+ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="localhost", cast=Csv())
 
 if DEBUG:
     ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
 # Application definition
+
+SCREENSCRAPER_DEVID = config(
+    "SCREENSCRAPER_DEVID",
+    default="",
+)
+
+SCREENSCRAPER_DEVPASSWORD = config(
+    "SCREENSCRAPER_DEVPASSWORD",
+    default="",
+)
+
+SCREENSCRAPER_SOFTNAME = config(
+    "SCREENSCRAPER_SOFTNAME",
+    default="zona_geek",
+)
+
+SCREENSCRAPER_USER = config(
+    "SCREENSCRAPER_USER",
+    default="",
+)
+
+SCREENSCRAPER_PASSWORD = config(
+    "SCREENSCRAPER_PASSWORD",
+    default="",
+)
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -94,9 +116,17 @@ WSGI_APPLICATION = '_site.wsgi.application'
 
 DATABASES = {
     'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': config('DB_NAME', default=''),
+        'USER': config('DB_USER', default=''),
+        'PASSWORD': config('DB_PASSWORD', default=''),
+        'HOST': config('DB_HOST', default=''),
+        'PORT': config('DB_PORT', default='3306')
+    },
+    'sqlite': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    },
 }
 
 CACHES = {
