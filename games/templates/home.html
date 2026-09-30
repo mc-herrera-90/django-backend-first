@@ -12,8 +12,8 @@
         <span class="retro-games-kicker">Retro Collection</span>
         <h1>Librería de juegos</h1>
         <p>
-          Explora nuestra colección de videojuegos clásicos
-          de distintas plataformas.
+          Crea y descubre videojuegos de distintas plataformas,
+          valóralos y comparte tus comentarios con la comunidad.
         </p>
       </header>
       <!-- =================================================
@@ -113,7 +113,19 @@
           </div>
         {% empty %}
           <div class="col-12">
-            <div class="retro-games-empty">No hay juegos disponibles.</div>
+            <div class="retro-games-empty">
+              <span class="retro-games-empty-icon">
+                <i class="fa-solid fa-gamepad"></i>
+              </span>
+              <h2>AÚN NO HAY JUEGOS</h2>
+              <p>Sé el primero en agregar un videojuego a la colección.</p>
+              {% if user.is_authenticated %}
+                <a href="{% url 'games:create' %}" class="retro-games-empty-button">
+                  <i class="fa-solid fa-plus"></i>
+                  AGREGAR JUEGO
+                </a>
+              {% endif %}
+            </div>
           </div>
         {% endfor %}
       </div>
