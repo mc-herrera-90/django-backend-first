@@ -101,4 +101,8 @@ djlint core/templates/core/dashboard.html --check
 
 # Verificar el formato de todos los templates
 djlint . --check
+
+# Automatiza la actualización de dependencias, la recolección de estáticos, la aplicación de migraciones y la carga de datos
+chmod +x build.sh
+./build.sh
 ```
