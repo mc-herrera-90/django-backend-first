@@ -4,44 +4,73 @@
   <link rel="stylesheet" href="{% static 'css/detail.css' %}">
   <link rel="stylesheet" href="{% static 'css/wikipedia-popover.css' %}">
 {% endblock %}
-{% block title %}{{ movie.title }}{% endblock %}
+{% block title %}
+  {{ movie.title }} | {{ site_name }}
+{% endblock %}
 {% block content %}
-  <!-- Hero -->
+  <!-- HERO -->
   <div class="movie-hero">
-    <img src="{% if '://' in movie.landscape %}{{ movie.landscape }}{% else %}{% static movie.landscape %}{% endif %}"
-         alt="{{ movie.title }}"
-         class="movie-hero-image">
+    {% if movie.landscape %}
+      <img src="{{ movie.landscape.url }}"
+           alt="{{ movie.title }}"
+           class="movie-hero-image">
+    {% endif %}
     <div class="movie-hero-overlay"></div>
     <div class="movie-hero-content container">
       <span class="badge bg-danger">{{ movie.genre }}</span>
       <h1>{{ movie.title }}</h1>
-      <p>
-        {{ movie.year }} · {{ movie.duration }} minutos
-        · ★ {{ movie.rating }}
-      </p>
+      <p>{{ movie.year }} · {{ movie.duration }} minutos</p>
     </div>
   </div>
-  <!-- Información -->
+  <!-- INFORMACIÓN -->
   <div class="container py-5">
     <div class="row g-5 align-items-start">
-      <!-- Portada -->
+      <!-- PORTADA -->
       <div class="col-md-4">
-        <img src="{% if '://' in movie.portrait %}{{ movie.portrait }}{% else %}{% static movie.portrait %}{% endif %}"
-             class="img-fluid rounded shadow"
-             alt="{{ movie.title }}">
+        {% if movie.portrait %}
+          <img src="{{ movie.portrait.url }}"
+               class="img-fluid rounded shadow"
+               alt="{{ movie.title }}">
+        {% endif %}
       </div>
-      <!-- Información -->
+      <!-- INFORMACIÓN -->
       <div class="col-md-8">
         <div class="d-flex align-items-center gap-2 mb-3">
           <span class="badge bg-danger">{{ movie.genre }}</span>
-          <span class="badge bg-warning text-dark">★ {{ movie.rating }}</span>
         </div>
         <h1 class="display-4 fw-bold">{{ movie.title }}</h1>
         <p class="text-muted fs-5">{{ movie.year }} · {{ movie.duration }} minutos</p>
+        <!-- ACCIONES DEL USUARIO -->
+        {% if user.is_authenticated %}
+          <div class="d-flex flex-wrap gap-2 mb-4">
+            <form method="post" action="{% url 'movies:toggle_favorite' movie.id %}">
+              {% csrf_token %}
+              <button type="submit"
+                      class="btn {% if is_favorite %}btn-danger{% else %}btn-outline-danger{% endif %}">
+                {% if is_favorite %}
+                  Quitar de favoritos
+                {% else %}
+                  Añadir a favoritos
+                {% endif %}
+              </button>
+            </form>
+            <form method="post" action="{% url 'movies:toggle_watched' movie.id %}">
+              {% csrf_token %}
+              <button type="submit"
+                      class="btn {% if is_watched %}btn-success{% else %}btn-outline-success{% endif %}">
+                {% if is_watched %}
+                  Marcar como no vista
+                {% else %}
+                  Marcar como vista
+                {% endif %}
+              </button>
+            </form>
+          </div>
+        {% endif %}
         <hr>
-        <!-- Sinopsis -->
+        <!-- SINOPSIS -->
         <p class="lead">{{ movie.description }}</p>
-        <!-- Datos -->
+        <!-- DATOS -->
         <div class="row g-3 mt-4">
           <div class="col-sm-6">
             <strong>Director</strong>
@@ -60,24 +89,26 @@
             <p class="text-muted mb-0">{{ movie.studio }}</p>
           </div>
         </div>
-        <!-- Reparto -->
-        <div class="mt-5">
-          <h3 class="fw-bold mb-3">Reparto</h3>
-          <div class="d-flex flex-wrap gap-2">
-            {% for actor in movie.cast %}
-              <button type="button"
-                      class="badge bg-dark p-2 cast-person"
-                      data-person="{{ actor }}">{{ actor }}</button>
-            {% endfor %}
+        <!-- REPARTO -->
+        {% if movie.cast_list %}
+          <div class="mt-5">
+            <h3 class="fw-bold mb-3">Reparto</h3>
+            <div class="d-flex flex-wrap gap-2">
+              {% for actor in movie.cast_list %}
+                <button type="button"
+                        class="badge bg-dark p-2 cast-person"
+                        data-person="{{ actor }}">{{ actor }}</button>
+              {% endfor %}
+            </div>
           </div>
-        </div>
-        <!-- Volver -->
+        {% endif %}
+        <!-- VOLVER -->
         <div class="mt-5">
           <a href="{% url 'movies:home' %}" class="btn btn-outline-dark">← Volver a películas</a>
         </div>
       </div>
     </div>
-    <!-- Tráiler -->
+    <!-- TRÁILER -->
     {% if movie.trailer %}
       <section class="movie-trailer mt-5">
         <h2 class="mb-4">Tráiler</h2>
@@ -85,14 +116,14 @@
           <video class="w-100 h-100"
                  controls
                  preload="metadata"
-                 poster="{% if '://' in movie.portrait %}{{ movie.landscape }}{% else %}{% static movie.landscape %}{% endif %}">
-            <source src="{% static movie.trailer %}" type="video/webm">
-            Tu navegador no admite la reproducción de vídeos WebM.
+                 {% if movie.landscape %} poster="{{ movie.landscape.url }}" {% endif %}>
+            <source src="{{ movie.trailer.url }}">
+            Tu navegador no admite la reproducción de vídeos.
           </video>
         </div>
       </section>
     {% endif %}
-    <!-- Películas relacionadas -->
+    <!-- PELÍCULAS RELACIONADAS -->
     {% if related_movies %}
       <section class="related-movies mt-5">
         <h2 class="mb-4">También te puede interesar</h2>
@@ -101,13 +132,15 @@
             <div class="col">
               <article class="related-movie">
                 <a href="{% url 'movies:detail' related.id %}">
-                  <img src="{% if '://' in related.portrait %}{{ related.portrait }}{% else %}{% static related.portrait %}{% endif %}"
-                       alt="{{ related.title }}"
-                       class="img-fluid rounded">
+                  {% if related.portrait %}
+                    <img src="{{ related.portrait.url }}"
+                         alt="{{ related.title }}"
+                         class="img-fluid rounded">
+                  {% endif %}
                 </a>
                 <div class="mt-2">
                   <h3 class="h6 mb-1">{{ related.title }}</h3>
-                  <small class="text-muted">{{ related.year }} · ★ {{ related.rating }}</small>
+                  <small class="text-muted">{{ related.year }} · {{ related.genre }}</small>
                 </div>
               </article>
             </div>
