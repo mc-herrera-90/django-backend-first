@@ -681,6 +681,71 @@
   transform: translate(2px, 2px);
 }
 /* =========================================================
+   COMENTARIO
+   ========================================================= */
+.retro-game-rating-comment {
+    display: block;
+    width: 100%;
+    min-height: 140px;
+    padding: 1rem 1.1rem;
+    resize: vertical;
+    background:
+        linear-gradient(
+            180deg,
+            #0d0d18 0%,
+            #080810 100%
+        );
+    border: 2px solid #30304d;
+    border-radius: 0;
+    color: #f4f4ff;
+    font:
+        700 .75rem
+        "Courier New",
+        monospace;
+    line-height: 1.7;
+    letter-spacing: .5px;
+    outline: none;
+    box-shadow:
+        4px 4px 0 #000;
+    transition:
+        border-color .12s steps(2),
+        box-shadow .12s steps(2),
+        background .12s steps(2);
+}
+/* =========================================================
+   PLACEHOLDER
+   ========================================================= */
+.retro-game-rating-comment::placeholder {
+    color: #68687e;
+    opacity: 1;
+}
+/* =========================================================
+   FOCUS
+   ========================================================= */
+.retro-game-rating-comment:focus {
+    background: #0b0b14;
+    border-color: #00ff9d;
+    box-shadow:
+        5px 5px 0 #000,
+        0 0 0 1px rgba(0, 255, 157, .15);
+}
+/* =========================================================
+   SCROLLBAR
+   ========================================================= */
+.retro-game-rating-comment::-webkit-scrollbar {
+    width: 8px;
+}
+.retro-game-rating-comment::-webkit-scrollbar-track {
+    background: #080810;
+    border-left: 1px solid #30304d;
+}
+.retro-game-rating-comment::-webkit-scrollbar-thumb {
+    background: #30304d;
+}
+.retro-game-rating-comment::-webkit-scrollbar-thumb:hover {
+    background: #00ff9d;
+}
+/* =========================================================
    RESPONSIVE
    ========================================================= */
 @media (max-width: 768px) {
