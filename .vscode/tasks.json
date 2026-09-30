@@ -1,0 +1,11 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Remove CSS blank lines",
+      "type": "shell",
+      "command": "sed -i '' '/^[[:space:]]*$/d' '${file}'",
+      "problemMatcher": []
+    }
+  ]
+}
