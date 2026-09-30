@@ -10,4 +10,6 @@ python manage.py migrate
 
 python manage.py load_platforms
 
+python manage.py load_movies
+
 python manage.py create_admin
