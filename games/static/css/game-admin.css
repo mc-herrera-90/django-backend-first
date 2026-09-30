@@ -1,0 +1,397 @@
+/* ==============================
+   MIS JUEGOS
+   ============================== */
+.games-admin-page {
+    min-height: calc(100vh - 76px);
+    padding: 3rem 0 5rem;
+    background:
+        linear-gradient(rgba(0, 255, 157, .025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 157, .025) 1px, transparent 1px),
+        #08080f;
+    background-size: 32px 32px;
+}
+.games-admin-container {
+    width: min(1400px, calc(100% - 2rem));
+    margin: 0 auto;
+}
+/* ==============================
+   ENCABEZADO
+   ============================== */
+.games-admin-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    padding: 1.5rem 1.75rem;
+    background: #10101c;
+    border: 1px solid #292941;
+    border-left: 3px solid var(--primary, #00ff9d);
+}
+.games-admin-label {
+    display: block;
+    margin-bottom: .5rem;
+    color: var(--primary, #00ff9d);
+    font-size: .6rem;
+    font-weight: 900;
+    letter-spacing: .14em;
+}
+.games-admin-header h1 {
+    margin: 0;
+    color: #f4f4ff;
+    font-family: "Courier New", monospace;
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    font-weight: 900;
+    letter-spacing: .03em;
+}
+.games-admin-header p {
+    margin: .5rem 0 0;
+    color: #777795;
+    font-family: "Courier New", monospace;
+    font-size: .65rem;
+}
+/* ==============================
+   BOTÓN AGREGAR
+   ============================== */
+.games-admin-add {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 42px;
+    padding: .7rem 1rem;
+    background: var(--primary, #00ff9d);
+    border: 2px solid var(--primary, #00ff9d);
+    color: #000;
+    font-family: "Courier New", monospace;
+    font-size: .6rem;
+    font-weight: 900;
+    text-decoration: none;
+    text-transform: uppercase;
+    white-space: nowrap;
+    transition: .15s ease;
+}
+.games-admin-add:hover {
+    background: #fff;
+    border-color: #fff;
+    color: #000;
+}
+/* ==============================
+   CONTENEDOR DEL LISTADO
+   ============================== */
+.games-admin-list {
+    overflow: hidden;
+    background: #0e0e19;
+    border: 1px solid #292941;
+    padding: 0;
+}
+/* Cabecera */
+.games-admin-list-header {
+    display: grid;
+    grid-template-columns: minmax(350px, 2fr) 1fr .7fr 130px;
+    align-items: center;
+    gap: 1.5rem;
+    padding: .85rem 1.5rem;
+    background: #151525;
+    border-bottom: 1px solid #292941;
+    color: #696985;
+    font-family: "Courier New", monospace;
+    font-size: .55rem;
+    font-weight: 900;
+    letter-spacing: .1em;
+}
+/* ==============================
+   JUEGO
+   ============================== */
+.games-admin-item {
+    display: grid;
+    grid-template-columns: minmax(350px, 2fr) 1fr .7fr 130px;
+    align-items: center;
+    gap: 1.5rem;
+    min-height: 105px;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid #202035;
+    transition: background .15s ease;
+}
+.games-admin-item:last-child {
+    border-bottom: 0;
+}
+.games-admin-item:hover {
+    background: #131322;
+}
+/* Información del juego */
+.games-admin-game {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    min-width: 0;
+}
+.games-admin-game img,
+.games-admin-placeholder {
+    width: 58px;
+    height: 78px;
+    flex-shrink: 0;
+    object-fit: cover;
+    background: #181827;
+    border: 1px solid #3a3a55;
+}
+.games-admin-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary, #00ff9d);
+    font-family: "Courier New", monospace;
+    font-size: .5rem;
+    font-weight: 900;
+}
+.games-admin-game h2 {
+    margin: 0 0 .4rem;
+    overflow: hidden;
+    color: #f4f4ff;
+    font-family: "Courier New", monospace;
+    font-size: .75rem;
+    font-weight: 900;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.games-admin-game span {
+    display: inline-block;
+    color: #777795;
+    font-family: "Courier New", monospace;
+    font-size: .55rem;
+}
+/* Datos */
+.games-admin-platform,
+.games-admin-year {
+    color: #c1c1d0;
+    font-family: "Courier New", monospace;
+    font-size: .65rem;
+    font-weight: 700;
+}
+/* ==============================
+   ACCIONES
+   ============================== */
+.games-admin-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+.games-admin-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 34px;
+    padding: .5rem .7rem;
+    background: transparent;
+    border: 1px solid #3a3a55;
+    color: #aaaabd;
+    font-family: "Courier New", monospace;
+    font-size: .5rem;
+    font-weight: 900;
+    text-decoration: none;
+    cursor: pointer;
+    transition: .15s ease;
+}
+.games-admin-action:hover {
+    background: var(--primary, #00ff9d);
+    border-color: var(--primary, #00ff9d);
+    color: #000;
+}
+/* ==============================
+   SIN JUEGOS
+   ============================== */
+.games-admin-empty {
+    width: min(1400px, calc(100% - 2rem));
+    margin: 0 auto;
+    padding: 5rem 2rem;
+    background: #10101c;
+    border: 1px solid #292941;
+    text-align: center;
+}
+.games-admin-empty-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 58px;
+    height: 58px;
+    margin: 0 auto 1.25rem;
+    background: #151525;
+    border: 2px solid var(--primary, #00ff9d);
+    color: var(--primary, #00ff9d);
+    font-family: "Courier New", monospace;
+    font-size: 1.4rem;
+    font-weight: 900;
+}
+.games-admin-empty h2 {
+    margin: 0;
+    color: #f4f4ff;
+    font-family: "Courier New", monospace;
+    font-size: .85rem;
+    font-weight: 900;
+}
+.games-admin-empty p {
+    margin: .6rem 0 1.5rem;
+    color: #6f6f8c;
+    font-family: "Courier New", monospace;
+    font-size: .6rem;
+}
+.games-admin-action-edit {
+    color: #f5c400;
+}
+.games-admin-action-edit:hover {
+    background: #f5c400;
+    border-color: #f5c400;
+    color: #000;
+}
+.games-admin-action-delete {
+    color: #b42318;
+}
+.games-admin-action-delete:hover {
+    background: #b42318;
+    border-color: #b42318;
+    color: #fff;
+}
+.games-admin-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+.games-admin-modal.is-open {
+  display: flex;
+}
+.games-admin-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgb(0 0 0 / 75%);
+}
+.games-admin-modal-content {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 480px);
+  padding: 2rem;
+  border: 2px solid #b42318;
+  background: #111;
+  color: #fff;
+  box-shadow: 8px 8px 0 #b42318;
+}
+.games-admin-modal-label {
+  display: block;
+  margin-bottom: 0.75rem;
+  color: #b42318;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+}
+.games-admin-modal-content h2 {
+  margin: 0 0 1rem;
+}
+.games-admin-modal-content p {
+  margin-bottom: 1rem;
+  color: #ccc;
+}
+.games-admin-modal-warning {
+  display: block;
+  margin-bottom: 1.5rem;
+  color: #b42318;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+.games-admin-modal-close {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  border: 0;
+  background: transparent;
+  color: #fff;
+  font-size: 1.75rem;
+  line-height: 1;
+  cursor: pointer;
+}
+.games-admin-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+.games-admin-modal-cancel,
+.games-admin-modal-confirm {
+  padding: 0.7rem 1rem;
+  border: 1px solid;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+.games-admin-modal-cancel {
+  border-color: #555;
+  background: transparent;
+  color: #fff;
+}
+.games-admin-modal-confirm {
+  border-color: #b42318;
+  background: #b42318;
+  color: #fff;
+}
+.games-admin-modal-confirm:hover {
+  background: #d52b20;
+}
+/* ==============================
+   RESPONSIVE
+   ============================== */
+@media (max-width: 900px) {
+    .games-admin-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+    .games-admin-add {
+        width: 100%;
+    }
+    .games-admin-list-header {
+        display: none;
+    }
+    .games-admin-item {
+        grid-template-columns: 1fr auto;
+        gap: 1rem;
+        padding: 1rem;
+    }
+    .games-admin-game {
+        grid-column: 1 / -1;
+    }
+    .games-admin-platform,
+    .games-admin-year {
+        grid-column: auto;
+    }
+    .games-admin-actions {
+        grid-column: 1 / -1;
+        justify-content: flex-start;
+        padding-top: .75rem;
+        border-top: 1px solid #202035;
+    }
+}
+@media (max-width: 600px) {
+    .games-admin-page {
+        padding: 2rem 0 4rem;
+    }
+    .games-admin-container {
+        width: calc(100% - 1rem);
+    }
+    .games-admin-header {
+        padding: 1.25rem;
+    }
+    .games-admin-header h1 {
+        font-size: 1.4rem;
+    }
+    .games-admin-item {
+        grid-template-columns: 1fr;
+    }
+    .games-admin-platform,
+    .games-admin-year,
+    .games-admin-actions {
+        grid-column: 1;
+    }
+    .games-admin-actions {
+        justify-content: flex-start;
+    }
+}
