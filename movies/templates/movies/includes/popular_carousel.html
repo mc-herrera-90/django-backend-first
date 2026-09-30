@@ -1,35 +1,33 @@
-{% load static %}
 <section class="popular-carousel">
   <div id="popularMovies"
        class="carousel slide carousel-fade"
        data-bs-ride="carousel"
        data-bs-interval="6000">
-    <!-- Indicadores -->
     <div class="carousel-indicators">
       {% for movie in popular_movies %}
         <button type="button"
                 data-bs-target="#popularMovies"
                 data-bs-slide-to="{{ forloop.counter0 }}"
                 class="{% if forloop.first %}active{% endif %}"
-                aria-current="{% if forloop.first %}true{% endif %}"
+                {% if forloop.first %}aria-current="true"{% endif %}
                 aria-label="{{ movie.title }}"></button>
       {% endfor %}
     </div>
-    <!-- Slides -->
     <div class="carousel-inner">
       {% for movie in popular_movies %}
         <div class="carousel-item {% if forloop.first %}active{% endif %}">
-          <img src="{% if '://' in movie.landscape %}{{ movie.landscape }}{% else %}{% static movie.landscape %}{% endif %}"
-               class="popular-backdrop"
-               alt="{{ movie.title }}">
+          {% if movie.landscape %}
+            <img src="{{ movie.landscape.url }}"
+                 class="popular-backdrop"
+                 alt="{{ movie.title }}">
+          {% endif %}
           <div class="popular-overlay"></div>
           <div class="popular-content">
             <div class="container">
               <div class="popular-info">
-                <span class="popular-label">MÁS POPULAR</span>
+                <span class="popular-label">MÁS DESTACADA</span>
                 <h1>{{ movie.title }}</h1>
                 <div class="popular-meta">
-                  <span>★ {{ movie.rating }}</span>
                   <span>{{ movie.year }}</span>
                   <span>{{ movie.genre }}</span>
                   <span>{{ movie.duration }} min</span>
@@ -42,7 +40,6 @@
         </div>
       {% endfor %}
     </div>
-    <!-- Controles -->
     <button class="carousel-control-prev"
             type="button"
             data-bs-target="#popularMovies"
