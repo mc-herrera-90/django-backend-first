@@ -5,6 +5,11 @@ from .models import Game, GameRating
 
 class GameForm(forms.ModelForm):
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields["platform"].empty_label = "Selecciona una opción"
+
     class Meta:
         model = Game
         fields = (
@@ -50,11 +55,15 @@ class GameForm(forms.ModelForm):
             ),
         }
 
+
 class GameRatingForm(forms.ModelForm):
 
     class Meta:
         model = GameRating
-        fields = ("rating",)
+        fields = (
+            "rating",
+            "comment",
+        )
 
     def clean_rating(self):
         rating = self.cleaned_data["rating"]
@@ -65,3 +74,13 @@ class GameRatingForm(forms.ModelForm):
             )
 
         return rating
+
+    def clean_comment(self):
+        comment = self.cleaned_data["comment"].strip()
+
+        if len(comment) > 500:
+            raise forms.ValidationError(
+                "El comentario no puede superar los 500 caracteres."
+            )
+
+        return comment
