@@ -3,6 +3,7 @@ from django.core.paginator import Paginator
 from django.db.models import Avg
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
+
 import requests
 
 from .forms import GameForm, GameRatingForm
@@ -23,7 +24,10 @@ def home(request):
 
     platform = request.GET.get("platform")
 
-    if platform and platforms.filter(identifier=platform).exists():
+    if platform and platforms.filter(
+        identifier=platform,
+    ).exists():
+
         games = games.filter(
             platform__identifier=platform,
         )
@@ -35,7 +39,9 @@ def home(request):
 
     page_number = request.GET.get("page")
 
-    page_obj = paginator.get_page(page_number)
+    page_obj = paginator.get_page(
+        page_number,
+    )
 
     return render(
         request,
@@ -50,7 +56,9 @@ def home(request):
 def detail(request, game_id):
 
     game = get_object_or_404(
-        Game,
+        Game.objects.select_related(
+            "platform",
+        ),
         id=game_id,
     )
 
@@ -58,10 +66,10 @@ def detail(request, game_id):
         average=Avg("rating"),
     )["average"]
 
-    ratings = game.ratings.select_related(
-        "user",
-    ).order_by(
-        "-created_at",
+    ratings = (
+        game.ratings
+        .select_related("user")
+        .order_by("-created_at")
     )
 
     user_rating = None
@@ -221,22 +229,47 @@ def rate(request, game_id):
             instance=rating,
         )
 
+    ratings = (
+        game.ratings
+        .select_related("user")
+        .order_by("-created_at")
+    )
+
+    average_rating = game.ratings.aggregate(
+        average=Avg("rating"),
+    )["average"]
+
     return render(
         request,
         "detail.html",
         {
             "game": game,
             "form": form,
-            "average_rating": game.ratings.aggregate(
-                average=Avg("rating"),
-            )["average"],
+            "average_rating": average_rating,
             "user_rating": rating,
-            "ratings": game.ratings.select_related(
-                "user",
-            ).order_by(
-                "-created_at",
-            ),
+            "ratings": ratings,
         },
+    )
+
+
+@login_required
+def delete_rating(request, game_id):
+
+    game = get_object_or_404(
+        Game,
+        id=game_id,
+    )
+
+    if request.method == "POST":
+
+        GameRating.objects.filter(
+            game=game,
+            user=request.user,
+        ).delete()
+
+    return redirect(
+        "games:detail",
+        game_id=game.id,
     )
 
 
@@ -313,7 +346,10 @@ def screenscraper_search(request):
         results.append(
             {
                 "id": game.get("id"),
-                "name": game.get("noms", {}).get(
+                "name": game.get(
+                    "noms",
+                    {},
+                ).get(
                     "nom",
                     "",
                 ),
