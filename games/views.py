@@ -2,10 +2,12 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.db.models import Avg
 from django.shortcuts import get_object_or_404, redirect, render
+from django.http import JsonResponse
+import requests
 
 from .forms import GameForm, GameRatingForm
 from .models import Game, GameRating, Platform
-
+from .services.screenscraper import search_games
 
 def home(request):
 
@@ -58,9 +60,6 @@ def detail(request, game_id):
         user_rating = GameRating.objects.filter(
             game=game,
             user=request.user,
-        ).values_list(
-            "rating",
-            flat=True,
         ).first()
 
     return render(
@@ -203,12 +202,14 @@ def rate(request, game_id):
         "detail.html",
         {
             "game": game,
+            "form": form,
             "average_rating": game.ratings.aggregate(
                 average=Avg("rating"),
             )["average"],
-            "user_rating": rating.rating if rating else None,
+            "user_rating": rating,
         },
     )
+
 
 @login_required
 def delete(request, game_id):
@@ -222,6 +223,50 @@ def delete(request, game_id):
     if request.method == "POST":
 
         game.delete()
+
         return redirect("games:admin")
 
     return redirect("games:admin")
+
+@login_required
+def screenscraper_search(request):
+    query = request.GET.get("q", "").strip()
+    system_id = request.GET.get("system_id")
+
+    if not query:
+        return JsonResponse(
+            {
+                "results": [],
+            }
+        )
+
+    try:
+        data = search_games(
+            query,
+            system_id=system_id,
+        )
+    except requests.RequestException:
+        return JsonResponse(
+            {
+                "error": "No fue posible conectarse con ScreenScraper.",
+            },
+            status=502,
+        )
+
+    games = data.get("response", {}).get("jeux", [])
+
+    results = []
+
+    for game in games:
+        results.append(
+            {
+                "id": game.get("id"),
+                "name": game.get("noms", {}).get("nom", ""),
+            }
+        )
+
+    return JsonResponse(
+        {
+            "results": results,
+        }
+    )
