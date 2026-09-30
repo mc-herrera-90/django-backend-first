@@ -45,6 +45,9 @@
       {% if form.non_field_errors %}
         <div class="game-form-errors">{{ form.non_field_errors }}</div>
       {% endif %}
+      <!-- ========================================
+           01 — INFORMACIÓN GENERAL
+           ======================================== -->
       <section class="game-form-section">
         <div class="game-form-section-header">
           <span>01</span>
@@ -54,59 +57,84 @@
           </div>
         </div>
         <div class="game-form-grid">
+          <!-- TÍTULO -->
           <div class="game-form-field game-form-field-full">
             <label for="{{ form.title.id_for_label }}">Título</label>
             {{ form.title }}
             {{ form.title.errors }}
           </div>
+          <!-- AÑO -->
           <div class="game-form-field">
             <label for="{{ form.year.id_for_label }}">Año</label>
             {{ form.year }}
             {{ form.year.errors }}
           </div>
+          <!-- GÉNERO -->
           <div class="game-form-field">
             <label for="{{ form.genre.id_for_label }}">Género</label>
-            {{ form.genre }}
+            <div class="game-genre-select">
+              {{ form.genre }}
+              <button type="button" class="game-genre-toggle" aria-expanded="false">
+                <span class="game-genre-selected">
+                  <span class="game-genre-placeholder">Selecciona un género</span>
+                </span>
+                <i class="fa-solid fa-chevron-down"></i>
+              </button>
+              <div class="game-genre-dropdown">
+                {% for value, label in form.genre.field.choices %}
+                  <button type="button" class="game-genre-option" data-value="{{ value }}">
+                    <span>{{ label }}</span>
+                  </button>
+                {% endfor %}
+              </div>
+            </div>
             {{ form.genre.errors }}
           </div>
+          <!-- DESARROLLADOR -->
           <div class="game-form-field">
             <label for="{{ form.developer.id_for_label }}">Desarrollador</label>
             {{ form.developer }}
             {{ form.developer.errors }}
           </div>
+          <!-- DISTRIBUIDOR -->
           <div class="game-form-field">
             <label for="{{ form.publisher.id_for_label }}">Distribuidor</label>
             {{ form.publisher }}
             {{ form.publisher.errors }}
           </div>
-          <div class="game-platform-select">
-            {{ form.platform }}
-            <button type="button" class="game-platform-toggle" aria-expanded="false">
-              <span class="game-platform-selected">
-                <span class="game-platform-placeholder">Selecciona una opción</span>
-              </span>
-              <i class="fa-solid fa-chevron-down"></i>
-            </button>
-            <div class="game-platform-dropdown">
-              {% for platform in form.platform.field.queryset %}
-                <button type="button"
-                        class="game-platform-option"
-                        data-value="{{ platform.pk }}">
-                  {% if platform.icon %}
-                    <img src="{{ platform.icon.url }}" alt="" class="game-platform-icon">
-                  {% endif %}
-                  <span>{{ platform.name }}</span>
-                </button>
-              {% endfor %}
-              {% if user.is_superuser %}
-                <a href="{% url 'admin:games_platform_add' %}" class="game-platform-add">
-                  <i class="fa-solid fa-plus"></i>
-                  <span>Añadir plataforma</span>
-                </a>
-              {% endif %}
+          <!-- PLATAFORMA -->
+          <div class="game-form-field">
+            <label for="{{ form.platform.id_for_label }}">Plataforma</label>
+            <div class="game-platform-select">
+              {{ form.platform }}
+              <button type="button" class="game-platform-toggle" aria-expanded="false">
+                <span class="game-platform-selected">
+                  <span class="game-platform-placeholder">Selecciona una opción</span>
+                </span>
+                <i class="fa-solid fa-chevron-down"></i>
+              </button>
+              <div class="game-platform-dropdown">
+                {% for platform in form.platform.field.queryset %}
+                  <button type="button"
+                          class="game-platform-option"
+                          data-value="{{ platform.pk }}">
+                    {% if platform.icon %}
+                      <img src="{{ platform.icon.url }}" alt="" class="game-platform-icon">
+                    {% endif %}
+                    <span>{{ platform.name }}</span>
+                  </button>
+                {% endfor %}
+                {% if user.is_superuser %}
+                  <a href="{% url 'admin:games_platform_add' %}" class="game-platform-add">
+                    <i class="fa-solid fa-plus"></i>
+                    <span>Añadir plataforma</span>
+                  </a>
+                {% endif %}
+              </div>
             </div>
+            {{ form.platform.errors }}
           </div>
-          {{ form.platform.errors }}
+          <!-- DESCRIPCIÓN -->
           <div class="game-form-field game-form-field-full">
             <label for="{{ form.description.id_for_label }}">Descripción</label>
             {{ form.description }}
@@ -114,6 +142,9 @@
           </div>
         </div>
       </section>
+      <!-- ========================================
+           02 — RECURSOS VISUALES
+           ======================================== -->
       <section class="game-form-section">
         <div class="game-form-section-header">
           <span>02</span>
@@ -123,18 +154,21 @@
           </div>
         </div>
         <div class="game-form-grid">
+          <!-- PORTADA -->
           <div class="game-form-field">
             <label for="{{ form.portrait.id_for_label }}">Portada</label>
             {{ form.portrait }}
             {{ form.portrait.errors }}
             <small>Imagen principal del juego.</small>
           </div>
+          <!-- MARQUEE -->
           <div class="game-form-field">
             <label for="{{ form.marquee.id_for_label }}">Marquee</label>
             {{ form.marquee }}
             {{ form.marquee.errors }}
             <small>Imagen horizontal utilizada en el catálogo.</small>
           </div>
+          <!-- CARTUCHO -->
           <div class="game-form-field">
             <label for="{{ form.cartridge.id_for_label }}">Cartucho</label>
             {{ form.cartridge }}
@@ -143,6 +177,9 @@
           </div>
         </div>
       </section>
+      <!-- ========================================
+           03 — MULTIMEDIA
+           ======================================== -->
       <section class="game-form-section">
         <div class="game-form-section-header">
           <span>03</span>
@@ -152,12 +189,14 @@
           </div>
         </div>
         <div class="game-form-grid">
+          <!-- VIDEO -->
           <div class="game-form-field">
             <label for="{{ form.video.id_for_label }}">Video</label>
             {{ form.video }}
             {{ form.video.errors }}
             <small>Archivo de video promocional o gameplay.</small>
           </div>
+          <!-- FICHA TÉCNICA -->
           <div class="game-form-field">
             <label for="{{ form.technical_sheet.id_for_label }}">Ficha técnica</label>
             {{ form.technical_sheet }}
@@ -166,6 +205,9 @@
           </div>
         </div>
       </section>
+      <!-- ========================================
+           ACCIONES
+           ======================================== -->
       <footer class="game-form-actions">
         <a href="{% url 'games:admin' %}" class="game-form-cancel">CANCELAR</a>
         <button type="submit" class="game-form-submit">
