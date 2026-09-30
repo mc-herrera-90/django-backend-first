@@ -7,7 +7,6 @@
         #08080f;
     background-size: 32px 32px;
 }
-
 .game-form-header {
     display: flex;
     align-items: center;
@@ -19,7 +18,6 @@
     border: 1px solid #292941;
     border-left: 3px solid var(--primary, #00ff9d);
 }
-
 .game-form-label {
     display: block;
     margin-bottom: .5rem;
@@ -29,7 +27,6 @@
     font-weight: 900;
     letter-spacing: .14em;
 }
-
 .game-form-header h1 {
     margin: 0;
     color: #f4f4ff;
@@ -38,14 +35,12 @@
     font-weight: 900;
     letter-spacing: .03em;
 }
-
 .game-form-header p {
     margin: .5rem 0 0;
     color: #777795;
     font-family: "Courier New", monospace;
     font-size: .65rem;
 }
-
 .game-form-back {
     display: inline-flex;
     align-items: center;
@@ -62,19 +57,16 @@
     white-space: nowrap;
     transition: .15s ease;
 }
-
 .game-form-back:hover {
     background: #151525;
     border-color: var(--primary, #00ff9d);
     color: var(--primary, #00ff9d);
 }
-
 .game-form {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
 }
-
 .game-form-errors {
     padding: 1rem 1.25rem;
     background: #211116;
@@ -84,13 +76,11 @@
     font-family: "Courier New", monospace;
     font-size: .65rem;
 }
-
 .game-form-section {
     overflow: hidden;
     background: #0e0e19;
     border: 1px solid #292941;
 }
-
 .game-form-section-header {
     display: flex;
     align-items: center;
@@ -99,7 +89,6 @@
     background: #151525;
     border-bottom: 1px solid #292941;
 }
-
 .game-form-section-header > span {
     display: flex;
     align-items: center;
@@ -114,7 +103,6 @@
     font-size: .65rem;
     font-weight: 900;
 }
-
 .game-form-section-header h2 {
     margin: 0;
     color: #f4f4ff;
@@ -123,29 +111,24 @@
     font-weight: 900;
     letter-spacing: .05em;
 }
-
 .game-form-section-header p {
     margin: .35rem 0 0;
     color: #6f6f8c;
     font-family: "Courier New", monospace;
     font-size: .55rem;
 }
-
 .game-form-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 1.5rem;
     padding: 1.5rem;
 }
-
 .game-form-field {
     min-width: 0;
 }
-
 .game-form-field-full {
     grid-column: 1 / -1;
 }
-
 .game-form-field label {
     display: block;
     margin-bottom: .5rem;
@@ -155,7 +138,6 @@
     font-weight: 900;
     text-transform: uppercase;
 }
-
 .game-form-field input,
 .game-form-field select,
 .game-form-field textarea {
@@ -171,7 +153,6 @@
     font-size: .7rem;
     transition: .15s ease;
 }
-
 .game-form-field input:focus,
 .game-form-field select:focus,
 .game-form-field textarea:focus {
@@ -179,17 +160,14 @@
     border-color: var(--primary, #00ff9d);
     box-shadow: 0 0 0 1px var(--primary, #00ff9d);
 }
-
 .game-form-field textarea {
     min-height: 150px;
     resize: vertical;
 }
-
 .game-form-field input[type="file"] {
     padding: .6rem;
     cursor: pointer;
 }
-
 .game-form-field input[type="file"]::file-selector-button {
     margin-right: .75rem;
     padding: .5rem .75rem;
@@ -201,12 +179,10 @@
     font-weight: 900;
     cursor: pointer;
 }
-
 .game-form-field input[type="file"]::file-selector-button:hover {
     border-color: var(--primary, #00ff9d);
     color: var(--primary, #00ff9d);
 }
-
 .game-form-field small {
     display: block;
     margin-top: .5rem;
@@ -215,7 +191,6 @@
     font-size: .55rem;
     line-height: 1.5;
 }
-
 .game-form-field ul.errorlist {
     margin: .4rem 0 0;
     padding: 0;
@@ -224,116 +199,20 @@
     font-family: "Courier New", monospace;
     font-size: .55rem;
 }
-
 .game-form-field input.is-invalid,
 .game-form-field select.is-invalid,
 .game-form-field textarea.is-invalid {
     border-color: #ff4d6d;
 }
-
-.game-form-actions {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: .75rem;
-    padding: 1.25rem 1.5rem;
-    background: #10101c;
-    border: 1px solid #292941;
-}
-
-.game-form-cancel,
-.game-form-submit {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 42px;
-    padding: .7rem 1rem;
-    font-family: "Courier New", monospace;
-    font-size: .6rem;
-    font-weight: 900;
-    text-decoration: none;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: .15s ease;
-}
-
-.game-form-cancel {
-    background: transparent;
-    border: 1px solid #3a3a55;
-    color: #aaaabd;
-}
-
-.game-form-cancel:hover {
-    background: #151525;
-    border-color: #66667f;
-    color: #f4f4ff;
-}
-
-.game-form-submit {
-    background: var(--primary, #00ff9d);
-    border: 2px solid var(--primary, #00ff9d);
-    color: #000;
-}
-
-.game-form-submit:hover {
-    background: #fff;
-    border-color: #fff;
-    color: #000;
-}
-
-@media (max-width: 900px) {
-    .game-form-header {
-        align-items: flex-start;
-        flex-direction: column;
-    }
-
-    .game-form-back {
-        width: 100%;
-    }
-
-    .game-form-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .game-form-field-full {
-        grid-column: auto;
-    }
-}
-
-@media (max-width: 600px) {
-    .game-form-page {
-        padding: 2rem 0 4rem;
-    }
-
-    .game-form-header {
-        padding: 1.25rem;
-    }
-
-    .game-form-header h1 {
-        font-size: 1.4rem;
-    }
-
-    .game-form-section-header,
-    .game-form-grid,
-    .game-form-actions {
-        padding: 1rem;
-    }
-
-    .game-form-actions {
-        align-items: stretch;
-        flex-direction: column-reverse;
-    }
-
-    .game-form-cancel,
-    .game-form-submit {
-        width: 100%;
-    }
-}
-.game-platform-select {
+/* ========================================
+   SELECTORES PERSONALIZADOS
+   ======================================== */
+.game-platform-select,
+.game-genre-select {
     position: relative;
 }
-
-.game-platform-select select {
+.game-platform-select select,
+.game-genre-select select {
     position: absolute;
     width: 1px;
     height: 1px;
@@ -342,8 +221,9 @@
     opacity: 0;
     pointer-events: none;
 }
-
-.game-platform-toggle {
+/* BOTÓN */
+.game-platform-toggle,
+.game-genre-toggle {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -359,34 +239,38 @@
     cursor: pointer;
     transition: .15s ease;
 }
-
 .game-platform-toggle:hover,
-.game-platform-select.is-open .game-platform-toggle {
+.game-platform-select.is-open .game-platform-toggle,
+.game-genre-toggle:hover,
+.game-genre-select.is-open .game-genre-toggle {
     background: #131322;
     border-color: var(--primary, #00ff9d);
 }
-
-.game-platform-toggle > i {
+/* ICONO CHEVRON */
+.game-platform-toggle > i,
+.game-genre-toggle > i {
     color: var(--primary, #00ff9d);
     font-size: .65rem;
     transition: transform .15s ease;
 }
-
-.game-platform-select.is-open .game-platform-toggle > i {
+.game-platform-select.is-open .game-platform-toggle > i,
+.game-genre-select.is-open .game-genre-toggle > i {
     transform: rotate(180deg);
 }
-
-.game-platform-placeholder {
-    color: #777795;
-}
-
-.game-platform-selected {
+/* VALOR SELECCIONADO */
+.game-platform-selected,
+.game-genre-selected {
     display: flex;
     align-items: center;
     gap: .65rem;
 }
-
-.game-platform-dropdown {
+.game-platform-placeholder,
+.game-genre-placeholder {
+    color: #777795;
+}
+/* DROPDOWN */
+.game-platform-dropdown,
+.game-genre-dropdown {
     position: absolute;
     z-index: 20;
     top: calc(100% + 4px);
@@ -399,12 +283,13 @@
     border: 1px solid #3a3a55;
     box-shadow: 0 8px 20px rgba(0, 0, 0, .4);
 }
-
-.game-platform-select.is-open .game-platform-dropdown {
+.game-platform-select.is-open .game-platform-dropdown,
+.game-genre-select.is-open .game-genre-dropdown {
     display: block;
 }
-
-.game-platform-option {
+/* OPCIONES */
+.game-platform-option,
+.game-genre-option {
     display: flex;
     align-items: center;
     gap: .75rem;
@@ -420,23 +305,23 @@
     cursor: pointer;
     transition: .15s ease;
 }
-
-.game-platform-option:last-child {
+.game-platform-option:last-child,
+.game-genre-option:last-child {
     border-bottom: 0;
 }
-
-.game-platform-option:hover {
+.game-platform-option:hover,
+.game-genre-option:hover {
     background: #151525;
     color: var(--primary, #00ff9d);
 }
-
+/* ICONOS DE PLATAFORMA */
 .game-platform-icon {
     width: 28px;
     height: 28px;
     flex-shrink: 0;
     object-fit: contain;
 }
-
+/* AÑADIR PLATAFORMA */
 .game-platform-add {
     display: flex;
     align-items: center;
@@ -451,8 +336,96 @@
     text-transform: uppercase;
     transition: .15s ease;
 }
-
 .game-platform-add:hover {
     background: #151525;
     color: #fff;
+}
+/* ========================================
+   ACCIONES
+   ======================================== */
+.game-form-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: .75rem;
+    padding: 1.25rem 1.5rem;
+    background: #10101c;
+    border: 1px solid #292941;
+}
+.game-form-cancel,
+.game-form-submit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 42px;
+    padding: .7rem 1rem;
+    font-family: "Courier New", monospace;
+    font-size: .6rem;
+    font-weight: 900;
+    text-decoration: none;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: .15s ease;
+}
+.game-form-cancel {
+    background: transparent;
+    border: 1px solid #3a3a55;
+    color: #aaaabd;
+}
+.game-form-cancel:hover {
+    background: #151525;
+    border-color: #66667f;
+    color: #f4f4ff;
+}
+.game-form-submit {
+    background: var(--primary, #00ff9d);
+    border: 2px solid var(--primary, #00ff9d);
+    color: #000;
+}
+.game-form-submit:hover {
+    background: #fff;
+    border-color: #fff;
+    color: #000;
+}
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+@media (max-width: 900px) {
+    .game-form-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+    .game-form-back {
+        width: 100%;
+    }
+    .game-form-grid {
+        grid-template-columns: 1fr;
+    }
+    .game-form-field-full {
+        grid-column: auto;
+    }
+}
+@media (max-width: 600px) {
+    .game-form-page {
+        padding: 2rem 0 4rem;
+    }
+    .game-form-header {
+        padding: 1.25rem;
+    }
+    .game-form-header h1 {
+        font-size: 1.4rem;
+    }
+    .game-form-section-header,
+    .game-form-grid,
+    .game-form-actions {
+        padding: 1rem;
+    }
+    .game-form-actions {
+        align-items: stretch;
+        flex-direction: column-reverse;
+    }
+    .game-form-cancel,
+    .game-form-submit {
+        width: 100%;
+    }
 }
