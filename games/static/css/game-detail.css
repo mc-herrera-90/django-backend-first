@@ -1282,6 +1282,149 @@
         "Courier New",
         monospace;
 }
+
+/* =========================================================
+   DELETE MODAL
+   ========================================================= */
+
+.retro-delete-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    visibility: hidden;
+    opacity: 0;
+    transition:
+        opacity .15s ease,
+        visibility .15s ease;
+}
+
+.retro-delete-modal.is-open {
+    visibility: visible;
+    opacity: 1;
+}
+
+.retro-delete-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, .82);
+}
+
+.retro-delete-modal-dialog {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 480px;
+    background: #10101a;
+    border: 1px solid #522333;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, .6);
+}
+
+.retro-delete-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: .8rem 1rem;
+    background: #0b0b13;
+    border-bottom: 1px solid #292941;
+}
+
+.retro-delete-modal-header span {
+    color: #ff4d6d;
+    font:
+        900 .55rem
+        "Courier New",
+        monospace;
+    letter-spacing: .12em;
+}
+
+.retro-delete-modal-close {
+    padding: 0;
+    background: transparent;
+    border: 0;
+    color: #777794;
+    font:
+        900 1.3rem
+        "Courier New",
+        monospace;
+    cursor: pointer;
+}
+
+.retro-delete-modal-close:hover {
+    color: #ff4d6d;
+}
+
+.retro-delete-modal-body {
+    padding: 1.5rem;
+}
+
+.retro-delete-modal-body h2 {
+    margin: 0 0 .75rem;
+    color: #f4f4ff;
+    font:
+        900 .9rem
+        "Courier New",
+        monospace;
+}
+
+.retro-delete-modal-body p {
+    margin: 0;
+    color: #777794;
+    font:
+        600 .65rem/1.7
+        "Courier New",
+        monospace;
+}
+
+.retro-delete-modal-actions {
+    display: flex;
+    gap: .75rem;
+    padding: 1rem;
+    border-top: 1px solid #292941;
+}
+
+.retro-delete-modal-actions button {
+    flex: 1;
+    padding: .7rem 1rem;
+    font:
+        900 .55rem
+        "Courier New",
+        monospace;
+    cursor: pointer;
+}
+
+.retro-delete-modal-cancel {
+    background: transparent;
+    border: 1px solid #292941;
+    color: #777794;
+}
+
+.retro-delete-modal-cancel:hover {
+    border-color: #777794;
+    color: #f4f4ff;
+}
+
+.retro-delete-modal-confirm {
+    background: transparent;
+    border: 1px solid #ff4d6d;
+    color: #ff4d6d;
+}
+
+.retro-delete-modal-confirm:hover {
+    background: rgba(255, 77, 109, .08);
+    color: #ff7088;
+}
+
+@media (max-width: 480px) {
+
+    .retro-delete-modal-actions {
+        flex-direction: column;
+    }
+
+}
 /* =========================================================
    RESPONSIVE
    ========================================================= */
