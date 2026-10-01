@@ -6,5 +6,5 @@
         "*.html": "django-html"
     },
     "emmet.triggerExpansionOnTab": true,
-    "python.terminal.useEnvFile": true
+    "python.terminal.useEnvFile": true,
 }
