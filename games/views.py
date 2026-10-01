@@ -253,23 +253,34 @@ def rate(request, game_id):
 
 
 @login_required
-def delete_rating(request, game_id):
+def delete_rating(request, rating_id):
 
-    game = get_object_or_404(
-        Game,
-        id=game_id,
+    rating = get_object_or_404(
+        GameRating,
+        id=rating_id,
     )
 
-    if request.method == "POST":
+    can_delete = (
+        rating.user == request.user
+        or request.user.has_perm(
+            "games.delete_gamerating",
+        )
+    )
 
-        GameRating.objects.filter(
-            game=game,
-            user=request.user,
-        ).delete()
+    if request.method == "POST" and can_delete:
+
+        game_id = rating.game.id
+
+        rating.delete()
+
+        return redirect(
+            "games:detail",
+            game_id=game_id,
+        )
 
     return redirect(
         "games:detail",
-        game_id=game.id,
+        game_id=rating.game.id,
     )
 
 
