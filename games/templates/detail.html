@@ -150,14 +150,18 @@
                 <button type="submit" class="retro-game-rating-button">VALORAR JUEGO</button>
               {% endif %}
             </form>
-            <!-- ELIMINAR VALORACIÓN -->
+            <!-- =================================================
+                 ELIMINAR MI VALORACIÓN
+                 ================================================= -->
             {% if user_rating %}
               <form method="post"
-                    action="{% url 'games:delete_rating' game.id %}"
-                    class="retro-game-rating-delete-form"
-                    onsubmit="return confirm('¿Quieres eliminar tu valoración y comentario?');">
+                    action="{% url 'games:delete_rating' user_rating.id %}"
+                    class="retro-game-rating-delete-form">
                 {% csrf_token %}
-                <button type="submit" class="retro-game-rating-delete-button">
+                <button type="button"
+                        class="retro-game-rating-delete-button"
+                        data-delete-modal
+                        data-delete-message="¿Quieres eliminar tu valoración y comentario?">
                   ELIMINAR VALORACIÓN Y COMENTARIO
                 </button>
               </form>
@@ -181,7 +185,9 @@
             <div class="retro-game-reviews-list">
               {% for rating in ratings %}
                 <article class="retro-game-review">
-                  <!-- USUARIO -->
+                  <!-- =================================================
+                       USUARIO
+                       ================================================= -->
                   <div class="retro-game-review-user">
                     <div class="retro-game-review-avatar">
                       {% if rating.user.avatar %}
@@ -196,7 +202,9 @@
                       <small>{{ rating.created_at|date:"d/m/Y" }}</small>
                     </div>
                   </div>
-                  <!-- PUNTUACIÓN -->
+                  <!-- =================================================
+                       PUNTUACIÓN
+                       ================================================= -->
                   <div class="retro-game-review-rating">
                     <span class="retro-game-review-stars">
                       {% for star in "12345" %}
@@ -209,7 +217,9 @@
                     </span>
                     <strong>{{ rating.rating }}/5</strong>
                   </div>
-                  <!-- COMENTARIO -->
+                  <!-- =================================================
+                       COMENTARIO
+                       ================================================= -->
                   {% if rating.comment %}
                     <div class="retro-game-review-comment">
                       <p>{{ rating.comment }}</p>
@@ -218,6 +228,28 @@
                     <div class="retro-game-review-comment">
                       <p class="retro-game-review-no-comment">Este usuario no dejó un comentario.</p>
                     </div>
+                  {% endif %}
+                  <!-- =================================================
+                       ELIMINAR VALORACIÓN
+                       ================================================= -->
+                  {% if user.is_authenticated %}
+                    {% if rating.user == user or perms.games.delete_gamerating %}
+                      <form method="post"
+                            action="{% url 'games:delete_rating' rating.id %}"
+                            class="retro-game-review-delete-form">
+                        {% csrf_token %}
+                        <button type="button"
+                                class="retro-game-review-delete-button btn btn-danger rounded-0 mt-2"
+                                data-delete-modal
+                                data-delete-message="{% if rating.user == user %}¿Quieres eliminar tu valoración y comentario?{% else %}¿Quieres eliminar esta valoración de la comunidad?{% endif %}">
+                          {% if rating.user == user %}
+                            ELIMINAR MI VALORACIÓN
+                          {% else %}
+                            ELIMINAR VALORACIÓN
+                          {% endif %}
+                        </button>
+                      </form>
+                    {% endif %}
                   {% endif %}
                 </article>
               {% endfor %}
@@ -276,4 +308,39 @@
       </div>
     </main>
   </div>
+  <!-- =====================================================
+       POPUP DE CONFIRMACIÓN
+       ===================================================== -->
+  <div class="retro-delete-modal" id="retro-delete-modal" aria-hidden="true">
+    <div class="retro-delete-modal-backdrop" data-delete-close></div>
+    <div class="retro-delete-modal-dialog"
+         role="dialog"
+         aria-modal="true"
+         aria-labelledby="retro-delete-modal-title">
+      <!-- HEADER -->
+      <div class="retro-delete-modal-header">
+        <span>SYSTEM WARNING</span>
+        <button type="button"
+                class="retro-delete-modal-close"
+                data-delete-close
+                aria-label="Cerrar">×</button>
+      </div>
+      <!-- CONTENIDO -->
+      <div class="retro-delete-modal-body">
+        <h2 id="retro-delete-modal-title">ELIMINAR VALORACIÓN</h2>
+        <p id="retro-delete-modal-message">¿Quieres eliminar esta valoración?</p>
+      </div>
+      <!-- ACCIONES -->
+      <div class="retro-delete-modal-actions">
+        <button type="button" class="retro-delete-modal-cancel" data-delete-close>CANCELAR</button>
+        <button type="button"
+                class="retro-delete-modal-confirm"
+                id="retro-delete-modal-confirm">ELIMINAR</button>
+      </div>
+    </div>
+  </div>
+  <!-- =====================================================
+       JAVASCRIPT DEL POPUP
+       ===================================================== -->
+  <script src="{% static 'js/game-detail.js' %}"></script>
 {% endblock %}
