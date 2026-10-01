@@ -13,3 +13,5 @@ python manage.py load_platforms
 python manage.py load_movies
 
 python manage.py create_admin
+
+python manage.py create_moderator
